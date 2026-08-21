@@ -127,6 +127,18 @@ Two things this project will not ship, on principle:
 - **Fake credentials.** Nothing may claim or imply SEBI registration,
   professional advice, or a track record the agent doesn't have.
 
+## Running from source
+
+```bash
+git clone https://github.com/getlost01/stock-research-skills.git
+cd stock-research-skills
+cp plugins/stock-research-skills/reference/PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md
+claude --plugin-dir ./plugins/stock-research-skills
+```
+
+`--plugin-dir` loads the same directory that gets published, so what you
+test is what ships. `/reload-plugins` picks up edits without a restart.
+
 ## Testing
 
 There's no automated test suite — these are prompt artifacts, and the
