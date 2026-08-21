@@ -10,3 +10,7 @@ reports/
 # Your filled-in plan holds real allocation/holdings/SIP data.
 # Only the template (PORTFOLIO-PLAN.example.md) is tracked.
 PORTFOLIO-PLAN.md
+
+# The skills ship from plugins/stock-research-skills/skills/ — anything
+# that lands here is a local install or scratch copy, never the source.
+.claude/skills/
