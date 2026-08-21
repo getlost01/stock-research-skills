@@ -12,16 +12,18 @@ freshness rules, disclosure) apply.
 Where `bond-analysis` judges one instrument, this plans the set. Groww's
 MCP exposes no direct-bond holdings: the inventory, tenor preference,
 credit floor, and reinvestment default all come from the **Fixed-income
-inventory** section of `PORTFOLIO-PLAN.md`. Debt funds come live via
-`get_mutualfund_details`.
+inventory** section of `PORTFOLIO-PLAN.md`. Debt funds come from there
+too — Groww's MCP returns no fund data (see **Tool availability** in
+`reference/RESEARCH-STANDARDS.md`).
 
 ## Steps
 
 1. **Assemble the book.** Direct bonds/NCDs/FDs/SGBs from the plan's
    inventory (issuer, amount, coupon, maturity, rating) — if empty or
    stale, offer `portfolio-plan-builder` or get the list from the user;
-   never invent an inventory. Debt funds via `get_mutualfund_details`,
-   noting category, duration profile, credit quality. Total the book
+   never invent an inventory. Debt funds from the same section, noting
+   category, duration profile and credit quality — fund facts
+   web-sourced and labelled, since the MCP has none. Total the book
    against the plan's fixed-income target %.
 
 2. **Ladder view.** Bucket by maturity year (funds by duration bucket:

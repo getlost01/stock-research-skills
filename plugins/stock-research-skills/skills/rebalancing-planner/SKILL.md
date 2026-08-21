@@ -19,9 +19,13 @@ skill always produces recommendations) apply.
    or stale section → say so and offer `portfolio-plan-builder`; never
    invent a target.
 
-2. **Pull actual holdings.** `get_equity_portfolio_holdings`,
-   `get_mutualfund_details`, and `get_my_trading_positions_today` /
-   `get_specific_stock_position` if the plan has a derivatives bucket.
+2. **Pull actual holdings.** `get_equity_portfolio_holdings`, and
+   `get_my_trading_positions_today` / `get_specific_stock_position` if
+   the plan has a derivatives bucket. The MF sleeve comes from
+   `PORTFOLIO-PLAN.md` — the MCP returns no fund data, so if that section
+   is missing or stale the fund side of any target-vs-actual diff is
+   unknown; say so rather than treating the equity book as the whole
+   portfolio.
    Mark everything to current market value via `get_ltp` /
    `get_quotes_and_depth` — allocation is by current value, not cost.
 

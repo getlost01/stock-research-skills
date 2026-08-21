@@ -10,7 +10,7 @@ cp PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md
 bonds, and SIP amounts stay on your machine. Never put real figures in
 this example file.
 
-This file is the shared memory the other 17 skills read from. Groww's MCP
+This file is the shared memory the other 18 skills read from. Groww's MCP
 knows what you hold; only this file knows what you *intended* — targets,
 limits, theses, what you've already decided. Leave a section empty and
 the skills that depend on it will ask you for the same thing every
@@ -41,17 +41,19 @@ so in [Output preferences](#output-preferences).
 | [Position theses](#position-theses) | `portfolio-review`, `earnings-watch`, `stock-research`, `corporate-actions` | "Why do I own this?" can't be answered; nothing to invalidate |
 | [Exclusions](#exclusions--constraints) | `new-investment-screener`, `ipo-watch`, `mutual-fund-analysis` | Screens keep surfacing names you've already ruled out |
 | [Fixed income](#fixed-income) + [inventory](#fixed-income-inventory) | `bond-ladder-planner`, `rate-watch`, `bond-analysis` | **Hard blocker** — MCP can't see direct bonds/FDs/SGBs at all |
-| [SIP register](#sip-register) | `sip-review`, `rebalancing-planner`, `dividend-income` | MCP shows holdings, not live SIPs — no continue/pause verdicts |
+| [SIP register](#sip-register) | `sip-review`, `fund-house-watch`, `mutual-fund-analysis`, `portfolio-review`, `rebalancing-planner`, `dividend-income` | The MCP returns **no** fund data — without this your entire mutual fund sleeve is invisible |
 | [Tax context](#tax-context) | `tax-capital-gains`, `rebalancing-planner`, `corporate-actions` | Harvesting advice is generic; can't net against your actual FY |
 | [Income goal](#income-goal) | `dividend-income`, `bond-ladder-planner` | Projected income has nothing to be measured against |
-| [Deployable capital](#deployable-capital) | `new-investment-screener`, `rebalancing-planner`, `ipo-watch`, `bond-ladder-planner` | Suggestions get sized by guesswork |
+| [Deployable capital](#deployable-capital) | `new-investment-screener`, `rebalancing-planner`, `ipo-watch`, `ipo-analysis`, `bond-ladder-planner` | Suggestions get sized by guesswork |
+| [IPO participation](#ipo-participation) | `ipo-analysis`, `ipo-watch` | Every issue gets researched at the same depth and sized by guesswork |
 | [Watchlist](#watchlist--themes) | `new-investment-screener`, `market-pulse`, `earnings-watch`, `ipo-watch` | Briefings can't tell you what you actually care about |
 | [Decision log](#decision-log) | all skills | Same suggestion re-made every session after you've declined it |
 | [Output preferences](#output-preferences) | all skills | Skills default to conversational answers, no saved reports |
 
-**Fill-in order if you're short on time:** Target allocation → Risk limits
-→ Fixed-income inventory (if you hold any direct bonds/FDs) → SIP register
-→ Rebalancing rules → everything else as it comes up.
+**Fill-in order if you're short on time:** SIP register (if you hold any
+funds — nothing else can see them) → Target allocation → Risk limits →
+Fixed-income inventory (if you hold any direct bonds/FDs) → Rebalancing
+rules → everything else as it comes up.
 
 ## Conventions (so every skill reads this the same way)
 
@@ -163,7 +165,7 @@ a skill tell you when it no longer applies.
 <!-- Example:
 | tobacco, gambling | all screens | personal |
 | <name> | new buys only | already 9% via two funds — overlap |
-| SME IPOs | ipo-watch | liquidity |
+| SME IPOs | `ipo-watch`, `ipo-analysis` | liquidity |
 -->
 
 - Employer / insider-restricted names: `<list, or "none">`
@@ -207,18 +209,26 @@ income projection.
 
 _Last reviewed: YYYY-MM-DD_
 
-The MCP shows fund **holdings**, not which have live SIPs. `sip-review`
-needs this for per-SIP verdicts; `rebalancing-planner` needs it to know
-how much drift new money will fix on its own.
+**Groww's MCP returns no mutual fund data at all** — not holdings, not
+NAVs, not SIPs (see **Tool availability** in `RESEARCH-STANDARDS.md`).
+This table is therefore the *only* record of your fund sleeve. Without
+it, `sip-review` and `fund-house-watch` have nothing to work from, and
+`portfolio-review` / `rebalancing-planner` can only see your direct
+equity — half a portfolio reported as the whole one.
 
-| Fund | SIP ₹/month | SIP date | Started | Bucket | Purpose | Step-up |
-|---|---|---|---|---|---|---|
-| | | | | | | |
+Keep units and cost so gains and weights can be computed; refresh the
+value column when you review, since nothing updates it automatically.
 
-<!-- Example: | <fund name> | 15000 | 5 | 2024-06-05 | Mutual funds | core equity | 10%/yr -->
+| Fund | Units | Avg cost ₹ | Value ₹ (as of) | SIP ₹/month | SIP date | Started | Bucket | Purpose | Step-up |
+|---|---|---|---|---|---|---|---|---|---|
+| | | | | | | | | | |
 
-Note paused SIPs with the date paused, and any lump-sum-only funds —
-otherwise a paused SIP reads as active.
+<!-- Example: | <fund name> | 412.55 | 121.40 | 62000 (2026-08-21) | 15000 | 5 | 2024-06-05 | Mutual funds | core equity | 10%/yr -->
+
+List every fund you hold, including lump-sum-only ones (leave the SIP
+columns blank) — a fund missing here is invisible to every skill. Note
+paused SIPs with the date paused, otherwise a paused SIP reads as active.
+Full scheme names, so a skill can search the right factsheet.
 
 ## Tax context
 
@@ -257,6 +267,25 @@ Sizing suggestions is guesswork without this.
 - Emergency fund held separately: `<₹ — excluded from this portfolio? yes/no>`
 - Known upcoming outflows: `<₹ and date — e.g. 400000 by 2027-01 for a down payment>`
 - Preferred deployment style: `<e.g. tranche into 3 over 6 weeks, not lump sum>`
+
+## IPO participation
+
+_Last reviewed: YYYY-MM-DD_
+
+How you actually play IPOs — `ipo-analysis` sizes its verdict from this,
+and `ipo-watch` uses it to triage. Neither ever applies or bids.
+
+- Do you apply to IPOs at all: `<regularly / selectively / no>`
+- Sizing per issue: `<e.g. one lot always; or up to ₹X on conviction>`
+- Listing day: `<flip most / flip all / hold long-term / decide per issue>`
+- Which sleeve an allotment enters: `<e.g. tactical by default, core only on an explicit hold decision>`
+- SME issues: `<in / excluded — and why>`
+- Funded from: `<e.g. the month's surplus, never the dip reserve>`
+
+Sizing matters more than it looks: "one lot always" and "max the retail
+limit on ones I like" are different strategies, and a skill that assumes
+the wrong one either under-sizes a conviction call or proposes a single
+unlisted company at a fifth of the portfolio.
 
 ## Watchlist / themes
 

@@ -10,9 +10,9 @@ Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
 disclosure) apply.
 
 Groww's MCP exposes no bond tools, so this leans on `WebSearch`/`WebFetch`
-more than the other skills. Say explicitly which numbers came from Groww
-(e.g. a debt fund via `get_mutualfund_details`) vs. the web — don't blur
-the two.
+more than the other skills — and debt funds are web-sourced too, since
+the MCP returns no fund data. Say explicitly which numbers came from
+Groww live vs. the web; don't blur the two.
 
 ## Steps
 

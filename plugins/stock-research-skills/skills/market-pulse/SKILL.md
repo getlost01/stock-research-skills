@@ -27,7 +27,8 @@ apply.
    routine "what's moving" check.
 
 5. **Connect to the user's book.** Cross-check movers against
-   `get_equity_portfolio_holdings` / `get_mutualfund_details` so the
+   `get_equity_portfolio_holdings` (and the fund list in
+   `PORTFOLIO-PLAN.md`, since the MCP returns no fund data) so the
    briefing flags what actually affects them, not generic noise. Check
    `PORTFOLIO-PLAN.md`'s **watchlist** too: a name whose trigger has
    been hit today is the single most useful line a briefing carries —

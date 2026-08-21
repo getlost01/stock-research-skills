@@ -2,7 +2,7 @@
   "mcpServers": {
     "growwmcp": {
       "command": "npx",
-      "args": ["-y", "mcp-remote@0.1.37", "https://mcp.groww.in/mcp", "52155"]
+      "args": ["-y", "mcp-remote@0.1.38", "https://mcp.groww.in/mcp", "52155"]
     }
   }
 }

@@ -23,8 +23,10 @@ apply.
 2. **Pull current state, always — never estimate holdings.**
    `get_equity_portfolio_holdings`;
    `get_my_trading_positions_today` / `get_specific_stock_position` for
-   open F&O or intraday positions where relevant;
-   `get_mutualfund_details` for MFs.
+   open F&O or intraday positions where relevant. The MF sleeve comes
+   from `PORTFOLIO-PLAN.md` — Groww's MCP returns no fund data — so if
+   that section is missing or stale, review the equity book and say
+   plainly that the fund side is out of view.
 
 3. **Enrich with market data**, per the data-efficiency rules: batch all
    held symbols into **one** `get_ltp` call (check the holdings payload
@@ -33,10 +35,13 @@ apply.
    - `get_quotes_and_depth` only where spread/depth matters.
    - `fetch_stocks_fundamental_data` / `fetch_fundamentals_screener` for
      valuation, growth, quality — flagged and major holdings first.
-   - `fetch_technical_screener` / `get_historical_technical_indicators` /
+   - `get_historical_technical_indicators` (batch up to 10) /
      `get_historical_candlestick_patterns` for flagged names.
-   - `fetch_etf_screener` for ETF alternatives;
-     `fetch_market_movers_and_trending_stocks_funds` for market context.
+   - `fetch_market_movers_and_trending_stocks_funds` for market context.
+     ETF alternatives: `curate_symbols(entity_type='etf')` + `get_ltp`,
+     with fees and tracking error from the web —
+     `fetch_etf_screener` and `fetch_technical_screener` are both down
+     (see **Tool availability**).
    - `fetch_historical_candle_data` for trend/drawdown checks, interval
      matched to horizon.
    - `resolve_market_time_and_calendar` where timing matters.

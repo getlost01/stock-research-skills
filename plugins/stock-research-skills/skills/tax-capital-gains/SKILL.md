@@ -14,10 +14,13 @@ in the output, especially before any number could be used for filing.
 
 ## Steps
 
-1. **Holdings with cost basis.** `get_equity_portfolio_holdings` (avg buy
-   price, quantity) and `get_mutualfund_details`. `get_order_details`
-   where available, to refine buy dates and lots if the user needs
-   lot-level rather than average detail.
+1. **Holdings with cost basis.** `get_equity_portfolio_holdings` (avg
+   buy price, quantity). Fund units and cost basis come from
+   `PORTFOLIO-PLAN.md` — the MCP returns no fund data. Lot-level detail
+   is unavailable outright (`get_order_details` is broken), so gains are
+   estimated off average cost: say so, and note that actual buy dates
+   decide the LTCG/STCG split and any grandfathering the user must check
+   in their Groww statement.
 
 2. **Mark to market.** `get_ltp` / `get_quotes_and_depth` for unrealized
    gain/loss per holding.

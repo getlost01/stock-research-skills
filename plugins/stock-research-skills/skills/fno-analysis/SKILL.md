@@ -13,18 +13,21 @@ cancellation. `reference/READ-ONLY-POLICY.md` (hard rule) and
 
 1. **Current exposure.** `get_my_trading_positions_today` for open
    intraday/F&O positions; `get_specific_stock_position` for a named
-   underlying; `get_order_details` to look up the status of a resting
-   order (read-only).
+   underlying. Resting-order status is unavailable — `get_order_details`
+   is broken (see **Tool availability**); say so and point the user at
+   the Groww order book rather than inferring status.
 
 2. **Contract/market data.** `fno_mcx_contracts_search_tool` to resolve
    strike/expiry when the user names one loosely; `fetch_curated_fno` for
    a curated liquid set; `get_quotes_and_depth` / `get_ltp` for live
    pricing; `resolve_market_time_and_calendar` for expiry/settlement.
 
-3. **Risk/greeks.** `get_greeks_for_fno_contract` /
-   `get_greeks_for_fno_symbol` — delta, theta, gamma, vega per position
-   and aggregated. `get_open_interest_analysis` for OI buildup/unwinding
-   and PCR. `get_atm_straddle_chart` for implied-move context.
+3. **Risk/greeks.** `get_greeks_for_fno_contract` — delta, theta,
+   gamma, vega per position and aggregated, up to 20 contracts per call,
+   strikes resolved via `fno_mcx_contracts_search_tool`. Don't reach for
+   `get_greeks_for_fno_symbol`; it returns `[]` for everything.
+   `get_open_interest_analysis` for OI buildup/unwinding and PCR.
+   `get_atm_straddle_chart` for implied-move context.
 
 4. **Strategy shape.** `get_payoff_chart_steps` for an existing or
    hypothetical position — max profit/loss, breakevens, and behaviour

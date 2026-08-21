@@ -1,6 +1,6 @@
 # Stock Research Skills
 
-18 read-only skills that turn Groww's MCP server into a research desk for
+19 read-only skills that turn Groww's MCP server into a research desk for
 Indian markets — stocks, ETFs, mutual funds, bonds, and F&O.
 
 It reads your real portfolio, pulls live market data and current news, and
@@ -78,7 +78,7 @@ am I over-weight anywhere versus my plan?
 `tax-capital-gains`
 
 **Research** — `stock-research`, `mutual-fund-analysis`, `bond-analysis`,
-`new-investment-screener`, `ipo-watch`
+`new-investment-screener`, `ipo-analysis`, `ipo-watch`
 
 **Ongoing ownership** — `earnings-watch`, `corporate-actions`,
 `dividend-income`, `sip-review`, `fund-house-watch`

@@ -243,30 +243,46 @@ Estimates only — verify against Groww's official Capital Gains Statement.
 
 ---
 
-## IPO Note — `ipo-watch`
+## IPO Note — `ipo-analysis`
 
 ```markdown
 # IPO Note: [Company] — [date/time]
 
 ## Facts
-Price band: [₹X-Y] | Lot size: [X] | Dates: [open-close] | Issue size: [₹X]
+Price band: [₹X-Y] | Lot size: [X] | Min outlay: [₹X] | Dates: [open-close]
+Issue size: [₹X] | Fresh issue / OFS: [X% / Y%]
 
-## Peer valuation
-| Metric | [Company] (at IPO price) | Listed peer avg. |
-|---|---|---|
+## Financials (from RHP — [source, date])
+| ₹ Cr | FY[n-2] | FY[n-1] | FY[n] |
+|---|---|---|---|
+| Revenue / EBITDA margin / PAT / Debt / OCF | | | |
 
-## News
-- [outlet, date] — [finding]
+## Implied valuation vs. listed peers
+| Metric | [Company] at [band low–high] | Peer median | Peers |
+|---|---|---|---|
+| P/E, P/B, EV/EBITDA, RoE | | | |
+
+## Issue structure flags
+- [objects of the issue, post-issue promoter holding, pledge, lock-in expiry]
+
+## Demand & news
+- [outlet, date] — [subscription by category, anchors, flags]
+- GMP: [X] — informal, unregulated sentiment; predicts nothing
 
 ## View
-[Subscribe (sizing + listing-gains vs. long-term intent) / Neutral / Avoid
-— with reasoning]
+[Subscribe (core-sized) / Subscribe small, speculative / Neutral / Avoid]
+Listing horizon: [...] · Long-term horizon: [...] — stated separately
+Portfolio fit / position disclosure: [...]
 
 ## Key risks to this view
-- [e.g. listing-day volatility, valuation stretch vs. peers, sector cycle]
+- [valuation premium vs. peers, weak QIB book, lock-in supply, named
+  business risk]
 
 [disclosure block]
 ```
+
+`ipo-watch` produces no note — its output is the calendar table plus a
+"worth a closer look" pointer, which doesn't need saving.
 
 ---
 

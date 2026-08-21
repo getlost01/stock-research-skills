@@ -15,16 +15,20 @@ finalists, disclosure) apply.
    (value/growth/quality/dividend/momentum), instrument type, and roughly
    how much they're deploying. Don't screen blind.
 
-2. **Check what would actually help.** `get_equity_portfolio_holdings` /
-   `get_mutualfund_details` plus `PORTFOLIO-PLAN.md`'s target allocation
-   — is there a real underweight this screen should target, or is the
-   user exploring?
+2. **Check what would actually help.** `get_equity_portfolio_holdings`
+   plus `PORTFOLIO-PLAN.md`'s target allocation and fund list (the MCP
+   returns no fund data) — is there a real underweight this screen
+   should target, or is the user exploring?
 
 3. **Screen.** `fetch_fundamentals_screener` for fundamental criteria;
-   `fetch_technical_screener` for setups (breakouts, momentum, oversold);
-   `fetch_etf_screener` for ETFs; `curate_symbols` /
-   `fetch_market_movers_and_trending_stocks_funds` for an open-ended
-   starting universe.
+   `curate_symbols` / `fetch_market_movers_and_trending_stocks_funds` for
+   an open-ended starting universe. Technical setups (breakouts,
+   momentum, oversold) can't be screened for — `fetch_technical_screener`
+   is down — so screen fundamentally or by mover list first, then read
+   the setups off `get_historical_technical_indicators` over the
+   shortlist, 10 names per call. ETFs: `curate_symbols(entity_type='etf')`
+   plus web-sourced fees and tracking error, since
+   `fetch_etf_screener` errors (see **Tool availability**).
 
 4. **Filter out bad fits.** Drop anything that would breach the plan's
    concentration limits, sits on its **exclusions** list, or that the

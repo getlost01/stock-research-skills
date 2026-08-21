@@ -1,6 +1,6 @@
 # Stock Research Skills
 
-**18 read-only skills that turn Groww's MCP server into a research desk
+**19 read-only skills that turn Groww's MCP server into a research desk
 for Indian markets** — stocks, ETFs, mutual funds, bonds, and F&O.
 For [Claude Code](https://claude.com/claude-code), Codex, and Cursor.
 
@@ -60,7 +60,7 @@ what does the rate outlook mean for my debt funds?
 |---|---|
 | **Planning** | `portfolio-plan-builder` |
 | **Portfolio** | `portfolio-review` · `rebalancing-planner` · `tax-capital-gains` |
-| **Research** | `stock-research` · `mutual-fund-analysis` · `bond-analysis` · `new-investment-screener` · `ipo-watch` |
+| **Research** | `stock-research` · `mutual-fund-analysis` · `bond-analysis` · `new-investment-screener` · `ipo-analysis` · `ipo-watch` |
 | **Ongoing ownership** | `earnings-watch` · `corporate-actions` · `dividend-income` · `sip-review` · `fund-house-watch` |
 | **Fixed income** | `bond-ladder-planner` · `rate-watch` |
 | **Market & F&O** | `market-pulse` · `fno-analysis` |

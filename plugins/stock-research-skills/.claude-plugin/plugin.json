@@ -1,8 +1,8 @@
 {
   "name": "stock-research-skills",
   "displayName": "Stock Research Skills",
-  "description": "18 read-only skills for Indian market research over Groww's MCP server — portfolio planning, portfolio review, stock/mutual fund/bond analysis, earnings and corporate-action tracking, SIP review, F&O, and tax estimates. Never places, modifies, or cancels an order.",
-  "version": "1.0.1",
+  "description": "19 read-only skills for Indian market research over Groww's MCP server — portfolio planning, portfolio review, stock/mutual fund/bond analysis, earnings and corporate-action tracking, SIP review, F&O, and tax estimates. Never places, modifies, or cancels an order.",
+  "version": "1.0.2",
   "author": {
     "name": "getlost01",
     "url": "https://github.com/getlost01"

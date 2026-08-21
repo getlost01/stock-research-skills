@@ -6,14 +6,18 @@ description: Watch for AMC-level red flags behind the user's funds — manager e
 # Fund House Watch
 
 Read-only AMC surveillance. `reference/READ-ONLY-POLICY.md` (hard rule)
-and `reference/RESEARCH-STANDARDS.md` (freshness, SEBI/AMFI primary
-sources, disclosure where a fund-level view results) apply.
+and `reference/RESEARCH-STANDARDS.md` (freshness, tool availability,
+SEBI/AMFI primary sources, disclosure where a fund-level view results)
+apply. Groww's MCP exposes no fund data, so the watchlist comes from
+`PORTFOLIO-PLAN.md` and the findings are entirely news-derived.
 
 ## Steps
 
-1. **Build the AMC list from holdings.** `get_mutualfund_details` — the
-   distinct fund houses, which of the user's funds each carries, and how
-   much ₹. Watch only these unless the user names another.
+1. **Build the AMC list from the plan.** `PORTFOLIO-PLAN.md`'s holdings
+   and **SIP register** give the distinct fund houses, which of the
+   user's funds each carries, and how much ₹ — the MCP can't. Missing or
+   stale → ask which AMCs to watch, or offer `portfolio-plan-builder`.
+   Watch only these unless the user names another.
 
 2. **Search per AMC.** Date-anchored `WebSearch`, one query per AMC
    ("<AMC> news fund manager SEBI <month year>"), a second only if
