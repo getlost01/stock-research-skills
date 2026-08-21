@@ -13,7 +13,7 @@ skills reference them by that relative path.
 
 ### `RESEARCH-STANDARDS.md` — the rulebook
 
-The highest-leverage file in the repo: change it and all 17 skills
+The highest-leverage file in the repo: change it and all 18 skills
 change. It carries:
 
 **Recommendation completeness.** Any buy/hold/avoid/switch view must
@@ -56,14 +56,28 @@ days" is a finding, not a gap to paper over.
 
 ### `PORTFOLIO-PLAN.example.md` — your context
 
-Target allocation, risk profile, concentration limits, plus two tables
-that carry more weight than they look like they should: the
+The MCP knows what you hold. This file is the only thing that knows what
+you *intended*: target allocation and drift bands, risk limits,
+rebalancing rules, per-holding theses with checkable invalidators, tax
+context, exclusions, deployable capital, and a decision log so a skill
+doesn't re-pitch something you already declined. It opens with a table
+mapping each section to the skills that read it and what breaks when it's
+blank.
+
+Two tables carry more weight than they look like they should: the
 **fixed-income inventory** and the **SIP register**. Groww's MCP cannot
 see direct bonds, FDs, SGBs, or live SIP amounts, so those tables are the
 *only* source of truth for `bond-ladder-planner`, `rate-watch`, and
-`sip-review`. Those skills ask you rather than inventing an inventory.
+`sip-review`.
 
-Copy it to `PORTFOLIO-PLAN.md` in your own project and git-ignore it.
+Nothing here is ever guessed at. A missing section gets named out loud,
+with an offer of `portfolio-plan-builder` — which interviews you against
+your real holdings and writes the file — not a default 60/40 quietly
+assumed. Each section carries a `_Last reviewed:_` stamp so skills can
+flag a stale target the same way they flag stale news.
+
+Copy it to `PORTFOLIO-PLAN.md` in your own project and git-ignore it, or
+just ask for a plan and let `portfolio-plan-builder` do both.
 
 ### `REPORT-TEMPLATES.md` — optional structure
 
@@ -106,7 +120,7 @@ plugins/stock-research-skills/     the plugin — single source of truth
   .codex-plugin/plugin.json        Codex manifest
   .cursor-plugin/plugin.json       Cursor manifest
   .mcp.json                        growwmcp server config
-  skills/<name>/SKILL.md           the 17 skills
+  skills/<name>/SKILL.md           the 18 skills
   reference/                       the four shared files above
 .claude-plugin/marketplace.json    makes this repo its own marketplace
 .cursor-plugin/marketplace.json

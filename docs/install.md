@@ -18,7 +18,16 @@ cp "$CLAUDE_PLUGIN_ROOT/reference/PORTFOLIO-PLAN.example.md" ./PORTFOLIO-PLAN.md
 echo "PORTFOLIO-PLAN.md" >> .gitignore
 ```
 
-Fill in your target allocation, risk profile, and concentration limits.
+Then fill it in. The fastest way is to just ask —
+
+```
+help me set up my portfolio plan
+```
+
+— which runs `portfolio-plan-builder`: it reads your actual holdings
+first, then interviews you (targets, risk limits, rebalancing rules,
+theses, fixed income, SIPs, tax) and writes the file, showing you the
+change before saving. Editing it by hand is equally fine.
 
 The **fixed-income inventory** and **SIP register** tables matter most:
 Groww's MCP cannot see direct bonds, FDs, SGBs, or live SIP amounts, so
@@ -88,7 +97,8 @@ they show as `stock-research-skills:<name>`.
 
 **A skill asks for data you expected it to have.** Direct bonds, FDs,
 SGBs, and live SIP amounts aren't exposed by Groww's MCP — fill in the
-relevant `PORTFOLIO-PLAN.md` tables (step 2).
+relevant `PORTFOLIO-PLAN.md` tables (step 2), or run
+`portfolio-plan-builder` to fill them in conversationally.
 
 **A recommendation looks thin.** Skills are required to state their
 horizon, numeric basis, and specific invalidators — if one doesn't, that's

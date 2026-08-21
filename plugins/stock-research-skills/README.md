@@ -1,6 +1,6 @@
 # Stock Research Skills
 
-17 read-only skills that turn Groww's MCP server into a research desk for
+18 read-only skills that turn Groww's MCP server into a research desk for
 Indian markets — stocks, ETFs, mutual funds, bonds, and F&O.
 
 It reads your real portfolio, pulls live market data and current news, and
@@ -20,7 +20,11 @@ cp "$CLAUDE_PLUGIN_ROOT/reference/PORTFOLIO-PLAN.example.md" ./PORTFOLIO-PLAN.md
 echo "PORTFOLIO-PLAN.md" >> .gitignore
 ```
 
-Fill in your target allocation, risk profile, and concentration limits.
+Or skip the copy and just ask *"help me set up my portfolio plan"* —
+`portfolio-plan-builder` reads your real holdings, interviews you, and
+writes the file (showing you the change first).
+
+Fill in your target allocation, risk limits, and rebalancing rules.
 The **fixed-income inventory** and **SIP register** tables matter most:
 Groww's MCP cannot see direct bonds, FDs, SGBs, or live SIP amounts, so
 those tables are the only source of truth for `bond-ladder-planner`,
@@ -67,6 +71,8 @@ am I over-weight anywhere versus my plan?
 ```
 
 ## The skills
+
+**Planning** — `portfolio-plan-builder`
 
 **Portfolio** — `portfolio-review`, `rebalancing-planner`,
 `tax-capital-gains`

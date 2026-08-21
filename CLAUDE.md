@@ -1,6 +1,6 @@
 # Stock Research Skills — repo instructions
 
-This repository **is** a plugin: 17 read-only research skills for Indian
+This repository **is** a plugin: 18 read-only research skills for Indian
 markets (stocks, ETFs, mutual funds, bonds, F&O) over Groww's `growwmcp`
 MCP server, distributed for Claude Code, Codex, and Cursor.
 
@@ -30,7 +30,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     growwmcp server config
-  skills/<name>/SKILL.md        the 17 skills
+  skills/<name>/SKILL.md        the 18 skills
   reference/
     READ-ONLY-POLICY.md         the hard rule
     RESEARCH-STANDARDS.md       shared analysis discipline
@@ -52,20 +52,25 @@ project rather than in the plugin.
 
 1. Read `reference/RESEARCH-STANDARDS.md` before changing any analysis
    behaviour — every skill inherits it, so a change there propagates to
-   all 17. It carries the recommendation-completeness checklist (view +
+   all 18. It carries the recommendation-completeness checklist (view +
    horizon, numeric basis, specific invalidators, position disclosure,
    data as-of), the data-efficiency rules, the technical framework, the
    peer-comparison method, and the news freshness rules.
 2. Start any portfolio question from real data via `growwmcp` — never
    guess at holdings.
-3. State data as of "now" and cite actual numbers pulled, not vibes.
-4. Be data-efficient: batch symbol lookups, prefer precomputed
+3. Never invent the user's intent either. Targets, limits, theses, the
+   fixed-income inventory and SIP register live in `PORTFOLIO-PLAN.md`;
+   when a needed section is missing or stale, say so and offer
+   `portfolio-plan-builder` (the only skill that writes that file, and
+   only with the diff shown first) — never a quietly assumed default.
+4. State data as of "now" and cite actual numbers pulled, not vibes.
+5. Be data-efficient: batch symbol lookups, prefer precomputed
    screener/indicator tools over raw candles, go deep only on the
    subject and flagged names, and report driving numbers rather than
    tool payloads.
-5. Adding or changing a skill? `CONTRIBUTING.md` has the conventions and
+6. Adding or changing a skill? `CONTRIBUTING.md` has the conventions and
    the list of files that must be updated alongside it.
-6. Never commit real financial data. `reports/` and `PORTFOLIO-PLAN.md`
+7. Never commit real financial data. `reports/` and `PORTFOLIO-PLAN.md`
    are git-ignored; only the `.example.md` template is tracked.
 
 ## Not a registered adviser

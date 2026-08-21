@@ -1,47 +1,44 @@
 ---
 name: ipo-watch
-description: Review upcoming or ongoing IPOs and give a subscribe/avoid view, using live Groww IPO data compared against listed peers. Use when the user asks about IPOs, an upcoming listing, or whether to apply for/subscribe to an IPO. Never places any application/order.
+description: Review upcoming or ongoing IPOs against listed peers and give a subscribe/avoid view. Use when the user asks about IPOs, an upcoming listing, or whether to apply for one. Read-only — never applies or subscribes.
 ---
 
 # IPO Watch
 
-Read-only IPO research. See `reference/READ-ONLY-POLICY.md` for the hard read-only rule —
-this never applies to/subscribes for an IPO on the user's behalf. See
-`reference/RESEARCH-STANDARDS.md` for the peer-comparison framework, news-sourcing
-rules, and disclosure block.
+Read-only — never applies or subscribes on the user's behalf.
+`reference/READ-ONLY-POLICY.md` (hard rule) and
+`reference/RESEARCH-STANDARDS.md` (peer framework, news sourcing,
+disclosure) apply.
 
 ## Steps
 
-1. **List what's live/upcoming.** `fetch_ipo_listings` for the current
-   IPO calendar (or the specific one the user named).
+1. **List what's live/upcoming.** `fetch_ipo_listings` for the calendar,
+   or the specific issue named.
 
-2. **Detail.** `fetch_ipo_details` for the named IPO — price band, lot
-   size, dates, issue size, and whatever business/financial detail is
-   available.
+2. **Detail.** `fetch_ipo_details` — price band, lot size, dates, issue
+   size, and available business/financial detail.
 
-3. **Benchmark against listed peers.** Use `fetch_fundamentals_screener` /
-   `fetch_stocks_fundamental_data` on comparable listed companies in the
-   same sector to sanity-check the valuation the IPO is asking for, per
-   the peer framework in `reference/RESEARCH-STANDARDS.md`.
+3. **Benchmark against listed peers.** `fetch_fundamentals_screener` /
+   `fetch_stocks_fundamental_data` on comparable listed companies, per
+   the peer framework, to sanity-check the valuation being asked.
 
 4. **News (mandatory).** `WebSearch` for recent coverage — subscription
-   status/GMP chatter (label clearly as informal/unofficial sentiment, not
-   fact), anchor investor detail, any red flags (litigation, auditor
-   issues, promoter background) raised by business press ahead of listing.
+   status and GMP chatter (label clearly as informal sentiment, not
+   fact), anchor investors, and red flags raised by the business press
+   ahead of listing (litigation, auditor issues, promoter background).
 
-5. **Check portfolio fit.** `get_equity_portfolio_holdings` —
-   would this add useful diversification, or is the user already
-   overweight this sector (cross-check `PORTFOLIO-PLAN.md` limits if set)?
+5. **Portfolio fit.** `get_equity_portfolio_holdings` — real
+   diversification, or already overweight this sector? Cross-check
+   `PORTFOLIO-PLAN.md`: sector and single-stock limits, the
+   **exclusions** list (an excluded IPO gets one line, not research), and
+   **deployable capital** for sizing.
 
-6. **Form a view**: subscribe (and rough sizing rationale — e.g. "small,
-   speculative allocation" vs. "core-sized") / neutral / avoid, with the
-   valuation-vs-peers, news, and portfolio-fit reasoning shown. Note
-   listing-day volatility risk explicitly if relevant.
+6. **View:** subscribe (with sizing rationale — "small, speculative"
+   vs. "core-sized") / neutral / avoid, showing the valuation-vs-peers,
+   news, and fit reasoning. Note listing-day volatility risk where
+   relevant.
 
-7. **Present:** key IPO facts up top (dates, price band, lot size), then
-   the peer-valuation comparison, then news findings, then the view — and
-   remind the user they apply/subscribe themselves via Groww. Close with
-   the `reference/RESEARCH-STANDARDS.md` disclosure block. Optional: use the IPO
-   Note template in `reference/REPORT-TEMPLATES.md` for a formal/saveable version —
-   save under `reports/` per its naming convention if the user wants it
-   kept.
+7. **Present:** key facts up top (dates, band, lot size), then peer
+   valuation, then news, then the view with the disclosure block — and
+   remind the user they apply themselves via Groww. Formal version: IPO
+   Note in `reference/REPORT-TEMPLATES.md`.

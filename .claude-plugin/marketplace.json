@@ -10,8 +10,8 @@
     {
       "name": "stock-research-skills",
       "source": "./plugins/stock-research-skills",
-      "description": "17 read-only skills for Indian market research via Groww's MCP server. Never places an order.",
-      "version": "1.0.0",
+      "description": "18 read-only skills for Indian market research via Groww's MCP server. Never places an order.",
+      "version": "1.0.1",
       "author": {
         "name": "getlost01",
         "url": "https://github.com/getlost01"

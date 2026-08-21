@@ -1,6 +1,6 @@
 # The skills
 
-All 17 are read-only and trigger on intent — you don't invoke them by
+All 18 are read-only and trigger on intent — you don't invoke them by
 name. Each one gives analysis and recommendations; you place any trade
 yourself in the Groww app.
 
@@ -8,6 +8,20 @@ Every skill that produces a view inherits the recommendation-completeness
 checklist in [How it works](how-it-works.md): a verdict must state its
 horizon, its numeric basis, 2–3 specific invalidators, whether you
 already hold the instrument, and the data's as-of time.
+
+## Planning
+
+| Skill | For |
+|---|---|
+| `portfolio-plan-builder` | Interviews you — grounded in your real holdings — and writes `PORTFOLIO-PLAN.md`: targets, risk limits, rebalancing rules, position theses, fixed-income inventory, SIP register, tax context |
+
+*"help me set up my plan" · "what should my target allocation be?" ·
+"my plan is out of date"*
+
+That file is the source of truth for everything the market data can't
+tell a skill — what you *intended*. Skills read it instead of assuming;
+when a section it needs is blank, they say so and offer this skill rather
+than inventing a target. It's the first thing to run.
 
 ## Portfolio & allocation
 
@@ -76,6 +90,7 @@ this spread pay off like?"*
 
 | If you're asking… | Start with |
 |---|---|
+| I'm setting this up / my plan is stale | `portfolio-plan-builder` |
 | How is my portfolio doing overall? | `portfolio-review` |
 | Should I buy/hold/sell this one name? | `stock-research` |
 | Am I off my target allocation? | `rebalancing-planner` |
