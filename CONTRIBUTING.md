@@ -43,7 +43,7 @@ push.
 
 ## Ways to contribute
 
-- **New skill** — a job none of the 17 covers (see below).
+- **New skill** — a job none of the 18 covers (see below).
 - **Sharper analysis** — improvements to `RESEARCH-STANDARDS.md` are the
   highest-leverage change in the repo, since every skill inherits it.
 - **Tool coverage** — Groww's MCP gains tools over time; wiring a genuinely
