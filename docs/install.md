@@ -88,7 +88,7 @@ codex plugin add stock-research-skills@stock-research-skills
 **Groww auth stopped working.** The OAuth token cache in
 `~/.mcp-auth/mcp-remote-<version>/` is version-scoped, so a different
 `mcp-remote` version looks exactly like being logged out. It's pinned to
-`0.1.37` for this reason. Check `~/.mcp-auth/` for the token folder
+`0.1.38` for this reason. Check `~/.mcp-auth/` for the token folder
 before assuming your account needs re-authorizing.
 
 **Skills don't appear.** Confirm the plugin is enabled (`/plugin list` in

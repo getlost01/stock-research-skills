@@ -42,8 +42,9 @@ hold. Never dump the template as a questionnaire.
    `_Last reviewed:_` stamps.
 
 2. **Ground the interview in real data before asking anything.** One
-   batched pass: `get_equity_portfolio_holdings`,
-   `get_mutualfund_details`, `get_my_trading_positions_today`,
+   batched pass — noting that this covers equity and ETFs only, since the
+   MCP has no mutual fund data: `get_equity_portfolio_holdings`,
+   `get_my_trading_positions_today`,
    `get_available_margin_details`, one batched `get_ltp`, and
    `fetch_stocks_fundamental_data` / screener data for sector and
    market-cap classification. Compute the current bucket split, top-10
@@ -73,9 +74,13 @@ hold. Never dump the template as a questionnaire.
       Say plainly that direct bonds/NCDs/FDs/SGBs are invisible to the
       MCP, so this table is the only source of truth for
       `bond-ladder-planner` and `rate-watch`.
-   6. **SIP register** — cross-check against the funds actually seen: a
-      fund held with no SIP listed, or an SIP for a fund not in holdings,
-      is worth one question each.
+   6. **SIP register** — this is the whole mutual fund inventory, not
+      just SIP amounts: Groww's MCP returns no fund data whatsoever, so
+      ask for every fund held with units, average cost, and current
+      value, then the SIP rows on top. Say plainly that without this
+      table their fund sleeve is invisible to every skill and
+      `portfolio-review` will be reporting on the equity book alone. Flag
+      lump-sum-only funds and paused SIPs explicitly.
    7. **Tax context** — note where lot-level data isn't available rather
       than assuming.
    8. **Position theses** — for the top holdings, why held plus a

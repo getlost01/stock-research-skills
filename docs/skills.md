@@ -1,6 +1,6 @@
 # The skills
 
-All 18 are read-only and trigger on intent — you don't invoke them by
+All 19 are read-only and trigger on intent — you don't invoke them by
 name. Each one gives analysis and recommendations; you place any trade
 yourself in the Groww app.
 
@@ -42,7 +42,8 @@ unrealized gains?"*
 | `mutual-fund-analysis` | Fund deep dive or comparison — expense ratio vs. actual alpha, category rank, overlap with what you hold |
 | `bond-analysis` | One bond/NCD/debt instrument — YTM vs. comparable G-Sec, credit rating and rationale, duration, liquidity |
 | `new-investment-screener` | Screen for ideas by theme or criteria, filtered against your concentration limits and existing exposure |
-| `ipo-watch` | Upcoming/ongoing IPOs priced against listed peers, with a subscribe/neutral/avoid view |
+| `ipo-analysis` | One IPO researched properly — RHP financials, implied valuation vs. listed peers, issue structure, subscribe/avoid with sizing |
+| `ipo-watch` | The IPO calendar — what's open, closing, or awaiting listing, and which issues merit a closer look |
 
 *"what do you think about HDFC Bank?" · "is my flexi-cap fund worth
 holding?" · "find me some dividend ideas"*
@@ -99,6 +100,7 @@ this spread pay off like?"*
 | What do I do with my debt allocation? | `bond-ladder-planner`, `rate-watch` |
 | What will this cost me in tax? | `tax-capital-gains` |
 | What should I buy that I don't own? | `new-investment-screener`, `ipo-watch` |
+| Should I apply for this IPO? | `ipo-analysis` |
 
 Skills cross-refer rather than duplicate: `portfolio-review` points at
 `stock-research` for a single name, `rebalancing-planner` picks the

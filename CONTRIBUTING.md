@@ -43,11 +43,16 @@ push.
 
 ## Ways to contribute
 
-- **New skill** — a job none of the 18 covers (see below).
+- **New skill** — a job none of the 19 covers (see below).
 - **Sharper analysis** — improvements to `RESEARCH-STANDARDS.md` are the
   highest-leverage change in the repo, since every skill inherits it.
-- **Tool coverage** — Groww's MCP gains tools over time; wiring a genuinely
-  useful new read-only tool into the right skill is valuable.
+- **Tool coverage** — Groww's MCP gains and loses tools over time. Wiring
+  a genuinely useful new read-only tool into the right skill is valuable,
+  and so is correcting the **Tool availability** table in
+  `RESEARCH-STANDARDS.md` when a tool starts or stops working. Call the
+  tool once and paste what it returned (redacted) in the PR — that table
+  is only worth trusting if every row was verified against the live
+  server.
 - **Bug reports** — especially a skill that gives a shallow, stale, or
   overconfident answer. Include the prompt and what you expected.
 
@@ -62,7 +67,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     growwmcp server config
-  skills/<name>/SKILL.md        the 18 skills
+  skills/<name>/SKILL.md        the 19 skills
   reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
                                 REPORT-TEMPLATES, PORTFOLIO-PLAN.example
 ```
@@ -99,7 +104,8 @@ no data for this asset class. Conventions worth keeping:
 1. **Pull real state first** — never let a skill assume holdings.
 2. **Name the actual MCP tools** to call, in the order that makes sense.
 3. **Be explicit about data efficiency** — batch lookups, precomputed
-   indicators over raw candles, depth only on flagged names/finalists.
+   indicators over raw candles, depth only on flagged names/finalists,
+   and subagent-delegated parsing for anything bulk and mechanical.
 4. **Say where news is mandatory vs. optional**, and defer to the
    freshness rules rather than restating them.
 5. **End with presentation guidance** — what leads, what's a table, and

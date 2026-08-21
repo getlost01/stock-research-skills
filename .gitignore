@@ -7,8 +7,10 @@ node_modules/
 # Generated reports contain real portfolio/financial data — never commit
 reports/
 
-# Your filled-in plan holds real allocation/holdings/SIP data.
+# Your real plan and its structured data live in .portfolio/ — holdings,
+# fund folios, targets, tax and income figures. Never commit.
 # Only the template (PORTFOLIO-PLAN.example.md) is tracked.
+.portfolio/
 PORTFOLIO-PLAN.md
 
 # The skills ship from plugins/stock-research-skills/skills/ — anything

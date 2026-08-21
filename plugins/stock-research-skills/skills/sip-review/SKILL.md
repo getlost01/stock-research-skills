@@ -7,24 +7,32 @@ description: Health check across all the user's SIPs and funds as a set — expe
 
 Read-only — never start, stop, pause, or modify a SIP.
 `reference/READ-ONLY-POLICY.md` (hard rule) and
-`reference/RESEARCH-STANDARDS.md` (MF peer framework, data efficiency,
-disclosure) apply. Where `mutual-fund-analysis` deep-dives one fund on
-demand, this sweeps the whole set on a cadence.
+`reference/RESEARCH-STANDARDS.md` (MF peer framework, tool
+availability, data efficiency, disclosure) apply. Where
+`mutual-fund-analysis` deep-dives one fund on demand, this sweeps the
+whole set on a cadence.
+
+Groww's MCP returns no mutual fund data at all, so this skill runs
+entirely on `PORTFOLIO-PLAN.md` plus the web. With no SIP register and no
+fund list, there is nothing to review — say so and offer
+`portfolio-plan-builder` rather than producing a hollow sweep.
 
 ## Steps
 
-1. **Assemble the set.** `get_mutualfund_details` for all MF holdings.
-   SIP amounts and dates come from the **SIP register** in
-   `PORTFOLIO-PLAN.md` — the MCP shows holdings, not which have live
-   SIPs. Empty or stale → offer `portfolio-plan-builder` rather than
-   guessing. Flag any fund held with no SIP row, and any SIP row with no
-   holding.
+1. **Assemble the set.** Funds held, units and cost basis, plus SIP
+   amounts and dates, all come from `PORTFOLIO-PLAN.md`'s holdings and
+   **SIP register** — the MCP exposes neither. Empty or stale → offer
+   `portfolio-plan-builder` rather than guessing. Flag any fund listed
+   with no SIP row, and any SIP row with no holding. Note the register's
+   `_Last reviewed:_` date as the as-of for every ₹ figure that follows,
+   since none of it is live.
 
 2. **Per-fund scorecard**, peer framework applied lightly across the set
    — full depth only for funds that flag:
    - Returns vs. benchmark and category average (1Y/3Y) — is the expense
      ratio earned with actual alpha? Tracking error instead, for index
-     funds.
+     funds. Web-sourced (AMFI / Value Research / factsheet), one
+     date-anchored search per fund at most, cited.
    - Category-rank drift: a former top-quartile fund now middling for 2+
      years is a flag; one bad year isn't.
    - One date-anchored `WebSearch` for flagged funds or on a full annual

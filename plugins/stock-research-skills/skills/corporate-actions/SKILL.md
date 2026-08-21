@@ -15,9 +15,10 @@ anchored to real holdings.
 
 ## Steps
 
-1. **Scope to holdings.** `get_equity_portfolio_holdings`, plus
-   `get_mutualfund_details` for fund-level actions like mergers. Only
-   search names actually held unless the user names another.
+1. **Scope to holdings.** `get_equity_portfolio_holdings` for equity and
+   ETFs, plus `PORTFOLIO-PLAN.md`'s fund list for fund-level actions like
+   scheme mergers (the MCP returns no fund data). Only search names
+   actually held unless the user names another.
 
 2. **Search announced and upcoming actions.** Date-anchored `WebSearch`
    against NSE/BSE announcements. Per action: type, ratio/amount,

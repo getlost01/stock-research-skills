@@ -61,6 +61,34 @@ Only `portfolio-plan-builder` writes that file, and only with the change
 shown first. Other skills may *suggest* an addition — a thesis line, a
 decision-log row — not write it.
 
+## Tool availability
+
+Groww's MCP is a live third-party server, and some tools it advertises
+don't return usable data. Verified against the live server on
+**2026-08-21** — re-verify before trusting this table, and treat a tool
+that starts or stops failing as something to fix here first.
+
+| Tool | State | Use instead |
+|---|---|---|
+| `get_mutualfund_details` | Returns `"GROWWMCP doesn't support mutual fund details"` — no fund data at all | Which funds are held, units, cost basis and SIP amounts: the user, or `PORTFOLIO-PLAN.md` (**SIP register**, holdings). Fund facts — expense ratio, benchmark, category returns, manager tenure, top holdings: `WebSearch` on AMFI / Value Research / Morningstar / the AMC factsheet |
+| `fetch_etf_screener` | Errors on every request, including an empty filter | `curate_symbols(entity_type='etf')` to resolve candidates, one batched `get_ltp` for price, `get_quotes_and_depth` for liquidity, `fetch_stocks_fundamental_data` where the ETF resolves. Expense ratio, tracking error and AUM: `WebSearch` |
+| `fetch_technical_screener` | Server error on every request | Build the candidate list first (`fetch_fundamentals_screener`, `fetch_market_movers_and_trending_stocks_funds`, or holdings), then read it with `get_historical_technical_indicators` — up to 10 names per call |
+| `fetch_ipo_details` | Returns `{}` for every issue, under any name form | `fetch_ipo_listings` already carries dates, price band, lot size and issue size. Anything deeper — RHP financials, objects of the issue, promoter and anchor detail, subscription splits — via `WebSearch`/`WebFetch` |
+| `get_greeks_for_fno_symbol` | Returns `[]` for every symbol and expiry | `get_greeks_for_fno_contract`, with strikes resolved through `fno_mcx_contracts_search_tool` — up to 20 contracts per call |
+| `get_order_details` | Returns an un-awaited coroutine string, never order data | Nothing equivalent. Say order-level history is unavailable and work from `get_equity_portfolio_holdings` average prices and `get_my_trading_positions_today` |
+| `calculator` | Arithmetic and `**` work; math constants (`e`, `pi`) error. `log()` is **natural** log — `log(100)` returns 4.605, not 2 | Substitute the literal value for constants; use `log(x)/log(10)` when you mean base-10 |
+| `fetch_ipo_listings` | Works, but `view='all'` returns ~127K characters and overflows context | Always pass `open`, `upcoming`, or `closed` |
+
+Everything not listed here was verified working.
+
+**When a gap touches the answer, name it.** Same discipline as bond data:
+say which numbers came from Groww live and which came from the web, with
+source and date — "Groww's MCP exposes no mutual fund data, so the
+expense ratios below are from Value Research, 21 Aug 2026." Never fill
+the gap from training data, never present an external figure as a live
+Groww number, and never quietly drop a section of the analysis because
+the tool for it was broken — an unavailable input is a finding.
+
 ## Data efficiency
 
 Pull what the answer needs, once — not everything the MCP offers.
@@ -69,8 +97,8 @@ Pull what the answer needs, once — not everything the MCP offers.
   call for the list, never one per holding.
 - **LTP vs. depth**: `get_ltp` for prices; `get_quotes_and_depth` only
   where spread/depth matters (F&O liquidity, exit sizing).
-- **Derived over raw**: prefer `get_historical_technical_indicators` /
-  `fetch_technical_screener` / `get_historical_candlestick_patterns` over
+- **Derived over raw**: prefer `get_historical_technical_indicators`
+  (batch up to 10 names) / `get_historical_candlestick_patterns` over
   re-deriving from candles. `fetch_historical_candle_data` only for what
   they don't cover (drawdowns, exact levels), interval matched to horizon
   — daily for ≤1Y, weekly for multi-year, never intraday for a
@@ -83,6 +111,29 @@ Pull what the answer needs, once — not everything the MCP offers.
   payloads; a table for 3+ line items; never the same figure in both
   prose and table; round sensibly (₹ to the rupee, ratios to 1 decimal,
   weights to 0.1%).
+
+### Delegate bulk parsing to a subagent
+
+Large mechanical inputs go to a subagent — a payload that overflows
+context (`fetch_ipo_listings` with `view='all'` is ~127K characters), a
+tool result written to a file, a user's `.xlsx`/`.csv`/PDF statement, or
+one narrow field pulled across a dozen funds. Reading them inline burns
+the context the analysis needs.
+
+- **Cheap model, run in parallel.** Extraction is transcription, not
+  judgement; Haiku is usually enough. Independent extractions go in one
+  message, not in sequence.
+- **Give an output contract**, or prose comes back and nothing is saved:
+  name the fields, units and row shape ("one row per fund: scheme, plan,
+  folio, units, value in ₹; no commentary"), and cap it.
+- **Never delegate the verdict.** Subagents extract, count, parse. The
+  buy/hold/avoid call, the completeness checklist and the disclosure stay
+  with the main agent — the only one that has read `PORTFOLIO-PLAN.md`.
+  Never ask a subagent whether a holding is expensive.
+- **Read-only travels with them.** A subagent inherits
+  `READ-ONLY-POLICY.md` in full; brief it explicitly rather than assuming.
+- **A partial read is a finding**, not a rounding error — say which
+  portion was parsed.
 
 ## Technical analysis framework
 
@@ -114,10 +165,14 @@ ROE, ROCE, revenue/earnings growth, debt/equity, dividend yield. State
 cheap/fair/expensive both *vs. this peer set* and *vs. its own historical
 range* — a stock can be cheap on one and expensive on the other.
 
-**Mutual funds / ETFs.** Peer set = same category/benchmark. Compare
-expense ratio, tracking error (passive), alpha/rolling returns vs.
-benchmark and category average (active), AUM trend, manager tenure,
-concentration/overlap with the user's other holdings. Judge a passive
+**Mutual funds / ETFs.** Groww's MCP returns no fund data and its ETF
+screener is down (see **Tool availability**) — these comparisons are
+web-sourced, so label them external and date them, and get the held set
+from the user or `PORTFOLIO-PLAN.md` rather than guessing. Peer set =
+same category/benchmark. Compare expense ratio, tracking error
+(passive), alpha/rolling returns vs. benchmark and category average
+(active), AUM trend, manager tenure, concentration/overlap with the
+user's other holdings. Judge a passive
 vehicle on tracking; judge an active fund on whether alpha earns its
 expense ratio, not on raw returns.
 
@@ -135,8 +190,10 @@ Groww's MCP has no news tool — pull current news via `WebSearch`
 (`WebFetch` for a specific article). Training data is stale for anything
 time-sensitive.
 
-**Mandatory:** `stock-research`, `ipo-watch`, and the final shortlist in
-`new-investment-screener`.
+**Mandatory:** `stock-research`, `ipo-analysis`, `ipo-watch`, and the
+final shortlist in `new-investment-screener`. `ipo-analysis` leans on the
+web hardest of any skill, since `fetch_ipo_details` is dead — its
+prospectus and subscription figures are *all* external.
 
 **Optional, use judgment:** `portfolio-review` (only holdings the data
 already flagged), `rebalancing-planner`, `fno-analysis` (event-driven —

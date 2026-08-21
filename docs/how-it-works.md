@@ -13,7 +13,7 @@ skills reference them by that relative path.
 
 ### `RESEARCH-STANDARDS.md` — the rulebook
 
-The highest-leverage file in the repo: change it and all 18 skills
+The highest-leverage file in the repo: change it and all 19 skills
 change. It carries:
 
 **Recommendation completeness.** Any buy/hold/avoid/switch view must
@@ -25,6 +25,23 @@ median 27", never "attractively valued"); **2–3 specific invalidators**
 risk"); **position disclosure** (do you already hold this or something
 overlapping — the analogue of a registered analyst's conflict
 disclosure); and the **data's as-of time**.
+
+**Tool availability.** Groww's MCP is a live third-party server and not
+all of its tools work — as of 21 Aug 2026 it returns no mutual fund data
+at all, and its ETF screener, technical screener, IPO-details and
+order-details tools are broken. The table names each one, the state it's
+in, and the substitute (usually `PORTFOLIO-PLAN.md` for what the user
+holds, plus labelled web sources for fund and prospectus facts). The rule
+around it matters more than the list: an unavailable input is a finding
+to report, never a gap to fill from training data, and a web-sourced
+figure never gets presented as a live Groww number.
+
+**Delegated parsing.** Bulk mechanical work — a payload that overflows
+context, a broker statement, one field pulled from a dozen factsheets —
+goes to a subagent on a cost-efficient model with an explicit output
+contract, so the context stays free for the analysis. Subagents extract;
+they never produce the verdict, and they inherit the read-only rule in
+full.
 
 **Data efficiency.** Batch symbol lookups into one call rather than one
 per holding. Prefer precomputed indicator/screener tools over pulling
@@ -120,7 +137,7 @@ plugins/stock-research-skills/     the plugin — single source of truth
   .codex-plugin/plugin.json        Codex manifest
   .cursor-plugin/plugin.json       Cursor manifest
   .mcp.json                        growwmcp server config
-  skills/<name>/SKILL.md           the 18 skills
+  skills/<name>/SKILL.md           the 19 skills
   reference/                       the four shared files above
 .claude-plugin/marketplace.json    makes this repo its own marketplace
 .cursor-plugin/marketplace.json

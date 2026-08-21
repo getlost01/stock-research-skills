@@ -1,6 +1,6 @@
 # Stock Research Skills — repo instructions
 
-This repository **is** a plugin: 18 read-only research skills for Indian
+This repository **is** a plugin: 19 read-only research skills for Indian
 markets (stocks, ETFs, mutual funds, bonds, F&O) over Groww's `growwmcp`
 MCP server, distributed for Claude Code, Codex, and Cursor.
 
@@ -30,7 +30,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     growwmcp server config
-  skills/<name>/SKILL.md        the 18 skills
+  skills/<name>/SKILL.md        the 19 skills
   reference/
     READ-ONLY-POLICY.md         the hard rule
     RESEARCH-STANDARDS.md       shared analysis discipline
@@ -52,7 +52,7 @@ project rather than in the plugin.
 
 1. Read `reference/RESEARCH-STANDARDS.md` before changing any analysis
    behaviour — every skill inherits it, so a change there propagates to
-   all 18. It carries the recommendation-completeness checklist (view +
+   all 19. It carries the recommendation-completeness checklist (view +
    horizon, numeric basis, specific invalidators, position disclosure,
    data as-of), the data-efficiency rules, the technical framework, the
    peer-comparison method, and the news freshness rules.
@@ -67,11 +67,25 @@ project rather than in the plugin.
 5. Be data-efficient: batch symbol lookups, prefer precomputed
    screener/indicator tools over raw candles, go deep only on the
    subject and flagged names, and report driving numbers rather than
-   tool payloads.
-6. Adding or changing a skill? `CONTRIBUTING.md` has the conventions and
+   tool payloads. For bulk mechanical work — an oversized payload, a
+   statement export, one field across a dozen funds — delegate the
+   parsing to a subagent on a cost-efficient model with an explicit
+   output contract, and keep the judgement in the main agent. See
+   **Delegate bulk parsing to a subagent** in `RESEARCH-STANDARDS.md`.
+6. Not every `growwmcp` tool works. The **Tool availability** table in
+   `reference/RESEARCH-STANDARDS.md` is the authoritative list of what's
+   dead and what to use instead (as of 2026-08-21: no mutual fund data
+   at all, no ETF or technical screener, no IPO details, no order
+   details, no per-symbol greeks). Before wiring a tool into a skill,
+   call it once and confirm it returns data — and when a tool's state
+   changes, fix that table first, then the skills that cite it.
+7. Adding or changing a skill? `CONTRIBUTING.md` has the conventions and
    the list of files that must be updated alongside it.
-7. Never commit real financial data. `reports/` and `PORTFOLIO-PLAN.md`
-   are git-ignored; only the `.example.md` template is tracked.
+8. Never commit real financial data. `reports/`, `PORTFOLIO-PLAN.md` and
+   `.portfolio/` are git-ignored; only the `.example.md` template is
+   tracked. A user may keep the plan and its structured data in
+   `.portfolio/`, with a pointer file at the root — follow the pointer
+   rather than assuming the plan is missing.
 
 ## Not a registered adviser
 
@@ -83,7 +97,7 @@ view ends with the disclosure block in `RESEARCH-STANDARDS.md`.
 
 ## MCP setup note
 
-`growwmcp` connects via `mcp-remote@0.1.37`, pinned in both `.mcp.json`
+`growwmcp` connects via `mcp-remote@0.1.38`, pinned in both `.mcp.json`
 files. The OAuth token cache in `~/.mcp-auth/mcp-remote-<version>/` is
 version-scoped, so bumping the version breaks the cached login and
 forces re-auth. If auth breaks, check `~/.mcp-auth/` for the token

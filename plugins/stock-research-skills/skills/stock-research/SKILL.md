@@ -21,8 +21,7 @@ follow those methods, don't freelance a different one.
      `fetch_fundamentals_screener` — build a real peer set (same
      sector/market-cap band) and compare against it, not just against
      the stock's own history.
-   - Technicals: `fetch_technical_screener`,
-     `get_historical_technical_indicators`,
+   - Technicals: `get_historical_technical_indicators`,
      `get_historical_candlestick_patterns`,
      `fetch_historical_candle_data` — the full multi-timeframe / trend /
      momentum / volatility / volume framework over several horizons
@@ -31,13 +30,16 @@ follow those methods, don't freelance a different one.
      commentary, rating actions, corporate actions, regulatory issues.
      Date-anchored, last-30-days preference, 1–2 searches, cite outlet +
      date, and factor anything material into the view.
-   - ETF: `fetch_etf_screener`. Mutual fund: `get_mutualfund_details`.
+   - ETF: `curate_symbols(entity_type='etf')` + `get_ltp`, fees and
+     tracking error from the web. Mutual fund: route to
+     `mutual-fund-analysis` — the MCP has no fund data and no working ETF
+     screener (see **Tool availability**).
    - F&O: `fno_mcx_contracts_search_tool`,
-     `get_greeks_for_fno_contract` / `get_greeks_for_fno_symbol`,
-     `get_open_interest_analysis`.
+     `get_greeks_for_fno_contract`, `get_open_interest_analysis`.
 
 3. **Check fit against the user's portfolio.**
-   - `get_equity_portfolio_holdings` / `get_mutualfund_details` — does
+   - `get_equity_portfolio_holdings`, plus the fund list in
+     `PORTFOLIO-PLAN.md` — does
      the user already hold this, or something highly overlapping (another
      fund with the same top holdings)?
    - Cross-check `PORTFOLIO-PLAN.md`: concentration limits (would this

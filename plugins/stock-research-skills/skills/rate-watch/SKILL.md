@@ -19,8 +19,9 @@ disclosure when a positioning view is given) apply.
    RBI's band. `get_budget_announcement` in budget season, since
    borrowing numbers move yields. Two or three searches is enough.
 
-2. **The user's exposure.** Debt funds via `get_mutualfund_details`, with
-   duration category per fund (liquid/short/gilt/long) — longer duration,
+2. **The user's exposure.** Debt funds from `PORTFOLIO-PLAN.md` (the MCP
+   returns no fund data), with duration category per fund
+   (liquid/short/gilt/long) — longer duration,
    bigger NAV swing per rate move; state direction and rough sensitivity.
    Direct bonds and FDs from `PORTFOLIO-PLAN.md`'s fixed-income
    inventory — locked rates vs. today's, and what matures into this
