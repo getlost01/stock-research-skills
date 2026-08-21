@@ -1,50 +1,36 @@
 # Report Templates
 
-Optional output scaffolds. Default to a normal conversational answer —
-reach for the matching template only when the user wants something more
-formal/structured: explicitly asks for "a report", wants to save/share/
-export it, or the output has enough line items (long holdings table, long
-shortlist) that structure genuinely helps readability.
+Optional output scaffolds. Default to a normal conversational answer;
+reach for a template only when the user asks for "a report", wants to
+save/share/export it, or the output has enough line items that structure
+genuinely helps.
 
-Treat every `[bracket]` as a placeholder to fill in, and drop any section
-that has nothing to say rather than leaving it templated-but-empty. Every
-template ends with the `RESEARCH-STANDARDS.md` disclosure block where the
-report contains a recommendation — that line is not optional. Any template
-with a verdict must also satisfy the **Recommendation completeness**
-checklist in `RESEARCH-STANDARDS.md` (view + horizon, basis with numbers,
-key risks, position disclosure, data as-of).
-
-Keep reports tight: numbers in tables, reasoning in short prose, no
-restating table figures in sentences, no filler sections. A report's
-value is per line, not its length.
+Fill every `[bracket]`; drop any section with nothing to say rather than
+leaving it templated-but-empty. Where a report carries a recommendation it
+ends with the disclosure block from `RESEARCH-STANDARDS.md` and satisfies
+that file's **Recommendation completeness** checklist — neither is
+optional. Keep reports tight: numbers in tables, reasoning in short
+prose, no figure stated twice. A report's value is per line, not in
+length.
 
 ## Where saved reports go
 
-When a report is worth writing to disk (the user asked to save/export it,
-or wants to refer back to it later), save it under `reports/` at the repo
-root — that directory is git-ignored (contains real portfolio/financial
-data, never commit it) and won't exist until the first report is written,
-so create it if needed.
+`reports/<skill-slug>-<subject-slug>-<YYYY-MM-DD>.md` at the repo root —
+git-ignored, holds real financial data, never commit it. Create the
+directory on first use.
 
-Naming convention: `reports/<skill-slug>-<subject-slug>-<YYYY-MM-DD>.md`
+- `<skill-slug>`: the skill's own name, shortened where obvious
+  (`mutual-fund`, `bond`, `rebalancing`, `fno`, `screener`, `ipo`,
+  `bond-ladder`, `fund-house`, `plan-audit`).
+- `<subject-slug>`: the symbol/fund/topic in kebab-case (`tcs`,
+  `hdfc-flexicap`, `full-portfolio`); omit for portfolio-wide reports.
+- Date generated, not the data's as-of time.
 
-- `<skill-slug>`: `portfolio-review`, `stock-research`, `mutual-fund`,
-  `bond`, `rebalancing`, `fno`, `tax-capital-gains`, `screener`, `ipo`,
-  `market-pulse`, `earnings-watch`, `corporate-actions`,
-  `dividend-income`, `bond-ladder`, `rate-watch`, `sip-review`,
-  `fund-house`.
-- `<subject-slug>`: the symbol/fund/topic in lowercase-kebab-case (e.g.
-  `tcs`, `hdfc-flexicap`, `full-portfolio`), or omit for portfolio-wide
-  reports.
-- Date the report was generated, not the data's as-of time if different.
-
-Examples: `reports/stock-research-tcs-2026-08-21.md`,
-`reports/portfolio-review-full-portfolio-2026-08-21.md`,
+e.g. `reports/stock-research-tcs-2026-08-21.md`,
 `reports/tax-capital-gains-2026-08-21.md`.
 
-If a same-named report already exists for today and the user asks to
-regenerate it, overwrite it rather than creating a `-2`/`-v2` variant —
-these are meant to reflect the latest data, not a version history.
+Regenerating the same report the same day overwrites it — these reflect
+latest data, not a version history.
 
 ---
 
@@ -419,6 +405,42 @@ Sources: [RBI/…, dated]
 [what happened, which held fund it touches, recommended follow-up]
 
 [disclosure block if any view given]
+```
+
+---
+
+## Plan Audit — `portfolio-plan-builder` (maintenance mode)
+
+For the periodic "is my plan still the plan" pass. The interview itself
+doesn't need a report — this is the findings list from auditing an
+existing plan against reality.
+
+```markdown
+# Plan Audit — [date]
+
+Plan last reviewed: [per-section dates] · Holdings as of [date/time]
+
+## Plan vs. reality
+| Item | Plan | Actual | Drift | Action |
+|---|---|---|---|---|
+
+## Breached limits
+[hard limits first, with the ₹/% overshoot]
+
+## Theses to re-test
+[holdings whose invalidator has been hit or can no longer be checked]
+
+## Stale sections
+[section — last reviewed — what depends on it]
+
+## Triggers fired
+[watchlist triggers hit, decision-log rows due to revisit,
+fixed-income rows matured, SIPs changed]
+
+## Proposed edits
+[the exact rows to change, for the user to confirm]
+
+[disclosure block if any positioning view is given]
 ```
 
 ---

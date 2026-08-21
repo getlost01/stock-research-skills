@@ -1,91 +1,79 @@
 ---
 name: portfolio-review
-description: Review the user's real Groww portfolio (stocks, ETFs, mutual funds, F&O) using live data via the growwmcp MCP server, then give allocation/risk analysis, buy/hold/avoid recommendations, and rebalancing suggestions. Use when the user asks to review their portfolio, get stock/ETF/MF suggestions, check allocation or diversification, or rebalance. Never places, modifies, or cancels any order.
+description: Review the user's live Groww portfolio — allocation, risk, per-holding buy/hold/avoid views, rebalancing. Use when the user asks to review their portfolio, check allocation or diversification, get stock/ETF/MF suggestions, or rebalance. Read-only.
 ---
 
 # Portfolio Review & Recommendations
 
-Read-only research/recommendation workflow over the user's live Groww
-account. See `reference/READ-ONLY-POLICY.md` for the hard read-only rule —
-this skill never calls any order-placing/modifying/cancelling tool. See
-`reference/RESEARCH-STANDARDS.md` for the technical/peer frameworks (used when a
-holding gets flagged for deeper review) and the disclosure block.
+Read-only research over the user's live Groww account.
+`reference/READ-ONLY-POLICY.md` (hard rule) and
+`reference/RESEARCH-STANDARDS.md` (technical and peer frameworks for
+flagged holdings, data efficiency, completeness checklist, disclosure)
+apply.
 
 ## Steps
 
-1. **Pull current state first, always.**
-   - `get_equity_portfolio_holdings` for stock holdings.
-   - `get_my_trading_positions_today` / `get_specific_stock_position` for
-     open F&O or intraday positions if relevant to the ask.
-   - `get_mutualfund_details` for MF holdings if the user has/asks about MFs.
-   - Never estimate or assume holdings — always fetch them.
+1. **Load the user's plan first.** Read `PORTFOLIO-PLAN.md` — targets and
+   bands, risk limits, position theses and invalidators, exclusions, and
+   the decision log, so a suggestion the user already declined isn't
+   re-pitched. It's what makes this a review against *their* plan rather
+   than a generic one. Missing or stale → say so and offer
+   `portfolio-plan-builder`; don't assume a target.
 
-2. **Enrich with live market data** — following the Data efficiency rules
-   in `reference/RESEARCH-STANDARDS.md`: batch all held symbols into **one** `get_ltp`
-   call (holdings data often already carries LTP — check before pulling at
-   all), and pull per-name depth only for holdings the analysis actually
-   flags, not every line item.
-   - `get_ltp` (batched) for current prices; `get_quotes_and_depth` only
-     where depth/spread matters.
+2. **Pull current state, always — never estimate holdings.**
+   `get_equity_portfolio_holdings`;
+   `get_my_trading_positions_today` / `get_specific_stock_position` for
+   open F&O or intraday positions where relevant;
+   `get_mutualfund_details` for MFs.
+
+3. **Enrich with market data**, per the data-efficiency rules: batch all
+   held symbols into **one** `get_ltp` call (check the holdings payload
+   first — it often carries LTP already), and pull per-name detail only
+   for holdings the analysis actually flags.
+   - `get_quotes_and_depth` only where spread/depth matters.
    - `fetch_stocks_fundamental_data` / `fetch_fundamentals_screener` for
-     valuation, growth, quality metrics — flagged/major holdings first.
+     valuation, growth, quality — flagged and major holdings first.
    - `fetch_technical_screener` / `get_historical_technical_indicators` /
-     `get_historical_candlestick_patterns` for technical context on
-     flagged names.
-   - `fetch_etf_screener` for ETF alternatives/comparisons.
-   - `fetch_market_movers_and_trending_stocks_funds` for market context.
-   - `fetch_historical_candle_data` for trend/drawdown checks over time
-     (interval matched to horizon — see `reference/RESEARCH-STANDARDS.md`).
-   - `resolve_market_time_and_calendar` if timing (market open, expiry,
-     settlement) matters to the answer.
+     `get_historical_candlestick_patterns` for flagged names.
+   - `fetch_etf_screener` for ETF alternatives;
+     `fetch_market_movers_and_trending_stocks_funds` for market context.
+   - `fetch_historical_candle_data` for trend/drawdown checks, interval
+     matched to horizon.
+   - `resolve_market_time_and_calendar` where timing matters.
 
-3. **Analyze.**
-   - **Allocation**: sector/market-cap/asset-class concentration, single-stock
-     concentration risk, overlap between holdings (e.g. two funds/ETFs
-     holding the same top names).
-   - **Performance**: current P&L per holding and portfolio-wide, vs. a
-     relevant benchmark (Nifty 50/Nifty 500 etc.) where data allows.
-   - **Quality/valuation**: flag holdings that look expensive, deteriorating
-     fundamentally, or technically broken — and ones that look attractively
-     valued.
-   - **Rebalancing**: compare current allocation to a sensible target (ask
-     the user for their target/risk profile if not already known — don't
-     assume one), and state concretely what's over/under-weight and by how
-     much.
+4. **Analyze.**
+   - **Allocation** — sector, market-cap, and asset-class concentration;
+     single-stock risk; overlap between holdings (two funds holding the
+     same top names).
+   - **Performance** — P&L per holding and portfolio-wide, vs. a
+     relevant benchmark (Nifty 50/500) where data allows.
+   - **Quality/valuation** — flag holdings that look expensive,
+     fundamentally deteriorating, or technically broken, and ones that
+     look attractively valued.
+   - **Thesis check** — for holdings with a thesis in the plan, test the
+     invalidator against what the data now shows. A position whose reason
+     for existing has lapsed is a finding price alone won't surface.
+   - **Rebalancing** — current vs. the plan's targets and bands, stating
+     concretely what's over/under-weight and by how much. Hand off to
+     `rebalancing-planner` for sized moves.
 
-4. **News — optional, only for flagged holdings.** If a holding stands out
-   (large weight, big move, or a fundamental/technical red flag), a
-   `WebSearch` check for recent news on it is worth doing before the
-   verdict. Don't news-check every line item in a large portfolio by
-   default — that's what `stock-research` is for on a specific name.
+5. **News — only for flagged holdings.** Where one stands out (large
+   weight, big move, red flag), a `WebSearch` before the verdict is worth
+   it. Don't news-check every line of a large portfolio; that's
+   `stock-research`'s job on a specific name.
 
-5. **Recommend, don't execute.**
-   - Give a clear buy/hold/reduce/avoid view per holding or candidate, with
-     the *reasoning* (valuation, momentum, fundamentals, allocation fit) —
-     not just a verdict. Each view meets the Recommendation completeness
-     checklist in `reference/RESEARCH-STANDARDS.md` (horizon, basis, key risks,
-     position context, as-of).
-   - For rebalancing, state suggested changes as "consider trimming X by
-     ~N%, adding to Y" — the user places any trade themselves in the Groww
-     app.
-   - If asked something that implies placing a trade, give the analysis and
-     say explicitly that you're not executing it.
+6. **Recommend, don't execute.** A clear buy/hold/reduce/avoid per
+   holding with the reasoning, each meeting the completeness checklist.
+   Rebalancing framed as "consider trimming X by ~N%, adding to Y" — the
+   user places any trade themselves. If an ask implies placing a trade,
+   give the analysis and say plainly you're not executing it.
 
-6. **Present clearly.**
-   - Lead with a short summary (portfolio value, overall skew, top 2-3
-     findings) before the detail.
-   - Use tables for holdings/allocation breakdowns when there are more than
-     a few line items.
-   - Always note the data is as of the time it was pulled (markets move).
-   - Close with the `reference/RESEARCH-STANDARDS.md` disclosure block since this
-     includes recommendations.
-   - Optional: if the user wants a formal/exportable report (or the
-     holdings table is long enough that structure helps), use the
-     Portfolio Review template in `reference/REPORT-TEMPLATES.md` — otherwise a
-     normal conversational answer is fine. Save it under `reports/` per
-     that file's naming convention if the user wants it saved, not just
-     shown.
-   - Point to the dedicated skill for depth: `stock-research` for one name,
-     `mutual-fund-analysis`/`bond-analysis` for those instrument types,
-     `rebalancing-planner` for allocation moves, `fno-analysis` for
-     derivatives, `tax-capital-gains` for gains/harvesting.
+7. **Present.** Short summary first (portfolio value, overall skew, top
+   2–3 findings), then detail; tables for holdings and allocation; data
+   as-of noted since markets move; close with the disclosure block.
+   Formal version: Portfolio Review in `reference/REPORT-TEMPLATES.md` —
+   worth it when the holdings table is long. Point to the dedicated skill
+   for depth: `stock-research` for one name,
+   `mutual-fund-analysis`/`bond-analysis` per instrument type,
+   `rebalancing-planner` for allocation moves, `fno-analysis` for
+   derivatives, `tax-capital-gains` for gains and harvesting.

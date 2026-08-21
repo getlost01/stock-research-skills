@@ -1,44 +1,41 @@
 ---
 name: market-pulse
-description: Give a market briefing — top movers, trending stocks/funds, relevant macro/budget announcements, and market calendar/timing context — and note anything relevant to the user's own holdings. Use when the user asks "what's happening in the market", for a market update/briefing, or about market movers/trending stocks. Read-only.
+description: Market briefing — movers, trending stocks and funds, macro/budget notes, calendar context — with anything touching the user's holdings called out. Use when the user asks what's happening in the market, for a briefing, or about market movers. Read-only.
 ---
 
 # Market Pulse / Briefing
 
-Read-only market context. See `reference/READ-ONLY-POLICY.md` for the hard read-only
-rule and `reference/RESEARCH-STANDARDS.md` for news-sourcing rules/preferred outlets.
+Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
+`reference/RESEARCH-STANDARDS.md` (news sourcing, preferred outlets)
+apply.
 
 ## Steps
 
-1. **Timing context first.** `resolve_market_time_and_calendar` — is the
-   market open, and any near-term holidays/expiries/settlement dates worth
-   flagging.
+1. **Timing first.** `resolve_market_time_and_calendar` — open or
+   closed, and near-term holidays/expiries/settlement worth flagging.
 
-2. **What's moving.**
-   - `fetch_market_movers_and_trending_stocks_funds` — top gainers/losers,
-     trending stocks and funds.
-   - `curate_symbols` / `fetch_curated_fno` for a curated view if the user
-     wants it narrowed to a theme or F&O specifically.
+2. **What's moving.** `fetch_market_movers_and_trending_stocks_funds` for
+   gainers/losers and trending stocks and funds; `curate_symbols` /
+   `fetch_curated_fno` to narrow to a theme or F&O on request.
 
-3. **Macro context.** `get_budget_announcement` when relevant (budget
-   season, or the user asks about policy/announcement impact).
+3. **Macro.** `get_budget_announcement` in budget season or when the
+   user asks about policy impact.
 
-4. **Headline macro news (optional, use judgment).** `WebSearch` for
-   anything RBI/Fed policy, budget, or major global-markets news the
-   Groww tools above wouldn't surface directly — worth doing on request or
-   around known event windows, not needed for a routine "what's moving"
-   check.
+4. **Headline macro news (optional).** `WebSearch` for RBI/Fed policy,
+   budget, or major global-market news the tools above wouldn't surface
+   — worth it on request or around known event windows, not for a
+   routine "what's moving" check.
 
-5. **Connect to the user's own portfolio** — cross-check movers/trending
-   names against `get_equity_portfolio_holdings` / `get_mutualfund_details`
-   so the briefing calls out anything that actually affects the user,
-   not just generic market noise.
+5. **Connect to the user's book.** Cross-check movers against
+   `get_equity_portfolio_holdings` / `get_mutualfund_details` so the
+   briefing flags what actually affects them, not generic noise. Check
+   `PORTFOLIO-PLAN.md`'s **watchlist** too: a name whose trigger has
+   been hit today is the single most useful line a briefing carries —
+   state the trigger and the current level.
 
-6. **Present:** a short "what matters today" summary first (especially
-   anything touching the user's holdings), then the broader movers/trending
-   list, then any macro note. Keep it scannable — this is a briefing, not a
-   deep dive (point to `stock-research` for that on any specific name).
-   Optional: use the Market Pulse template in `reference/REPORT-TEMPLATES.md` only
-   if the user wants a saveable daily-briefing format; a normal chat
-   answer is the better default here since briefings are usually
-   ephemeral. If saved, use `reports/` per that file's naming convention.
+6. **Present:** "what matters today" first (especially anything touching
+   holdings), then broader movers, then any macro note. Keep it
+   scannable — a briefing, not a deep dive; point to `stock-research`
+   for any specific name. Briefings are usually ephemeral, so a chat
+   answer is the right default; the Market Pulse template in
+   `reference/REPORT-TEMPLATES.md` is there if the user wants one saved.

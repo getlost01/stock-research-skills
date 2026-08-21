@@ -1,50 +1,42 @@
 ---
 name: rate-watch
-description: Track the interest-rate environment — RBI policy stance, repo rate path, G-Sec yield curve moves, inflation prints — and translate it into implications for the user's actual debt funds, bonds, and any bond-buying timing. Use when the user asks about RBI policy, rate cuts/hikes, yields, "is now a good time to lock rates", or how rates affect their debt holdings. Read-only.
+description: Track the rate environment — RBI stance, repo path, G-Sec curve, inflation — and translate it into implications for the user's debt holdings. Use when the user asks about RBI policy, rate cuts/hikes, yields, locking rates, or how rates affect their debt. Read-only.
 ---
 
 # Rate Watch
 
-Read-only macro-rates briefing, always tied back to what the user
-actually holds — not a generic economics note. See `reference/READ-ONLY-POLICY.md` for
-the hard read-only rule and `reference/RESEARCH-STANDARDS.md` for news freshness
-rules (RBI primary sources preferred) and the disclosure block (applies
-when a positioning view is given).
+Read-only, and always tied back to what the user holds — not a generic
+economics note. `reference/READ-ONLY-POLICY.md` (hard rule) and
+`reference/RESEARCH-STANDARDS.md` (freshness, RBI primary sources,
+disclosure when a positioning view is given) apply.
 
 ## Steps
 
-1. **Current rate picture.** `WebSearch`, date-anchored, preferring
-   primary sources (RBI monetary policy statements/press releases, CPI
-   prints) over commentary:
-   - Repo rate, latest MPC decision + stance, and the next MPC date.
-   - Current G-Sec yields at key tenors (1Y/5Y/10Y) and how the curve
-     has moved since the last policy.
-   - Latest CPI vs. RBI's band — the main driver of the path.
-   - `get_budget_announcement` in budget season (borrowing numbers move
-     yields). 2–3 searches total is usually enough — this is a briefing.
+1. **Rate picture now.** Date-anchored `WebSearch`, preferring primary
+   sources (RBI policy statements, CPI prints) over commentary — repo
+   rate, latest MPC decision and stance, next MPC date; G-Sec yields at
+   1Y/5Y/10Y and the curve's move since last policy; latest CPI vs.
+   RBI's band. `get_budget_announcement` in budget season, since
+   borrowing numbers move yields. Two or three searches is enough.
 
-2. **User's rate exposure.**
-   - Debt funds via `get_mutualfund_details` — duration category per
-     fund (liquid/short/gilt/long); longer duration = bigger NAV swing
-     per rate move. State the direction and rough sensitivity.
-   - Direct bonds/FDs from `PORTFOLIO-PLAN.md`'s fixed-income inventory
-     — locked rates vs. today's, and what's maturing into this
-     environment (coordinate with `bond-ladder-planner`).
+2. **The user's exposure.** Debt funds via `get_mutualfund_details`, with
+   duration category per fund (liquid/short/gilt/long) — longer duration,
+   bigger NAV swing per rate move; state direction and rough sensitivity.
+   Direct bonds and FDs from `PORTFOLIO-PLAN.md`'s fixed-income
+   inventory — locked rates vs. today's, and what matures into this
+   environment (coordinate with `bond-ladder-planner`).
 
-3. **Translate, don't just report:**
-   - Falling-rate outlook → existing long-duration holdings gain, and
-     locking today's yields on new money gets less attractive over time
-     (and vice versa). Frame as scenario reasoning, never a rate
-     prediction stated as fact — say what the market/RBI signals, cite
-     it, and show both branches where genuinely uncertain.
-   - Flag concrete timing questions the environment raises: "FD maturing
-     next month into likely-lower rates", "gilt fund now carries most of
-     the duration you'd want before cuts".
+3. **Translate, don't just report.** A falling-rate outlook means
+   existing long-duration holdings gain while locking today's yields on
+   new money gets less attractive over time, and vice versa. Frame as
+   scenario reasoning, never a rate prediction stated as fact: say what
+   the market and RBI signal, cite it, show both branches where
+   genuinely uncertain. Flag the concrete timing questions it raises —
+   "FD maturing next month into likely-lower rates", "the gilt fund now
+   carries most of the duration you'd want before cuts".
 
-4. **Present:** a short "rate picture now" block (repo, stance, 10Y,
-   CPI, next MPC date — all sourced/dated), then per-holding
-   implications, then any positioning view meeting the Recommendation
-   completeness checklist, with the disclosure block. Keep it briefing-
-   length; deep instrument work goes to `bond-analysis` /
-   `bond-ladder-planner`. Optional: Rate Watch template in
-   `reference/REPORT-TEMPLATES.md`, saved under `reports/` if wanted.
+4. **Present:** a short "rate picture now" block (repo, stance, 10Y, CPI,
+   next MPC — sourced and dated), then per-holding implications, then any
+   positioning view with the disclosure block. Briefing-length; deep
+   instrument work goes to `bond-analysis` / `bond-ladder-planner`.
+   Formal version: Rate Watch in `reference/REPORT-TEMPLATES.md`.

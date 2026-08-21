@@ -62,7 +62,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     growwmcp server config
-  skills/<name>/SKILL.md        the 17 skills
+  skills/<name>/SKILL.md        the 18 skills
   reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
                                 REPORT-TEMPLATES, PORTFOLIO-PLAN.example
 ```
@@ -83,13 +83,18 @@ the plugin.
 
 **Frontmatter.** `name` (kebab-case, matching the directory) and a
 `description` that says what the skill does, **when to use it** (the
-trigger phrasing a user would actually type), and ends with the read-only
-statement for that asset class. The description is how the skill gets
-selected, so write it for routing, not for marketing.
+trigger phrasing a user would actually type), and ends with `Read-only.`
+— or a one-clause version of it where the asset class invites execution
+("no SIP start/stop/modify either"). Descriptions are the only part of a
+skill always resident in context, so keep them to routing-critical
+wording: what it does, when it fires, read-only. No marketing.
 
-**Body.** A short intro pointing at `CLAUDE.md` for the read-only rule and
-`RESEARCH-STANDARDS.md` for the frameworks it uses, then numbered
-`## Steps`. Conventions worth keeping:
+**Body.** Two or three lines of intro, then numbered `## Steps`. The
+intro states read-only and points at the two reference files in one
+sentence — `reference/READ-ONLY-POLICY.md` (hard rule) and
+`reference/RESEARCH-STANDARDS.md` (naming the frameworks this skill
+actually uses) — plus any skill-specific caveat, such as the MCP having
+no data for this asset class. Conventions worth keeping:
 
 1. **Pull real state first** — never let a skill assume holdings.
 2. **Name the actual MCP tools** to call, in the order that makes sense.
@@ -100,6 +105,13 @@ selected, so write it for routing, not for marketing.
 5. **End with presentation guidance** — what leads, what's a table, and
    the disclosure block when a view is given.
 6. **Point at sibling skills** for depth instead of duplicating them.
+7. **Say each thing once.** The reference files carry the frameworks, the
+   freshness rules, and the read-only boundary; a skill cites them, it
+   doesn't restate them. Cut rationale that only re-explains its own
+   instruction, and keep the report-template pointer to one clause
+   ("Formal version: Bond Note in `reference/REPORT-TEMPLATES.md`") —
+   that file already documents when to reach for a template and how
+   saved reports are named.
 
 A new skill should also get: a row in the root README table (in the right
 group), a mention in the plugin README's skill list, a `<skill-slug>`
