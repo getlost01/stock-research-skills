@@ -17,10 +17,18 @@ If you find a way to make the agent execute a trade, that is a security
 issue — please report it privately (see [Reporting a
 problem](#reporting-a-problem)) rather than opening a public PR.
 
-The boundary lives in three places, and all three must stay in sync:
-`CLAUDE.md` (the rule), each `SKILL.md` (restated per asset class), and
-`.claude/settings.json` (the deny list). If Groww ships a new order tool,
-adding its name to the deny list is a very welcome PR.
+The boundary lives in four places, and all four must stay in sync:
+`plugins/stock-research-skills/reference/READ-ONLY-POLICY.md` (the rule),
+each `SKILL.md` (restated per asset class), the deny list documented in
+`plugins/stock-research-skills/README.md` (which users install
+themselves, since a plugin cannot ship enforced permissions), and
+`.claude/settings.json` (which protects contributors working in this
+repo). If Groww ships a new order tool, adding its name to both deny
+lists is a very welcome PR.
+
+Never describe the plugin as technically unable to trade. It is
+*instructed* not to, and the user installs the enforcement. Keep that
+distinction honest in docs and in skill text.
 
 ### 2. Never include real financial data
 
@@ -43,10 +51,35 @@ push.
 - **Bug reports** — especially a skill that gives a shallow, stale, or
   overconfident answer. Include the prompt and what you expected.
 
+## Repo layout
+
+Everything shipped to users lives in `plugins/stock-research-skills/` —
+the single source of truth, with no second copy of the skills anywhere:
+
+```
+plugins/stock-research-skills/
+  .claude-plugin/plugin.json    Claude Code manifest
+  .codex-plugin/plugin.json     Codex manifest
+  .cursor-plugin/plugin.json    Cursor manifest
+  .mcp.json                     growwmcp server config
+  skills/<name>/SKILL.md        the 17 skills
+  reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
+                                REPORT-TEMPLATES, PORTFOLIO-PLAN.example
+```
+
+Root `.claude-plugin/`, `.cursor-plugin/`, and `.agents/plugins/`
+marketplace files make the repo installable by all three tools. Bump
+`version` in all three plugin manifests together when releasing.
+
 ## Adding a skill
 
-Skills live in `.claude/skills/<skill-name>/SKILL.md`. Match the existing
-ones — read two or three first, they're short.
+Skills live in `plugins/stock-research-skills/skills/<skill-name>/SKILL.md`.
+Match the existing ones — read two or three first, they're short.
+
+Reference sibling docs by plugin-relative path
+(`reference/RESEARCH-STANDARDS.md`), but reference the user's plan as a
+bare `PORTFOLIO-PLAN.md` — that file lives in the user's project, not in
+the plugin.
 
 **Frontmatter.** `name` (kebab-case, matching the directory) and a
 `description` that says what the skill does, **when to use it** (the
@@ -68,11 +101,11 @@ selected, so write it for routing, not for marketing.
    the disclosure block when a view is given.
 6. **Point at sibling skills** for depth instead of duplicating them.
 
-A new skill should also get: a row in the README table (in the right
-group), a bullet in `CLAUDE.md`'s skill list, a `<skill-slug>` entry and
-usually a template in `REPORT-TEMPLATES.md`, and new
-`PORTFOLIO-PLAN.example.md` fields if it needs user context Groww's MCP
-can't provide.
+A new skill should also get: a row in the root README table (in the right
+group), a mention in the plugin README's skill list, a `<skill-slug>`
+entry and usually a template in `reference/REPORT-TEMPLATES.md`, and new
+`reference/PORTFOLIO-PLAN.example.md` fields if it needs user context
+Groww's MCP can't provide.
 
 **Don't add a skill that** overlaps an existing one (extend that one
 instead), needs write access to anything, or is really just a prompt
@@ -100,8 +133,11 @@ There's no automated test suite — these are prompt artifacts, and the
 data source is a live authenticated brokerage account, so behaviour can't
 be asserted in CI. Verify by hand:
 
-1. Run Claude Code in the repo and confirm your skill triggers on the
-   phrasings in its `description` (and doesn't hijack another skill's).
+0. `claude plugin validate ./plugins/stock-research-skills` — catches
+   manifest and structure errors before anything else.
+1. Run `claude --plugin-dir ./plugins/stock-research-skills` and confirm
+   your skill triggers on the phrasings in its `description` (and doesn't
+   hijack another skill's).
 2. Check it pulls live data rather than answering from memory, and that
    figures in the output match what the tools returned.
 3. Confirm the tool calls are proportional — no per-symbol call where a

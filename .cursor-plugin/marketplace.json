@@ -1,0 +1,16 @@
+{
+  "name": "stock-research-skills",
+  "owner": {
+    "name": "getlost01"
+  },
+  "metadata": {
+    "description": "Read-only research skills for Indian markets — stocks, mutual funds, bonds, and F&O over Groww's MCP server."
+  },
+  "plugins": [
+    {
+      "name": "stock-research-skills",
+      "source": "./plugins/stock-research-skills",
+      "description": "17 read-only skills for Indian market research via Groww's MCP server. Never places an order."
+    }
+  ]
+}

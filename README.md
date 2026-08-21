@@ -24,37 +24,84 @@ its specific invalidators, and whether you already hold the thing.
 
 ## Read-only by design
 
-Three independent layers, because one convention is not a guarantee:
+Three layers, and I'll be precise about what each one actually buys you:
 
-1. **Instruction** — `CLAUDE.md` states the hard rule: no order-placing,
-   modifying, or cancelling tool call, ever, regardless of how a request
-   is phrased.
+1. **Policy** — `reference/READ-ONLY-POLICY.md` states the hard rule as
+   absolute: no order-placing, modifying, or cancelling call, ever,
+   regardless of phrasing — and no workarounds either (no "dry run", no
+   assembling order params for you to paste).
 2. **Per-skill** — every `SKILL.md` restates the boundary for its own
-   asset class (including "no SIP start/stop/modify" and "no IPO
-   application").
-3. **Enforcement** — `.claude/settings.json` denies the order tools
-   outright, as a backstop rather than a promise.
+   asset class, including "no SIP start/stop/modify" and "no IPO
+   application".
+3. **A deny list you install** — the copy-paste block in the [plugin
+   README](plugins/stock-research-skills/README.md#setup-after-installing).
+
+Layers 1 and 2 are instructions a model follows. Layer 3 is the only one
+a machine enforces — and a plugin **cannot** ship it for you, because
+Claude Code deliberately ignores `permissions` in plugin-supplied
+settings. So please add it. This project won't claim to be technically
+incapable of trading when what's true is that it is instructed not to,
+thoroughly, and hands you the switch for the rest.
 
 Requests that imply execution ("buy 10 TCS") return analysis plus a note
-that you need to place it yourself.
+that you place it yourself.
 
 ## Install
 
-**Prerequisites:** [Claude Code](https://claude.com/claude-code), Node.js
-(for `npx`), and a Groww account.
+Available as a plugin for **Claude Code**, **Codex**, and **Cursor**.
+You'll need Node.js (for `npx`) and a Groww account.
 
-```bash
-git clone https://github.com/getlost01/stock-research-skills.git
-cd stock-research-skills
-cp PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md   # your plan; git-ignored
-claude
+### Claude Code
+
+```text
+/plugin marketplace add getlost01/stock-research-skills
+/plugin install stock-research-skills@stock-research-skills
 ```
 
-On first run, Claude Code starts the `growwmcp` MCP server from
-`.mcp.json` and Groww's OAuth flow opens in your browser. The token is
-cached afterwards, so this is a one-time step.
+### Codex
 
-Then just ask — the right skill triggers on intent:
+```bash
+codex plugin marketplace add getlost01/stock-research-skills
+codex plugin add stock-research-skills@stock-research-skills
+```
+
+After an update:
+
+```bash
+codex plugin marketplace upgrade stock-research-skills
+codex plugin add stock-research-skills@stock-research-skills
+```
+
+### Cursor
+
+Open **Cursor Settings**, find the plugins section, add this repo
+(`getlost01/stock-research-skills`) as a marketplace, then add the
+plugin.
+
+### Then: three setup steps
+
+**1. Authenticate Groww.** The plugin ships the `growwmcp` server config,
+so it appears on its own. First use opens Groww's OAuth flow in your
+browser; the token is cached afterwards.
+
+**2. Create your plan file** in the project where you'll use this, and
+ignore it:
+
+```bash
+cp "$CLAUDE_PLUGIN_ROOT/reference/PORTFOLIO-PLAN.example.md" ./PORTFOLIO-PLAN.md
+echo "PORTFOLIO-PLAN.md" >> .gitignore
+```
+
+**3. Add the read-only deny list** to your `.claude/settings.json` — the
+block is in the [plugin
+README](plugins/stock-research-skills/README.md#setup-after-installing).
+A plugin cannot ship enforced permissions, so this layer is yours to
+install, and it's the only one a machine enforces rather than an
+instruction the model follows.
+
+### Then just ask
+
+Skills trigger on intent — there's nothing to memorise:
 
 ```
 review my portfolio
@@ -64,10 +111,14 @@ should I continue my small-cap SIP?
 what does the rate outlook mean for my debt funds?
 ```
 
-**Want them in your own project instead?** Copy any
-`.claude/skills/<name>/` directory into your project's `.claude/skills/`,
-or into `~/.claude/skills/` to use it everywhere. Bring
-`RESEARCH-STANDARDS.md` along — the skills reference it by name.
+### Or run it from source
+
+```bash
+git clone https://github.com/getlost01/stock-research-skills.git
+cd stock-research-skills
+cp plugins/stock-research-skills/reference/PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md
+claude --plugin-dir ./plugins/stock-research-skills
+```
 
 ## The skills
 
@@ -133,11 +184,29 @@ consistent rather than each inventing its own method:
   `bond-ladder-planner`, `rate-watch`, and `sip-review`.
 - **`REPORT-TEMPLATES.md`** — one optional markdown scaffold per skill,
   for when you want a formal saveable report instead of a chat answer.
-- **`CLAUDE.md`** — the operating rules the agent reads on every run.
+- **`READ-ONLY-POLICY.md`** — the hard rule, read by every skill.
+
+All four live in `plugins/stock-research-skills/reference/`, and the
+skills reference them by that relative path.
 
 Saved reports land in `reports/` (git-ignored). Your filled-in
-`PORTFOLIO-PLAN.md` is git-ignored too — only the example is tracked, so
-your real financial data cannot leave your machine through this repo.
+`PORTFOLIO-PLAN.md` should be git-ignored too — only the `.example.md`
+template is tracked here, so no real financial data lives in this repo.
+
+## Repo layout
+
+```
+plugins/stock-research-skills/     the plugin — single source of truth
+  .claude-plugin/plugin.json       Claude Code manifest
+  .codex-plugin/plugin.json        Codex manifest
+  .cursor-plugin/plugin.json       Cursor manifest
+  .mcp.json                        growwmcp server config
+  skills/<name>/SKILL.md           the 17 skills
+  reference/                       the four shared docs above
+.claude-plugin/marketplace.json    makes this repo its own marketplace
+.cursor-plugin/marketplace.json
+.agents/plugins/marketplace.json
+```
 
 ## Data sources
 

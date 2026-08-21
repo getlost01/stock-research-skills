@@ -1,0 +1,20 @@
+{
+  "name": "stock-research-skills",
+  "interface": {
+    "displayName": "Stock Research Skills"
+  },
+  "plugins": [
+    {
+      "name": "stock-research-skills",
+      "source": {
+        "source": "local",
+        "path": "./plugins/stock-research-skills"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Research"
+    }
+  ]
+}
