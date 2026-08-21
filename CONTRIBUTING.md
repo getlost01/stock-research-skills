@@ -1,4 +1,4 @@
-# Contributing to Nivesh Desk
+# Contributing to Stock Research Skills
 
 Thanks for helping out. This project handles people's real money and real
 brokerage accounts, so it holds two rules above everything else.
@@ -117,6 +117,11 @@ prompts, here's the shape of the output" is enough — redact any real
 numbers.
 
 ## Pull requests
+
+`main` is protected: it takes no direct pushes, and every change lands
+through a pull request that needs an approving review, with review
+threads resolved before merge. Force-pushes and branch deletion are
+blocked outright.
 
 - Branch off `main`, one logical change per PR.
 - Keep prose wrapped to ~72–76 columns to match the existing files.

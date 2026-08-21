@@ -1,4 +1,4 @@
-# Nivesh Desk
+# Stock Research Skills
 
 **17 read-only [Claude Code](https://claude.com/claude-code) skills that
 turn Groww's MCP server into a research desk for Indian markets** —
@@ -44,8 +44,8 @@ that you need to place it yourself.
 (for `npx`), and a Groww account.
 
 ```bash
-git clone https://github.com/getlost01/nivesh-desk.git
-cd nivesh-desk
+git clone https://github.com/getlost01/stock-research-skills.git
+cd stock-research-skills
 cp PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md   # your plan; git-ignored
 claude
 ```
