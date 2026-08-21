@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__growwmcp__place_order",
+      "mcp__growwmcp__modify_order",
+      "mcp__growwmcp__cancel_order",
+      "mcp__growwmcp__place_gtt_order",
+      "mcp__growwmcp__execute_order",
+      "mcp__growwmcp__create_order",
+      "mcp__growwmcp__place_mutualfund_order",
+      "mcp__growwmcp__start_sip",
+      "mcp__growwmcp__cancel_sip",
+      "mcp__growwmcp__modify_sip"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+.env
+.env.local
+node_modules/
+*.log
+.DS_Store
+
+# Generated reports contain real portfolio/financial data — never commit
+reports/
+
+# Your filled-in plan holds real allocation/holdings/SIP data.
+# Only the template (PORTFOLIO-PLAN.example.md) is tracked.
+PORTFOLIO-PLAN.md
