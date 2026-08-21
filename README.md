@@ -31,11 +31,16 @@ codex plugin marketplace add getlost01/stock-research-skills
 codex plugin add stock-research-skills@stock-research-skills
 ```
 
-**Cursor** — open Cursor Settings, find the plugins section, add this repo
-(`getlost01/stock-research-skills`) as a marketplace, then add the plugin.
+**Cursor** 
+```js
+open Cursor Settings -> find the Plugins section -> add this repo
+(getlost01/stock-research-skills) as a Marketplace -> then add the Stock Research plugin.
+```
 
-Then three setup steps — authenticate Groww, create your plan file, and
-add the read-only deny list: **[Setup guide →](docs/install.md)**.
+**Note:** Once plugin setup, then do three setup steps — authenticate Groww, create your portfolio plan file, and
+add the read-only deny list in agents setting.
+
+**[Plugin & MCP Setup guide →](docs/install.md)**
 
 ### Then just ask
 
