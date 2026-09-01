@@ -1,4 +1,6 @@
-<img src="plugins/stock-research-skills/icon.svg" alt="" width="88" align="left" hspace="16" vspace="4">
+<p align="center">
+  <img src="plugins/stock-research-skills/icon.svg" alt="Stock Research Skills" width="96" height="96">
+</p>
 
 # Stock Research Skills
 

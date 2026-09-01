@@ -8,9 +8,21 @@
 
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
 
-  <!-- doji: upper and lower wicks, open == close so the body is a bar -->
-  <g stroke="#34D399" stroke-linecap="round" fill="none">
-    <line x1="256" y1="88" x2="256" y2="424" stroke-width="26"/>
-    <line x1="150" y1="256" x2="362" y2="256" stroke-width="34"/>
+  <!-- 1. red candle — the drawdown -->
+  <g fill="#F87171">
+    <rect x="136" y="248" width="10" height="150" rx="3"/>
+    <rect x="102" y="282" width="78" height="86" rx="4"/>
+  </g>
+
+  <!-- 2. green candle — recovery -->
+  <g fill="#34D399">
+    <rect x="252" y="182" width="10" height="168" rx="3"/>
+    <rect x="218" y="216" width="78" height="106" rx="4"/>
+  </g>
+
+  <!-- 3. green candle — continuation, higher -->
+  <g fill="#34D399">
+    <rect x="368" y="106" width="10" height="190" rx="3"/>
+    <rect x="334" y="140" width="78" height="126" rx="4"/>
   </g>
 </svg>
