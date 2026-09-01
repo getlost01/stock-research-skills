@@ -1,8 +1,8 @@
 # The skills
 
-All 19 are read-only and trigger on intent — you don't invoke them by
+All 22 are read-only and trigger on intent — you don't invoke them by
 name. Each one gives analysis and recommendations; you place any trade
-yourself in the Groww app.
+yourself in your broker's app.
 
 Every skill that produces a view inherits the recommendation-completeness
 checklist in [How it works](how-it-works.md): a verdict must state its
@@ -30,6 +30,7 @@ than inventing a target. It's the first thing to run.
 | `portfolio-review` | Full health check — holdings, allocation, performance vs. benchmark, concentration and overlap risk flags |
 | `rebalancing-planner` | Actual vs. target allocation from your plan, with concrete ₹-sized rebalancing moves |
 | `tax-capital-gains` | LTCG/STCG estimates, loss-harvesting candidates, positions near the 12-month threshold |
+| `trade-behavior-review` | Trade/order history as a behavior review — win rate, holding period, churn and cost, actual behavior vs. the plan's stated horizon |
 
 *"review my portfolio" · "am I over-weight anywhere?" · "what are my
 unrealized gains?"*
@@ -39,7 +40,9 @@ unrealized gains?"*
 | Skill | For |
 |---|---|
 | `stock-research` | Deep dive on one stock/ETF — fundamentals vs. a real peer set, multi-timeframe technicals, live news, portfolio fit |
+| `us-stock-research` | Deep dive on a US-listed stock — mostly web-sourced fundamentals/technicals (no US screener on any broker), plus currency and LRS-limit context |
 | `mutual-fund-analysis` | Fund deep dive or comparison — expense ratio vs. actual alpha, category rank, overlap with what you hold |
+| `mf-nav-attribution` | Estimate today's NAV move before it's published — last-disclosed holdings weighted by today's live constituent price changes |
 | `bond-analysis` | One bond/NCD/debt instrument — YTM vs. comparable G-Sec, credit rating and rationale, duration, liquidity |
 | `new-investment-screener` | Screen for ideas by theme or criteria, filtered against your concentration limits and existing exposure |
 | `ipo-analysis` | One IPO researched properly — RHP financials, implied valuation vs. listed peers, issue structure, subscribe/avoid with sizing |
@@ -75,7 +78,7 @@ leave open.
 rate cuts hit my gilt fund?"*
 
 Both read the fixed-income inventory in your `PORTFOLIO-PLAN.md` —
-Groww's MCP can't see direct bonds, FDs, or SGBs.
+no broker's MCP can see direct bonds, FDs, or SGBs.
 
 ## Market & derivatives
 

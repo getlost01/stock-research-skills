@@ -109,6 +109,65 @@ impact, diversification value]
 
 ---
 
+## US Stock Research — `us-stock-research`
+
+```markdown
+# US Research Note: [Ticker] — [date/time]
+
+## Verdict
+[Buy / Accumulate / Hold / Reduce / Avoid] — [one-line why] — Horizon: [X]
+
+## Snapshot
+Price: [$X] (as of [time], source: [live/web]) | [day/1M/1Y change] | Market cap: [X]
+
+## Fundamentals vs. peers (web-sourced — [source, date])
+| Metric | [Ticker] | Peer avg. | Sector range |
+|---|---|---|---|
+| P/E | | | |
+| Revenue growth | | | |
+| Operating margin | | | |
+
+## Technical read
+[or: "not available — no technical-indicator capability for US names"]
+
+## News
+- [outlet, date] — [headline/finding]
+
+## Currency & access
+INR/USD: [recent trend] | LRS headroom relevant to this size: [note]
+
+## Portfolio fit & position disclosure
+[existing US exposure, if any]
+
+## Key risks to this view
+- [2-3 specific invalidators]
+
+[disclosure block]
+```
+
+---
+
+## Trade Behavior Review — `trade-behavior-review`
+
+```markdown
+# Trade Behavior Review — [date/time]
+Window: [date range] | Source: Kite order/trade history
+
+## Headline metrics
+Win rate: [X%] | Avg win/loss ratio: [X] | Median holding period: [X days] | Trades: [X]
+
+## Flagged patterns
+- [repeated loss-making round trips, sizing-after-loss, loss concentration — with the trades behind each]
+
+## vs. plan
+Stated horizon ([PORTFOLIO-PLAN.md]): [X] | Actual median hold: [X] | Gap: [note]
+
+## [Coaching view, if any]
+[disclosure block]
+```
+
+---
+
 ## Mutual Fund Analysis — `mutual-fund-analysis`
 
 ```markdown
@@ -134,6 +193,28 @@ Category: [X] | Benchmark: [X] | Expense ratio: [X%] | AUM: [X] | Manager tenure
 - [e.g. manager change, category regulation, style rotation]
 
 [disclosure block]
+```
+
+---
+
+## MF NAV Attribution — `mf-nav-attribution`
+
+```markdown
+# NAV Estimate: [Fund name] — [date/time]
+
+Estimate only — not the AMC's published NAV, which strikes after market
+close. Holdings as of factsheet dated [date].
+
+## Constituent moves
+| Holding | Weight% | Today's %change | Contribution |
+|---|---|---|---|
+| | | | |
+
+## Estimate
+Coverage: [X%] of portfolio priced | Estimated NAV %change: [X%]
+(range: [X%]–[X%] if coverage gap treated as market-moving)
+
+[disclosure block, if a view is layered on top]
 ```
 
 ---

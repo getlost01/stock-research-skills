@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Stock Research Skills">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E293B"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- doji: upper and lower wicks, open == close so the body is a bar -->
+  <g stroke="#34D399" stroke-linecap="round" fill="none">
+    <line x1="256" y1="88" x2="256" y2="424" stroke-width="26"/>
+    <line x1="150" y1="256" x2="362" y2="256" stroke-width="34"/>
+  </g>
+</svg>

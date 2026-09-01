@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "stock-research-skills",
-  "description": "Read-only research skills for Indian markets — portfolio review, stock/mutual fund/bond analysis, earnings and SIP tracking, F&O and tax estimates over Groww's MCP server.",
+  "description": "Read-only research skills for Indian markets — portfolio review, stock/mutual fund/bond analysis, earnings and SIP tracking, F&O and tax estimates over your broker's MCP server (Groww, Zerodha, INDmoney, Upstox).",
   "owner": {
     "name": "getlost01",
     "url": "https://github.com/getlost01"
@@ -10,8 +10,8 @@
     {
       "name": "stock-research-skills",
       "source": "./plugins/stock-research-skills",
-      "description": "19 read-only skills for Indian market research via Groww's MCP server. Never places an order.",
-      "version": "1.0.2",
+      "description": "22 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order.",
+      "version": "1.0.5",
       "author": {
         "name": "getlost01",
         "url": "https://github.com/getlost01"
@@ -27,6 +27,9 @@
         "indian-markets",
         "portfolio",
         "groww",
+        "zerodha",
+        "indmoney",
+        "upstox",
         "read-only"
       ]
     }

@@ -23,7 +23,9 @@ each `SKILL.md` (restated per asset class), the deny list documented in
 `plugins/stock-research-skills/README.md` (which users install
 themselves, since a plugin cannot ship enforced permissions), and
 `.claude/settings.json` (which protects contributors working in this
-repo). If Groww ships a new order tool, adding its name to both deny
+repo). The per-broker write-tool enumeration in
+`reference/BROKER-CAPABILITIES.md` is part of the same boundary. If any
+wired broker ships a new order tool, adding its name to all of those
 lists is a very welcome PR.
 
 Never describe the plugin as technically unable to trade. It is
@@ -43,13 +45,18 @@ push.
 
 ## Ways to contribute
 
-- **New skill** — a job none of the 19 covers (see below).
+- **New skill** — a job none of the 22 covers (see below).
 - **Sharper analysis** — improvements to `RESEARCH-STANDARDS.md` are the
   highest-leverage change in the repo, since every skill inherits it.
-- **Tool coverage** — Groww's MCP gains and loses tools over time. Wiring
+- **Tool coverage** — broker MCPs gain and lose tools over time. Wiring
   a genuinely useful new read-only tool into the right skill is valuable,
   and so is correcting the **Tool availability** table in
-  `RESEARCH-STANDARDS.md` when a tool starts or stops working. Call the
+  `RESEARCH-STANDARDS.md` (Groww) or the capability map in
+  `BROKER-CAPABILITIES.md` (all brokers) when a tool starts or stops
+  working — verifying an unverified Zerodha/INDmoney/Upstox row against
+  a live account is one of the most useful small PRs right now. Adding a
+  whole broker: follow **Adding a new broker** in
+  `BROKER-RESEARCH.md`. Call the
   tool once and paste what it returned (redacted) in the PR — that table
   is only worth trusting if every row was verified against the live
   server.
@@ -66,10 +73,13 @@ plugins/stock-research-skills/
   .claude-plugin/plugin.json    Claude Code manifest
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
-  .mcp.json                     growwmcp server config
-  skills/<name>/SKILL.md        the 19 skills
+  .mcp.json                     broker MCP server configs
+  skills/<name>/SKILL.md        the 22 skills
   reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
-                                REPORT-TEMPLATES, PORTFOLIO-PLAN.example
+                                BROKER-CAPABILITIES (runtime),
+                                BROKER-RESEARCH (contributor-only),
+                                REPORT-TEMPLATES,
+                                PORTFOLIO-PLAN.example, BROKERS.example
 ```
 
 Root `.claude-plugin/`, `.cursor-plugin/`, and `.agents/plugins/`
@@ -123,7 +133,7 @@ A new skill should also get: a row in the root README table (in the right
 group), a mention in the plugin README's skill list, a `<skill-slug>`
 entry and usually a template in `reference/REPORT-TEMPLATES.md`, and new
 `reference/PORTFOLIO-PLAN.example.md` fields if it needs user context
-Groww's MCP can't provide.
+no broker's MCP can provide.
 
 **Don't add a skill that** overlaps an existing one (extend that one
 instead), needs write access to anything, or is really just a prompt

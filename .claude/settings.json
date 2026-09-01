@@ -10,7 +10,13 @@
       "mcp__growwmcp__place_mutualfund_order",
       "mcp__growwmcp__start_sip",
       "mcp__growwmcp__cancel_sip",
-      "mcp__growwmcp__modify_sip"
+      "mcp__growwmcp__modify_sip",
+      "mcp__kite__place_order",
+      "mcp__kite__modify_order",
+      "mcp__kite__cancel_order",
+      "mcp__kite__place_gtt_order",
+      "mcp__kite__modify_gtt_order",
+      "mcp__kite__delete_gtt_order"
     ]
   }
 }

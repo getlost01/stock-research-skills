@@ -3,6 +3,18 @@
     "growwmcp": {
       "command": "npx",
       "args": ["-y", "mcp-remote@0.1.38", "https://mcp.groww.in/mcp", "52155"]
+    },
+    "kite": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://mcp.kite.trade/mcp"]
+    },
+    "upstox": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://mcp.upstox.com/mcp"]
+    },
+    "indmoney": {
+      "type": "streamable-http",
+      "url": "https://mcp.indmoney.com/mcp"
     }
   }
 }

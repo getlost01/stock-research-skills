@@ -4,13 +4,13 @@
     "name": "getlost01"
   },
   "metadata": {
-    "description": "Read-only research skills for Indian markets — stocks, mutual funds, bonds, and F&O over Groww's MCP server."
+    "description": "Read-only research skills for Indian markets — stocks, mutual funds, bonds, and F&O over your broker's MCP server (Groww, Zerodha, INDmoney, Upstox)."
   },
   "plugins": [
     {
       "name": "stock-research-skills",
       "source": "./plugins/stock-research-skills",
-      "description": "19 read-only skills for Indian market research via Groww's MCP server. Never places an order."
+      "description": "22 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order."
     }
   ]
 }

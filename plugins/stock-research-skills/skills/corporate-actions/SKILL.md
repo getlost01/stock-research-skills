@@ -7,18 +7,22 @@ description: Track dividends, splits, bonuses, buybacks, rights issues, and deme
 
 Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (freshness, disclosure when a
-tender/don't-tender view is given) apply.
+tender/don't-tender view is given) apply. Steps below name capabilities —
+resolve each against `reference/BROKER-CAPABILITIES.md` for the
+broker(s) in `BROKERS.md`.
 
-Groww's MCP has no corporate-actions feed, so this is `WebSearch`-driven
-— NSE/BSE announcement pages primary, business press secondary —
-anchored to real holdings.
+No broker's MCP configured here has a corporate-actions feed, so this is
+`WebSearch`-driven — NSE/BSE announcement pages primary, business press
+secondary — anchored to real holdings.
 
 ## Steps
 
-1. **Scope to holdings.** `get_equity_portfolio_holdings` for equity and
-   ETFs, plus `PORTFOLIO-PLAN.md`'s fund list for fund-level actions like
-   scheme mergers (the MCP returns no fund data). Only search names
-   actually held unless the user names another.
+1. **Scope to holdings.** Equity holdings capability (every active
+   broker) for equity and ETFs, plus `PORTFOLIO-PLAN.md`'s fund list for
+   fund-level actions like scheme mergers (Groww returns no fund data;
+   INDmoney's holdings/MF capabilities may cover this, if active — see
+   unverified). Only search names actually held unless the
+   user names another.
 
 2. **Search announced and upcoming actions.** Date-anchored `WebSearch`
    against NSE/BSE announcements. Per action: type, ratio/amount,
@@ -31,7 +35,7 @@ anchored to real holdings.
    - **Split/bonus** — new qty and adjusted per-share cost. Bonus shares
      reset the holding-period clock on the bonus portion; flag the
      interplay with `tax-capital-gains`.
-   - **Buyback** — tender price vs. LTP (batched `get_ltp`), realistic
+   - **Buyback** — tender price vs. LTP (batched LTP capability), realistic
      acceptance ratio for small shareholders, tax treatment, and an
      explicit tender/don't-tender view per the completeness checklist.
      Check the plan's tax context and selling constraints first: a tender

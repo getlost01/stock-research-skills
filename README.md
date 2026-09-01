@@ -1,21 +1,28 @@
+<img src="plugins/stock-research-skills/icon.svg" alt="" width="88" align="left" hspace="16" vspace="4">
+
 # Stock Research Skills
 
-**19 read-only skills that turn Groww's MCP server into a research desk
-for Indian markets** — stocks, ETFs, mutual funds, bonds, and F&O.
-For [Claude Code](https://claude.com/claude-code), Codex, and Cursor.
+**22 read-only skills that turn your broker's MCP server into a research
+desk for Indian markets** — stocks, ETFs, mutual funds, bonds, and F&O.
+Works with **Groww**, **Zerodha (Kite)**, **INDmoney**, and **Upstox**
+out of the box, and is built to take any other broker that ships an MCP
+server. For [Claude Code](https://claude.com/claude-code), Codex, and
+Cursor.
 
-Not a trading bot. It never places, modifies, or cancels an order. It
-reads your real portfolio, pulls live market data and current news, and
-gives you structured analysis — you place any trade yourself in the Groww
-app.
+Not a trading bot. It never places, modifies, or cancels an order — on
+any broker. It reads your real portfolio, pulls live market data and
+current news, and gives you structured analysis — you place any trade
+yourself in your broker's app.
 
-> ⚠️ **Not investment advice.** Not affiliated with Groww, and not a
-> SEBI-registered Research Analyst or Investment Adviser.
+> ⚠️ **Not investment advice.** Not affiliated with Groww, Zerodha,
+> INDmoney, Upstox, or any other broker, and not a SEBI-registered
+> Research Analyst or Investment Adviser.
 > See [the disclaimer](docs/read-only.md#disclaimer).
 
 ## Install
 
-You'll need Node.js (for `npx`) and a Groww account.
+You'll need Node.js (for `npx`) and an account with at least one
+supported broker.
 
 **Claude Code**
 
@@ -37,8 +44,9 @@ open Cursor Settings -> find the Plugins section -> add this repo
 (getlost01/stock-research-skills) as a Marketplace -> then add the Stock Research plugin.
 ```
 
-**Note:** Once plugin setup, then do three setup steps — authenticate Groww, create your portfolio plan file, and
-add the read-only deny list in agents setting.
+**Note:** Once the plugin is installed, there are three setup steps —
+pick and authenticate your broker(s), create your portfolio plan file,
+and add the read-only deny list in your agent settings.
 
 **[Plugin & MCP Setup guide →](docs/install.md)**
 
@@ -54,13 +62,40 @@ should I continue my small-cap SIP?
 what does the rate outlook mean for my debt funds?
 ```
 
+## Supported brokers
+
+All four ship wired in `.mcp.json` and start automatically when the
+plugin is enabled — no hand-editing. Each connects over its own
+**official, hosted, read-only** MCP server; you authenticate through
+that broker's own OAuth flow, and this project never sees a credential.
+`BROKERS.md` picks which one(s) skills actually use.
+
+| | Broker | Strongest at | Tools |
+|---|---|---|---|
+| 📗 | **Groww** | Fundamentals + technical screeners, F&O greeks/OI, IPO listings, margin calculators | ✅ Verified live |
+| 📘 | **Zerodha (Kite)** | Order & trade history, GTTs, positions, MF holdings | 🟡 Doc-verified |
+| 📙 | **INDmoney** | Real mutual fund data, net-worth across all assets, option chain, US stocks | 🟡 Doc-verified |
+| 📕 | **Upstox** | Holdings, positions, order history, IPO applications | 🟡 Doc-verified |
+
+✅ exercised against a live account · 🟡 tool names confirmed from the
+broker's official docs/repo, not yet called against a real account —
+tracked in
+[`BROKER-RESEARCH.md`](plugins/stock-research-skills/reference/BROKER-RESEARCH.md).
+
+Skills call **capabilities** ("equity holdings", "LTP", "greeks"), not
+one broker's tool names — so a missing tool degrades gracefully to
+"not available from any active broker" instead of breaking, and adding
+a broker is a table column rather than a rewrite. Dhan, Fyers, 5paisa,
+Angel One and ICICI Direct were researched and deliberately **not**
+wired; the reasoning for each is in that same file.
+
 ## The skills
 
 | Group | Skills |
 |---|---|
 | **Planning** | `portfolio-plan-builder` |
-| **Portfolio** | `portfolio-review` · `rebalancing-planner` · `tax-capital-gains` |
-| **Research** | `stock-research` · `mutual-fund-analysis` · `bond-analysis` · `new-investment-screener` · `ipo-analysis` · `ipo-watch` |
+| **Portfolio** | `portfolio-review` · `rebalancing-planner` · `tax-capital-gains` · `trade-behavior-review` |
+| **Research** | `stock-research` · `us-stock-research` · `mutual-fund-analysis` · `mf-nav-attribution` · `bond-analysis` · `new-investment-screener` · `ipo-analysis` · `ipo-watch` |
 | **Ongoing ownership** | `earnings-watch` · `corporate-actions` · `dividend-income` · `sip-review` · `fund-house-watch` |
 | **Fixed income** | `bond-ladder-planner` · `rate-watch` |
 | **Market & F&O** | `market-pulse` · `fno-analysis` |

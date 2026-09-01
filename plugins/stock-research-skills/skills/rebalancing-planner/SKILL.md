@@ -7,7 +7,9 @@ description: Diff the user's actual allocation against their PORTFOLIO-PLAN.md t
 
 Read-only; suggestions only, never orders. `reference/READ-ONLY-POLICY.md`
 (hard rule) and `reference/RESEARCH-STANDARDS.md` (disclosure — this
-skill always produces recommendations) apply.
+skill always produces recommendations) apply. Works over whichever
+broker(s) `BROKERS.md` names active — resolve any capability against
+`reference/BROKER-CAPABILITIES.md`.
 
 ## Steps
 
@@ -19,31 +21,39 @@ skill always produces recommendations) apply.
    or stale section → say so and offer `portfolio-plan-builder`; never
    invent a target.
 
-2. **Pull actual holdings.** `get_equity_portfolio_holdings`, and
-   `get_my_trading_positions_today` / `get_specific_stock_position` if
-   the plan has a derivatives bucket. The MF sleeve comes from
-   `PORTFOLIO-PLAN.md` — the MCP returns no fund data, so if that section
-   is missing or stale the fund side of any target-vs-actual diff is
-   unknown; say so rather than treating the equity book as the whole
-   portfolio.
-   Mark everything to current market value via `get_ltp` /
-   `get_quotes_and_depth` — allocation is by current value, not cost.
+2. **Pull actual holdings.** Equity holdings capability, from every
+   active broker (a user split across brokers holds different things in
+   each — diff the union, not just one). Open F&O/intraday positions
+   capability if the plan has a derivatives bucket. The MF sleeve comes
+   from `PORTFOLIO-PLAN.md`, unless INDmoney is active and covers it
+   (net-worth/holdings capability — see `BROKER-CAPABILITIES.md`'s
+   unverified rows before relying on it); if neither, the fund
+   side of any target-vs-actual diff is unknown — say so rather than
+   treating the equity book as the whole portfolio.
+   Mark everything to current market value via LTP / quote+depth
+   capability — allocation is by current value, not cost.
 
 3. **Compute current allocation** by the plan's own buckets
    (large-cap / mid-small-cap / ETF / MF / F&O / cash) and by
-   single-stock and sector weight, using
-   `fetch_stocks_fundamental_data` / screener data for sector and
-   market-cap classification where needed.
+   single-stock and sector weight, using fundamentals/screener capability
+   for sector and market-cap classification where needed (Groww-only
+   today).
 
-4. **Diff against target:** bucket current % vs. target %, with the ₹ the
-   gap represents; single-stock and sector limits breached; any thesis
-   whose invalidator has been hit (a broken thesis changes what to trim
-   first); overlap between funds/ETFs, which counts against
-   diversification even when buckets look fine.
+4. **Diff against target:** bucket current % vs. target %, stated **both
+   in percentage points and in rupees** — "8pp over target, ~₹2.1L to
+   trim" reads as an action; "8% over" alone doesn't say how much money
+   moves. Single-stock and sector limits breached; any thesis whose
+   invalidator has been hit (a broken thesis changes what to trim first);
+   overlap between funds/ETFs, which counts against diversification even
+   when buckets look fine.
 
 5. **Suggest concrete moves**, sized in ₹ or % — "trim large-cap by ~₹X
    (N% over target)", "add ~₹Y to ETFs to close the gap" — for the user
-   to execute themselves in the Groww app.
+   to execute themselves in their broker's app. Before suggesting churn
+   on a marginal drift, weigh it against what moving actually costs:
+   STCG triggered on a recent lot, exit load, or brokerage/impact cost
+   eating a chunk of what the rebalance is meant to fix — flag it rather
+   than sizing the trade as if it were free.
 
 6. **Present:** target-vs-actual table first, then concentration and
    overlap flags, then the moves with brief reasoning each, then the

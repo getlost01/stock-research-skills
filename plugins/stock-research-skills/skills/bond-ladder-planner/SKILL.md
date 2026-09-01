@@ -9,12 +9,15 @@ Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (bond framework, external-source and
 freshness rules, disclosure) apply.
 
-Where `bond-analysis` judges one instrument, this plans the set. Groww's
-MCP exposes no direct-bond holdings: the inventory, tenor preference,
-credit floor, and reinvestment default all come from the **Fixed-income
-inventory** section of `PORTFOLIO-PLAN.md`. Debt funds come from there
-too — Groww's MCP returns no fund data (see **Tool availability** in
-`reference/RESEARCH-STANDARDS.md`).
+Where `bond-analysis` judges one instrument, this plans the set. Works
+over whichever broker(s) `BROKERS.md` names active — resolve any
+capability against `reference/BROKER-CAPABILITIES.md`. No broker
+configured there exposes direct-bond holdings: the inventory, tenor
+preference, credit floor, and reinvestment default all come from the
+**Fixed-income inventory** section of `PORTFOLIO-PLAN.md`. Debt funds
+come from there too, unless INDmoney is active and covers them (see
+**Tool availability** in `reference/RESEARCH-STANDARDS.md` and
+the unverified-row caveat in `BROKER-CAPABILITIES.md`).
 
 ## Steps
 

@@ -1,15 +1,16 @@
 ---
 name: portfolio-review
-description: Review the user's live Groww portfolio — allocation, risk, per-holding buy/hold/avoid views, rebalancing. Use when the user asks to review their portfolio, check allocation or diversification, get stock/ETF/MF suggestions, or rebalance. Read-only.
+description: Review the user's live brokerage portfolio — allocation, risk, per-holding buy/hold/avoid views, rebalancing. Use when the user asks to review their portfolio, check allocation or diversification, get stock/ETF/MF suggestions, or rebalance. Read-only.
 ---
 
 # Portfolio Review & Recommendations
 
-Read-only research over the user's live Groww account.
-`reference/READ-ONLY-POLICY.md` (hard rule) and
-`reference/RESEARCH-STANDARDS.md` (technical and peer frameworks for
-flagged holdings, data efficiency, completeness checklist, disclosure)
-apply.
+Read-only research over the user's live account(s), across whichever
+broker(s) `BROKERS.md` names as active. `reference/READ-ONLY-POLICY.md`
+(hard rule) and `reference/RESEARCH-STANDARDS.md` (technical and peer
+frameworks for flagged holdings, data efficiency, completeness checklist,
+disclosure) apply. Steps below name capabilities — resolve each against
+`reference/BROKER-CAPABILITIES.md` for your active broker's tool.
 
 ## Steps
 
@@ -20,31 +21,31 @@ apply.
    than a generic one. Missing or stale → say so and offer
    `portfolio-plan-builder`; don't assume a target.
 
-2. **Pull current state, always — never estimate holdings.**
-   `get_equity_portfolio_holdings`;
-   `get_my_trading_positions_today` / `get_specific_stock_position` for
-   open F&O or intraday positions where relevant. The MF sleeve comes
-   from `PORTFOLIO-PLAN.md` — Groww's MCP returns no fund data — so if
-   that section is missing or stale, review the equity book and say
+2. **Pull current state, always — never estimate holdings.** Equity
+   holdings capability, from every active broker (a user split across
+   Groww and Zerodha holds different things in each — don't read only
+   the first one); open F&O/intraday positions capability where
+   relevant. The MF sleeve comes from `PORTFOLIO-PLAN.md` unless
+   INDmoney is active (it has real MF holdings — check
+   `BROKER-CAPABILITIES.md`); if neither, review the equity book and say
    plainly that the fund side is out of view.
 
 3. **Enrich with market data**, per the data-efficiency rules: batch all
-   held symbols into **one** `get_ltp` call (check the holdings payload
-   first — it often carries LTP already), and pull per-name detail only
-   for holdings the analysis actually flags.
-   - `get_quotes_and_depth` only where spread/depth matters.
-   - `fetch_stocks_fundamental_data` / `fetch_fundamentals_screener` for
-     valuation, growth, quality — flagged and major holdings first.
-   - `get_historical_technical_indicators` (batch up to 10) /
-     `get_historical_candlestick_patterns` for flagged names.
-   - `fetch_market_movers_and_trending_stocks_funds` for market context.
-     ETF alternatives: `curate_symbols(entity_type='etf')` + `get_ltp`,
-     with fees and tracking error from the web —
-     `fetch_etf_screener` and `fetch_technical_screener` are both down
-     (see **Tool availability**).
-   - `fetch_historical_candle_data` for trend/drawdown checks, interval
-     matched to horizon.
-   - `resolve_market_time_and_calendar` where timing matters.
+   held symbols into **one** LTP call (check the holdings payload first —
+   it often carries LTP already), and pull per-name detail only for
+   holdings the analysis actually flags.
+   - Quote + depth only where spread/depth matters.
+   - Fundamentals (single-name / screener) for valuation, growth,
+     quality — flagged and major holdings first. Groww-only today.
+   - Technical indicators (batch up to 10) / candlestick patterns for
+     flagged names. Groww-only today.
+   - Market movers for context. ETF alternatives: symbol search filtered
+     to ETF + LTP, with fees and tracking error from the web — Groww's
+     ETF screener and technical screener are both down (see **Tool
+     availability**), and no other configured broker replaces them.
+   - Historical candles for trend/drawdown checks, interval matched to
+     horizon.
+   - Market calendar/timing capability where timing matters.
 
 4. **Analyze.**
    - **Allocation** — sector, market-cap, and asset-class concentration;

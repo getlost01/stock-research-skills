@@ -7,28 +7,35 @@ description: Screen for new stock, ETF, or fund ideas by theme, criteria, or a g
 
 Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (peer framework, mandatory news on
-finalists, disclosure) apply.
+finalists, disclosure) apply. Steps below name capabilities — resolve
+each against `reference/BROKER-CAPABILITIES.md` for the broker(s) in
+`BROKERS.md`. The fundamentals/technical screeners and market movers are
+Groww-only; if Groww isn't active, say so and build the starting universe
+from `WebSearch` instead of dropping the screen.
 
 ## Steps
 
 1. **Clarify the brief** if it's vague: theme/sector, criteria
    (value/growth/quality/dividend/momentum), instrument type, and roughly
-   how much they're deploying. Don't screen blind.
+   how much they're deploying. State the criteria **numerically** before
+   screening ("P/E < 20, ROE > 15%, 3Y revenue CAGR > 12%" — not
+   "reasonably valued growth") so the screen and the shortlist can both be
+   checked against the same bar. Don't screen blind.
 
-2. **Check what would actually help.** `get_equity_portfolio_holdings`
-   plus `PORTFOLIO-PLAN.md`'s target allocation and fund list (the MCP
-   returns no fund data) — is there a real underweight this screen
-   should target, or is the user exploring?
+2. **Check what would actually help.** Equity holdings capability (every
+   active broker) plus `PORTFOLIO-PLAN.md`'s target allocation and fund
+   list (Groww returns no fund data; INDmoney's holdings/net-worth
+   capability may, if active — unverified) — is there a
+   real underweight this screen should target, or is the user exploring?
 
-3. **Screen.** `fetch_fundamentals_screener` for fundamental criteria;
-   `curate_symbols` / `fetch_market_movers_and_trending_stocks_funds` for
-   an open-ended starting universe. Technical setups (breakouts,
-   momentum, oversold) can't be screened for — `fetch_technical_screener`
-   is down — so screen fundamentally or by mover list first, then read
-   the setups off `get_historical_technical_indicators` over the
-   shortlist, 10 names per call. ETFs: `curate_symbols(entity_type='etf')`
-   plus web-sourced fees and tracking error, since
-   `fetch_etf_screener` errors (see **Tool availability**).
+3. **Screen.** Fundamentals-screener capability against the stated
+   criteria; symbol search / market-movers capability for an open-ended
+   starting universe. Technical setups (breakouts, momentum, oversold)
+   can't be screened for — Groww's technical screener is down — so screen
+   fundamentally or by mover list first, then read the setups off the
+   technical-indicators capability over the shortlist, 10 names per call.
+   ETFs: symbol search filtered to ETF, plus web-sourced fees and tracking
+   error, since Groww's ETF screener errors (see **Tool availability**).
 
 4. **Filter out bad fits.** Drop anything that would breach the plan's
    concentration limits, sits on its **exclusions** list, or that the
@@ -38,9 +45,12 @@ finalists, disclosure) apply.
    exposure in a different wrapper.
 
 5. **Rank the shortlist** (3–7 ideas) with reasoning per pick, not
-   "screener said so". Pull `fetch_stocks_fundamental_data` /
-   `get_historical_technical_indicators` for the finalists so the picks
-   rest on real numbers rather than screener summary fields.
+   "screener said so". Pull single-name fundamentals for the finalists,
+   then run each through the full multi-timeframe technical framework in
+   `RESEARCH-STANDARDS.md` (trend/momentum/volatility/volume, not one
+   indicator) before it earns a spot — a name that screens well
+   fundamentally but is in a broken technical structure gets that noted,
+   not silently dropped or silently ranked top.
 
 6. **News on the finalists (mandatory).** One `WebSearch` per
    shortlisted name for anything that would change the pick — results
