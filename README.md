@@ -1,3 +1,5 @@
+<img src="plugins/stock-research-skills/icon.svg" alt="" width="88" align="left" hspace="16" vspace="4">
+
 # Stock Research Skills
 
 **22 read-only skills that turn your broker's MCP server into a research
@@ -59,6 +61,33 @@ which of my holdings report results this month?
 should I continue my small-cap SIP?
 what does the rate outlook mean for my debt funds?
 ```
+
+## Supported brokers
+
+All four ship wired in `.mcp.json` and start automatically when the
+plugin is enabled — no hand-editing. Each connects over its own
+**official, hosted, read-only** MCP server; you authenticate through
+that broker's own OAuth flow, and this project never sees a credential.
+`BROKERS.md` picks which one(s) skills actually use.
+
+| | Broker | Strongest at | Tools |
+|---|---|---|---|
+| 📗 | **Groww** | Fundamentals + technical screeners, F&O greeks/OI, IPO listings, margin calculators | ✅ Verified live |
+| 📘 | **Zerodha (Kite)** | Order & trade history, GTTs, positions, MF holdings | 🟡 Doc-verified |
+| 📙 | **INDmoney** | Real mutual fund data, net-worth across all assets, option chain, US stocks | 🟡 Doc-verified |
+| 📕 | **Upstox** | Holdings, positions, order history, IPO applications | 🟡 Doc-verified |
+
+✅ exercised against a live account · 🟡 tool names confirmed from the
+broker's official docs/repo, not yet called against a real account —
+tracked in
+[`BROKER-RESEARCH.md`](plugins/stock-research-skills/reference/BROKER-RESEARCH.md).
+
+Skills call **capabilities** ("equity holdings", "LTP", "greeks"), not
+one broker's tool names — so a missing tool degrades gracefully to
+"not available from any active broker" instead of breaking, and adding
+a broker is a table column rather than a rewrite. Dhan, Fyers, 5paisa,
+Angel One and ICICI Direct were researched and deliberately **not**
+wired; the reasoning for each is in that same file.
 
 ## The skills
 
