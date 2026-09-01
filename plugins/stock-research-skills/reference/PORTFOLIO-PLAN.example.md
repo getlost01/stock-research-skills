@@ -10,7 +10,7 @@ cp PORTFOLIO-PLAN.example.md PORTFOLIO-PLAN.md
 bonds, and SIP amounts stay on your machine. Never put real figures in
 this example file.
 
-This file is the shared memory the other 18 skills read from. Groww's MCP
+This file is the shared memory the other skills read from. Groww's MCP
 knows what you hold; only this file knows what you *intended* — targets,
 limits, theses, what you've already decided. Leave a section empty and
 the skills that depend on it will ask you for the same thing every
@@ -35,18 +35,18 @@ so in [Output preferences](#output-preferences).
 
 | Section | Read by | If left empty |
 |---|---|---|
-| [Target allocation](#target-allocation) | `rebalancing-planner`, `portfolio-review`, `new-investment-screener`, `sip-review` | No target to diff against — no over/under-weight analysis at all |
-| [Risk limits](#risk-limits) | `rebalancing-planner`, `portfolio-review`, `stock-research`, `new-investment-screener`, `ipo-watch`, `fno-analysis` | Concentration breaches go unflagged; new ideas aren't filtered |
-| [Rebalancing rules](#rebalancing-rules) | `rebalancing-planner`, `tax-capital-gains`, `sip-review` | Every small drift looks actionable; tax-aware sequencing impossible |
-| [Position theses](#position-theses) | `portfolio-review`, `earnings-watch`, `stock-research`, `corporate-actions` | "Why do I own this?" can't be answered; nothing to invalidate |
-| [Exclusions](#exclusions--constraints) | `new-investment-screener`, `ipo-watch`, `mutual-fund-analysis` | Screens keep surfacing names you've already ruled out |
-| [Fixed income](#fixed-income) + [inventory](#fixed-income-inventory) | `bond-ladder-planner`, `rate-watch`, `bond-analysis` | **Hard blocker** — MCP can't see direct bonds/FDs/SGBs at all |
+| [Target allocation](#target-allocation) | `rebalancing-planner`, `portfolio-review`, `new-investment-screener`, `sip-review`, `portfolio-stress-test`, `gold-and-commodity` | No target to diff against — no over/under-weight analysis at all |
+| [Risk limits](#risk-limits) | `rebalancing-planner`, `portfolio-review`, `stock-research`, `new-investment-screener`, `ipo-watch`, `fno-analysis`, `portfolio-stress-test`, `watchlist-monitor` | Concentration breaches go unflagged; new ideas aren't filtered; a stress test has nothing to fail against |
+| [Rebalancing rules](#rebalancing-rules) | `rebalancing-planner`, `tax-capital-gains`, `sip-review`, `gold-and-commodity` | Every small drift looks actionable; tax-aware sequencing impossible |
+| [Position theses](#position-theses) | `thesis-audit`, `portfolio-review`, `earnings-watch`, `stock-research`, `corporate-actions` | "Why do I own this?" can't be answered; nothing to invalidate |
+| [Exclusions](#exclusions--constraints) | `new-investment-screener`, `ipo-watch`, `mutual-fund-analysis`, `watchlist-monitor` | Screens keep surfacing names you've already ruled out |
+| [Fixed income](#fixed-income) + [inventory](#fixed-income-inventory) | `bond-ladder-planner`, `rate-watch`, `bond-analysis`, `gold-and-commodity`, `portfolio-stress-test` | **Hard blocker** — MCP can't see direct bonds/FDs/SGBs at all |
 | [SIP register](#sip-register) | `sip-review`, `fund-house-watch`, `mutual-fund-analysis`, `portfolio-review`, `rebalancing-planner`, `dividend-income` | The MCP returns **no** fund data — without this your entire mutual fund sleeve is invisible |
 | [Tax context](#tax-context) | `tax-capital-gains`, `rebalancing-planner`, `corporate-actions` | Harvesting advice is generic; can't net against your actual FY |
-| [Income goal](#income-goal) | `dividend-income`, `bond-ladder-planner` | Projected income has nothing to be measured against |
-| [Deployable capital](#deployable-capital) | `new-investment-screener`, `rebalancing-planner`, `ipo-watch`, `ipo-analysis`, `bond-ladder-planner` | Suggestions get sized by guesswork |
+| [Income goal](#income-goal) | `dividend-income`, `bond-ladder-planner`, `gold-and-commodity` | Projected income has nothing to be measured against |
+| [Deployable capital](#deployable-capital) | `new-investment-screener`, `rebalancing-planner`, `ipo-watch`, `ipo-analysis`, `bond-ladder-planner`, `watchlist-monitor`, `etf-tracking-quality`, `portfolio-stress-test` | Suggestions get sized by guesswork |
 | [IPO participation](#ipo-participation) | `ipo-analysis`, `ipo-watch` | Every issue gets researched at the same depth and sized by guesswork |
-| [Watchlist](#watchlist--themes) | `new-investment-screener`, `market-pulse`, `earnings-watch`, `ipo-watch` | Briefings can't tell you what you actually care about |
+| [Watchlist](#watchlist--themes) | `watchlist-monitor`, `new-investment-screener`, `market-pulse`, `earnings-watch`, `ipo-watch` | Briefings can't tell you what you actually care about; nothing tells you a trigger fired |
 | [Decision log](#decision-log) | all skills | Same suggestion re-made every session after you've declined it |
 | [Output preferences](#output-preferences) | all skills | Skills default to conversational answers, no saved reports |
 
@@ -134,10 +134,10 @@ contradicting each other.
 _Last reviewed: YYYY-MM-DD_
 
 One line per meaningful holding: why you own it, and what would make you
-stop. `portfolio-review` and `earnings-watch` check results and news
-against the **invalidator** column — without it they can only tell you
-the price moved. Top holdings first; no row needed for every ₹5,000
-position.
+stop. `thesis-audit` re-tests every row against live data, and
+`portfolio-review` / `earnings-watch` check results and news against the
+**invalidator** column — without it they can only tell you the price
+moved. Top holdings first; no row needed for every ₹5,000 position.
 
 | Holding | Bucket | Why held (thesis) | Invalidator | Target weight | Reviewed |
 |---|---|---|---|---|---|
@@ -292,8 +292,9 @@ unlisted company at a fifth of the portfolio.
 _Last reviewed: YYYY-MM-DD_
 
 Themes you want ideas in, and names you're waiting on. The `Trigger`
-column is what lets `market-pulse` and `earnings-watch` tell you when one
-is actually hit.
+column is what lets `watchlist-monitor` (which sweeps this whole table
+against live prices), `market-pulse` and `earnings-watch` tell you when
+one is actually hit — so make it a number or an event, not a feeling.
 
 | Name / theme | Why interested | Trigger to look again |
 |---|---|---|

@@ -47,5 +47,6 @@ not a trade log.
    Metrics-only sections carry no view and skip it.
 
 7. **Present:** headline metrics table, then flagged patterns with their
-   trades, then the plan comparison, then any coaching view. Never
+   trades, then the plan comparison, then any coaching view. Formal
+   version: `reference/templates/trade-behavior-review.md`. Never
    recommend placing, closing, or modifying anything.

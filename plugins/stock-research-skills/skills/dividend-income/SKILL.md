@@ -43,4 +43,4 @@ active — resolve each capability below against
 6. **Present:** total projected income and portfolio yield first, then
    the per-holding table (qty, DPS, projected ₹, yield, yield-on-cost,
    next ex-date), then flags, then any view with the disclosure block.
-   Formal version: Dividend Income in `reference/REPORT-TEMPLATES.md`.
+   Formal version: `reference/templates/dividend-income.md`.

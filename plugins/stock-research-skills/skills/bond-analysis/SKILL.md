@@ -49,5 +49,5 @@ from a broker live vs. the web; don't blur the two.
 
 6. **Present:** instrument facts first, labeled by source, then
    yield/spread/duration, then the view with the disclosure block — and
-   flag where external data is of unknown freshness. Formal version: Bond
-   Note in `reference/REPORT-TEMPLATES.md`.
+   flag where external data is of unknown freshness. Formal version:
+   `reference/templates/bond-analysis.md`.

@@ -60,6 +60,6 @@ silently either way.
    observations, then the caveat about verifying against your broker's
    official statement and consulting a CA. Close with the disclosure block too —
    this is estimate territory twice over, on data completeness *and* on
-   not being tax advice. Formal version: Capital Gains Snapshot in
-   `reference/REPORT-TEMPLATES.md`, which most users of this skill will
-   want.
+   not being tax advice. Formal version:
+   `reference/templates/tax-capital-gains.md`, which most users of this
+   skill will want.

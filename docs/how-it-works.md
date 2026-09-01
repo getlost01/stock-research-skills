@@ -16,7 +16,7 @@ out of that path.
 
 ### `RESEARCH-STANDARDS.md` — the rulebook
 
-The highest-leverage file in the repo: change it and all 22 skills
+The highest-leverage file in the repo: change it and all 27 skills
 change. It carries:
 
 **Recommendation completeness.** Any buy/hold/avoid/switch view must
@@ -101,9 +101,12 @@ flag a stale target the same way they flag stale news.
 Copy it to `PORTFOLIO-PLAN.md` in your own project and git-ignore it, or
 just ask for a plan and let `portfolio-plan-builder` do both.
 
-### `REPORT-TEMPLATES.md` — optional structure
+### `REPORT-TEMPLATES.md` + `templates/` — optional structure
 
-One markdown scaffold per skill, for when you want a saveable report
+One markdown scaffold per skill, in its own file under
+`reference/templates/`, with `REPORT-TEMPLATES.md` as the index carrying
+the naming and discipline rules — so a skill loads the one scaffold it
+needs rather than all twenty-six. For when you want a saveable report
 instead of a chat answer. A conversational answer is the default
 everywhere; templates are for when you asked for a report or the output
 has enough line items that structure genuinely helps. Saved reports go
@@ -149,7 +152,7 @@ plugins/stock-research-skills/     the plugin — single source of truth
   .codex-plugin/plugin.json        Codex manifest
   .cursor-plugin/plugin.json       Cursor manifest
   .mcp.json                        broker MCP server configs
-  skills/<name>/SKILL.md           the 22 skills
+  skills/<name>/SKILL.md           the 27 skills
   reference/                       the shared files above, incl.
                                    BROKER-CAPABILITIES.md and the
                                    BROKERS.example.md template

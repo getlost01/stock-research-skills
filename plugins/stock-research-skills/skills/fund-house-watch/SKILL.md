@@ -48,5 +48,5 @@ tool.
 4. **Present:** a per-AMC table (AMC, ₹ exposure, funds held, flag,
    finding + source/date), detail only for red and amber, then the
    disclosure block if a view was given. Cite outlet + date on every
-   claim — this skill is entirely news-derived. Formal version: Fund
-   House Watch in `reference/REPORT-TEMPLATES.md`.
+   claim — this skill is entirely news-derived. Formal version:
+   `reference/templates/fund-house-watch.md`.

@@ -60,5 +60,5 @@ broker(s) `BROKERS.md` names active — resolve any capability against
    disclosure block. Where a move is a specific instrument swap rather
    than a bucket adjustment, point to
    `stock-research`/`mutual-fund-analysis` first — a bucket gap doesn't
-   dictate which name fills it. Formal version: Rebalancing Plan in
-   `reference/REPORT-TEMPLATES.md`.
+   dictate which name fills it. Formal version:
+   `reference/templates/rebalancing-planner.md`.

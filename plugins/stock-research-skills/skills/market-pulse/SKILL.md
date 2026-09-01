@@ -41,4 +41,5 @@ say so and lean on `WebSearch` instead of dropping the section silently.
    scannable — a briefing, not a deep dive; point to `stock-research`
    for any specific name. Briefings are usually ephemeral, so a chat
    answer is the right default; the Market Pulse template in
-   `reference/REPORT-TEMPLATES.md` is there if the user wants one saved.
+   `reference/templates/market-pulse.md` is there if the user wants one
+   saved.

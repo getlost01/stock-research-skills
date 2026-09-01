@@ -45,7 +45,7 @@ push.
 
 ## Ways to contribute
 
-- **New skill** — a job none of the 22 covers (see below).
+- **New skill** — a job none of the 27 covers (see below).
 - **Sharper analysis** — improvements to `RESEARCH-STANDARDS.md` are the
   highest-leverage change in the repo, since every skill inherits it.
 - **Tool coverage** — broker MCPs gain and lose tools over time. Wiring
@@ -74,11 +74,12 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     broker MCP server configs
-  skills/<name>/SKILL.md        the 22 skills
+  skills/<name>/SKILL.md        the 27 skills
   reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
                                 BROKER-CAPABILITIES (runtime),
                                 BROKER-RESEARCH (contributor-only),
-                                REPORT-TEMPLATES,
+                                REPORT-TEMPLATES (index) +
+                                templates/<skill>.md,
                                 PORTFOLIO-PLAN.example, BROKERS.example
 ```
 
@@ -125,13 +126,16 @@ no data for this asset class. Conventions worth keeping:
    freshness rules, and the read-only boundary; a skill cites them, it
    doesn't restate them. Cut rationale that only re-explains its own
    instruction, and keep the report-template pointer to one clause
-   ("Formal version: Bond Note in `reference/REPORT-TEMPLATES.md`") —
-   that file already documents when to reach for a template and how
-   saved reports are named.
+   naming that skill's own file ("Formal version:
+   `reference/templates/bond-analysis.md`") — never the whole index, so
+   the agent loads one scaffold instead of twenty-six.
+   `reference/REPORT-TEMPLATES.md` already documents when to reach for a
+   template and how saved reports are named.
 
 A new skill should also get: a row in the root README table (in the right
-group), a mention in the plugin README's skill list, a `<skill-slug>`
-entry and usually a template in `reference/REPORT-TEMPLATES.md`, and new
+group), a mention in the plugin README's skill list, usually a
+`reference/templates/<skill>.md` scaffold plus its row and `<skill-slug>`
+in `reference/REPORT-TEMPLATES.md`, and new
 `reference/PORTFOLIO-PLAN.example.md` fields if it needs user context
 no broker's MCP can provide.
 

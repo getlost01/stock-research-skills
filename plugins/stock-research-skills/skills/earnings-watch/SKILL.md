@@ -55,5 +55,4 @@ are Groww-only today).
 5. **Present:** upcoming calendar first (date, name, portfolio weight),
    then reviewed results (one line each, detail only for flagged names),
    then views with the disclosure block. `stock-research` re-underwrites
-   a single name. Formal version: Earnings Watch in
-   `reference/REPORT-TEMPLATES.md`.
+   a single name. Formal version: `reference/templates/earnings-watch.md`.

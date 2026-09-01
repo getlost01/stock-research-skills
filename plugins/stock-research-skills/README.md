@@ -1,6 +1,6 @@
 # Stock Research Skills
 
-22 read-only skills that turn your broker's MCP server into a research
+27 read-only skills that turn your broker's MCP server into a research
 desk for Indian markets — stocks, ETFs, mutual funds, bonds, and F&O.
 Works with Groww, Zerodha (Kite), INDmoney, and Upstox out of the box.
 
@@ -86,16 +86,19 @@ am I over-weight anywhere versus my plan?
 **Planning** — `portfolio-plan-builder`
 
 **Portfolio** — `portfolio-review`, `rebalancing-planner`,
-`tax-capital-gains`, `trade-behavior-review`
+`portfolio-stress-test`, `tax-capital-gains`, `trade-behavior-review`
 
 **Research** — `stock-research`, `us-stock-research`,
-`mutual-fund-analysis`, `mf-nav-attribution`, `bond-analysis`,
-`new-investment-screener`, `ipo-analysis`, `ipo-watch`
+`mutual-fund-analysis`, `mf-nav-attribution`, `etf-tracking-quality`,
+`bond-analysis`, `new-investment-screener`, `watchlist-monitor`,
+`ipo-analysis`, `ipo-watch`
 
-**Ongoing ownership** — `earnings-watch`, `corporate-actions`,
-`dividend-income`, `sip-review`, `fund-house-watch`
+**Ongoing ownership** — `thesis-audit`, `earnings-watch`,
+`corporate-actions`, `dividend-income`, `sip-review`,
+`fund-house-watch`
 
-**Fixed income** — `bond-ladder-planner`, `rate-watch`
+**Fixed income & gold** — `bond-ladder-planner`, `rate-watch`,
+`gold-and-commodity`
 
 **Market & derivatives** — `market-pulse`, `fno-analysis`
 
@@ -116,8 +119,9 @@ Every skill inherits `reference/RESEARCH-STANDARDS.md`, which requires:
 - **News freshness** — date-anchored searches, last-30-days preference,
   outlet and date cited, and never presenting training data as current.
 
-`reference/REPORT-TEMPLATES.md` holds optional scaffolds for when you
-want a saveable report instead of a chat answer.
+`reference/REPORT-TEMPLATES.md` indexes the optional report scaffolds —
+one file per skill in `reference/templates/` — for when you want a
+saveable report instead of a chat answer.
 
 ## Not investment advice
 

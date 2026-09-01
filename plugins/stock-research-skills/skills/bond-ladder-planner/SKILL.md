@@ -49,5 +49,5 @@ the unverified-row caveat in `BROKER-CAPABILITIES.md`).
 
 6. **Present:** ladder table (year, ₹ maturing, instruments, locked
    yield), then flags, then moves, then the disclosure block and the
-   external-data freshness note. Formal version: Bond Ladder in
-   `reference/REPORT-TEMPLATES.md`.
+   external-data freshness note. Formal version:
+   `reference/templates/bond-ladder-planner.md`.

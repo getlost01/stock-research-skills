@@ -44,4 +44,4 @@ broker(s) `BROKERS.md` names active — resolve any capability against
    next MPC — sourced and dated), then per-holding implications, then any
    positioning view with the disclosure block. Briefing-length; deep
    instrument work goes to `bond-analysis` / `bond-ladder-planner`.
-   Formal version: Rate Watch in `reference/REPORT-TEMPLATES.md`.
+   Formal version: `reference/templates/rate-watch.md`.

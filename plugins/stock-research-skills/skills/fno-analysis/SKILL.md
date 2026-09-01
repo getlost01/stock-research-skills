@@ -50,4 +50,4 @@ capability (`kite`) is the main non-Groww source here.
    impact. Flag anything expiring soon or carrying outsized directional
    or theta risk relative to the account. Disclosure block when a view or
    strategy suggestion is given, not for a plain position lookup. Formal
-   version: F&O Position Review in `reference/REPORT-TEMPLATES.md`.
+   version: `reference/templates/fno-analysis.md`.
