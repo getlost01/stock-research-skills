@@ -119,8 +119,9 @@ Every skill inherits `reference/RESEARCH-STANDARDS.md`, which requires:
 - **News freshness** — date-anchored searches, last-30-days preference,
   outlet and date cited, and never presenting training data as current.
 
-`reference/REPORT-TEMPLATES.md` holds optional scaffolds for when you
-want a saveable report instead of a chat answer.
+`reference/REPORT-TEMPLATES.md` indexes the optional report scaffolds —
+one file per skill in `reference/templates/` — for when you want a
+saveable report instead of a chat answer.
 
 ## Not investment advice
 

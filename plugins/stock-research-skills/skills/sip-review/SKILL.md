@@ -61,6 +61,5 @@ no active INDmoney, there is nothing to review — say so and offer
 
 5. **Present:** one summary table first (fund, SIP ₹, vs. benchmark, rank
    trend, flag, verdict), then detail only for non-continue verdicts,
-   then set-level flags, then the disclosure block. Formal version: SIP
-   Review in `reference/REPORT-TEMPLATES.md` — worth saving for the next
-   review.
+   then set-level flags, then the disclosure block. Formal version:
+   `reference/templates/sip-review.md` — worth saving for the next review.

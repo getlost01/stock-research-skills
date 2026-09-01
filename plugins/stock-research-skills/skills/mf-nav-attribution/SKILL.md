@@ -47,7 +47,8 @@ expect to fall back to the AMC factsheet via `WebSearch`/`WebFetch`.
    disclosure date restated, closing with: estimate off a [date]
    portfolio, not the published NAV — check the AMC or AMFI after close.
    Disclosure block only if a view rides on top (e.g. "is this dip a
-   buy"); a bare mechanical estimate carries no view.
+   buy"); a bare mechanical estimate carries no view. Formal version:
+   `reference/templates/mf-nav-attribution.md`.
 
 7. **ETFs are the wrong target** — their live price already arbitrages
    in constituent moves, so quote the LTP instead of reconstructing it.

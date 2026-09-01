@@ -67,5 +67,5 @@ as a live broker one.
    AUM), then peer/benchmark comparison, then overlap flags, then the
    view with the disclosure block. One line up top on where the fund
    data came from — live via INDmoney, or web-sourced — since it's
-   rarely live Groww/Kite/Upstox data. Formal version: Fund Note in
-   `reference/REPORT-TEMPLATES.md`.
+   rarely live Groww/Kite/Upstox data. Formal version:
+   `reference/templates/mutual-fund-analysis.md`.

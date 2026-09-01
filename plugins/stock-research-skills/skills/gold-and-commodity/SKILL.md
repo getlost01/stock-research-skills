@@ -75,8 +75,8 @@ quoting a rate from memory.**
    premium/discount, tenor or maturity, coupon or TER. Then findings, then
    a view + horizon per instrument type (a maturing SGB and a costly ETF
    deserve different verdicts), the reference price and its date, and the
-   disclosure block. Formal version: Gold & Commodity Sleeve in
-   `reference/REPORT-TEMPLATES.md`.
+   disclosure block. Formal version:
+   `reference/templates/gold-and-commodity.md`.
 
 9. **Hand off.** `bond-ladder-planner` (SGB maturities are ladder rungs),
    `rate-watch` (real rates are the main driver), `rebalancing-planner`

@@ -65,5 +65,5 @@ broker's tool as unconfirmed until it returns data.
 
 5. **Present:** one-paragraph verdict up top, then supporting detail
    (fundamentals table, technical read, peer comparison, news, fit note),
-   then the disclosure block. Formal version: Research Note in
-   `reference/REPORT-TEMPLATES.md`.
+   then the disclosure block. Formal version:
+   `reference/templates/stock-research.md`.

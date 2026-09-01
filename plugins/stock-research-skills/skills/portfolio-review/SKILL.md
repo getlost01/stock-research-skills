@@ -77,9 +77,9 @@ disclosure) apply. Steps below name capabilities — resolve each against
 7. **Present.** Short summary first (portfolio value, overall skew, top
    2–3 findings), then detail; tables for holdings and allocation; data
    as-of noted since markets move; close with the disclosure block.
-   Formal version: Portfolio Review in `reference/REPORT-TEMPLATES.md` —
-   worth it when the holdings table is long. Point to the dedicated skill
-   for depth: `stock-research` for one name,
+   Formal version: `reference/templates/portfolio-review.md` — worth it
+   when the holdings table is long. Point to the dedicated skill for
+   depth: `stock-research` for one name,
    `mutual-fund-analysis`/`bond-analysis` per instrument type,
    `rebalancing-planner` for allocation moves, `fno-analysis` for
    derivatives, `tax-capital-gains` for gains and harvesting.

@@ -95,4 +95,4 @@ the issue.
    disclosure block. One line on which figures are live broker data
    (peers, holdings) and which are prospectus or press. Close by
    reminding the user they apply themselves, in their broker's app.
-   Formal version: IPO Note in `reference/REPORT-TEMPLATES.md`.
+   Formal version: `reference/templates/ipo-analysis.md`.

@@ -59,6 +59,6 @@ from `WebSearch` instead of dropping the screen.
 7. **Present:** shortlist table (name, the metrics matching the brief,
    one-line rationale, material news), then a short "why not others" if
    useful, then the disclosure block. These are ideas for the user to
-   evaluate and place themselves. Formal version: Screener Shortlist in
-   `reference/REPORT-TEMPLATES.md` — worth it for several candidates, not
-   for a two-name shortlist.
+   evaluate and place themselves. Formal version:
+   `reference/templates/new-investment-screener.md` — worth it for several
+   candidates, not for a two-name shortlist.

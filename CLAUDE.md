@@ -54,7 +54,9 @@ plugins/stock-research-skills/
     BROKER-CAPABILITIES.md      runtime: capability→tool map, write-tool deny list
     BROKER-RESEARCH.md          contributor-only: verification status, per-broker
                                 setup docs, rejected brokers, how to add one
-    REPORT-TEMPLATES.md         optional output scaffolds
+    REPORT-TEMPLATES.md         index of output scaffolds + naming rules
+    templates/<skill>.md        one scaffold per skill — read only the one
+                                you need, never the whole set
     PORTFOLIO-PLAN.example.md   template users copy
     BROKERS.example.md          template users copy — which broker(s) are active
 ```

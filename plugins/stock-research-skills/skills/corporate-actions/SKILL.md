@@ -47,5 +47,5 @@ secondary — anchored to real holdings.
 4. **Present:** a dated table first (action, name, type, key dates,
    per-holding ₹ impact), then detail only where a decision exists
    (tender, rights). Views carry the disclosure block; the user applies
-   or tenders themselves. Formal version: Corporate Actions in
-   `reference/REPORT-TEMPLATES.md`.
+   or tenders themselves. Formal version:
+   `reference/templates/corporate-actions.md`.

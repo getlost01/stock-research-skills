@@ -150,8 +150,9 @@ For an existing plan, audit rather than re-interview:
   decision-log rows due to revisit.
 - Fixed-income rows that have matured, and SIPs that changed.
 
-Present that as a short findings list, then offer to update only the rows
-that moved. A yearly full pass is worth it; a monthly one isn't.
+Present that as a short findings list — formal version:
+`reference/templates/portfolio-plan-builder.md` — then offer to update
+only the rows that moved. A yearly full pass is worth it; a monthly one isn't.
 
 ## Presentation
 

@@ -57,7 +57,7 @@ said they were waiting for.
    completeness checklist — including that the trigger firing is not
    itself a thesis — and the disclosure block; a sweep where nothing hit
    carries no view and needs no disclosure. Data as-of near the top.
-   Formal version: Watchlist Sweep in `reference/REPORT-TEMPLATES.md`.
+   Formal version: `reference/templates/watchlist-monitor.md`.
 
 7. **Hand off.** `stock-research` to actually underwrite a name that hit,
    `new-investment-screener` for theme rows, `earnings-watch` for

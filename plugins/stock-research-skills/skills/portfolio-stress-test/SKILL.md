@@ -79,8 +79,8 @@ web-sourced — state the method with the number, every time.
    ceiling**, and no probability is being assigned to any scenario. Then
    the scenario table, then breaches of stated limits, then positioning
    notes — scenario-framed with both branches, never a market prediction.
-   Data as-of near the top; disclosure block. Formal version: Stress Test
-   in `reference/REPORT-TEMPLATES.md`.
+   Data as-of near the top; disclosure block. Formal version:
+   `reference/templates/portfolio-stress-test.md`.
 
 9. **Hand off** for the fix: `rebalancing-planner` to size any reduction,
    `fno-analysis` for the derivatives leg, `bond-ladder-planner` for

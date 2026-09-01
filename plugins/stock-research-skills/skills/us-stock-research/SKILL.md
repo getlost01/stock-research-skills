@@ -49,5 +49,4 @@ use `stock-research` instead.
 8. **View + present:** verdict up top, then fundamentals/peer table,
    technicals (or their stated absence), news, currency/LRS, fit, then
    the disclosure block — noting it carries no US regulatory standing
-   either. Formal version: US Research Note in
-   `reference/REPORT-TEMPLATES.md`.
+   either. Formal version: `reference/templates/us-stock-research.md`.

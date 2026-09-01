@@ -70,7 +70,7 @@ re-test *is* the work — every thesis row, measured against a number.
    value, suggested action. Detail prose only for tripped/weakening rows,
    each meeting the completeness checklist; data as-of near the top;
    disclosure block, since a "thesis broken → consider reducing" is a
-   view. Formal version: Thesis Audit in `reference/REPORT-TEMPLATES.md`.
+   view. Formal version: `reference/templates/thesis-audit.md`.
 
 8. **Propose plan edits, don't write them** — rewritten invalidators,
    refreshed `Reviewed` dates, a thesis row for an unexplained holding.

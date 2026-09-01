@@ -72,8 +72,8 @@ error — expect the web for those, labelled and dated.
    tracking difference widening past a stated figure. Execution notes
    (limit orders near iNAV, avoid the first and last minutes) are
    analysis, not instruction: **the user places every trade themselves**,
-   and this skill places none. Disclosure block. Formal version: ETF
-   Tracking Note in `reference/REPORT-TEMPLATES.md`.
+   and this skill places none. Disclosure block. Formal version:
+   `reference/templates/etf-tracking-quality.md`.
 
 8. **Hand off.** `mutual-fund-analysis` for active funds and the
    index-fund route in depth, `gold-and-commodity` for gold/silver ETFs

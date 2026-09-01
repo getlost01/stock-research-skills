@@ -101,9 +101,12 @@ flag a stale target the same way they flag stale news.
 Copy it to `PORTFOLIO-PLAN.md` in your own project and git-ignore it, or
 just ask for a plan and let `portfolio-plan-builder` do both.
 
-### `REPORT-TEMPLATES.md` — optional structure
+### `REPORT-TEMPLATES.md` + `templates/` — optional structure
 
-One markdown scaffold per skill, for when you want a saveable report
+One markdown scaffold per skill, in its own file under
+`reference/templates/`, with `REPORT-TEMPLATES.md` as the index carrying
+the naming and discipline rules — so a skill loads the one scaffold it
+needs rather than all twenty-six. For when you want a saveable report
 instead of a chat answer. A conversational answer is the default
 everywhere; templates are for when you asked for a report or the output
 has enough line items that structure genuinely helps. Saved reports go
