@@ -14,7 +14,11 @@ screeners, ETF/MF/IPO details, market movers, calendar, and margin
 **calculators** — calculation only, never execution.
 
 Ask it to "buy 10 TCS" and you get the analysis, a clear recommendation,
-and a note that you place it yourself in the Groww app.
+and a note that you place it yourself in your broker's app.
+
+The rule spans every wired broker identically — Groww, Zerodha, INDmoney,
+Upstox, and any broker added later. The per-broker list of forbidden
+write tools lives in the plugin's `reference/BROKER-CAPABILITIES.md`.
 
 There are no workarounds either. A "dry run", a confirmation prompt, or
 assembling order parameters for you to paste would all defeat the point,
@@ -54,8 +58,9 @@ public issue.
 This software is for research and educational purposes only. It is
 **not** investment, financial, legal, or tax advice.
 
-- **Not affiliated** with, endorsed by, or connected to Groww or any of
-  its entities. "Groww" names the API this connects to, nothing more.
+- **Not affiliated** with, endorsed by, or connected to Groww, Zerodha,
+  INDmoney, Upstox, or any of their entities. Broker names here name the
+  APIs this can connect to, nothing more.
 - **Not a SEBI-registered Research Analyst or Investment Adviser.** This
   project borrows the *discipline* of that world — show your basis,
   disclose what you don't know, never imply assured returns — but not the
@@ -65,7 +70,7 @@ This software is for research and educational purposes only. It is
   Verify every number independently before acting on it.
 - **No return is assured or guaranteed.** Securities investments carry
   market risk, including loss of principal.
-- **Tax figures are rough estimates**, not filing-grade. Use Groww's
+- **Tax figures are rough estimates**, not filing-grade. Use your broker's
   official Capital Gains Statement and consult a qualified CA.
 - **You are solely responsible for your own trades.** Consider consulting
   a SEBI-registered investment adviser before acting on anything here.

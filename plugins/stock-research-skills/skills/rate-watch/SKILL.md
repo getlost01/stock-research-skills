@@ -8,7 +8,9 @@ description: Track the rate environment — RBI stance, repo path, G-Sec curve, 
 Read-only, and always tied back to what the user holds — not a generic
 economics note. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (freshness, RBI primary sources,
-disclosure when a positioning view is given) apply.
+disclosure when a positioning view is given) apply. Works over whichever
+broker(s) `BROKERS.md` names active — resolve any capability against
+`reference/BROKER-CAPABILITIES.md`.
 
 ## Steps
 
@@ -16,11 +18,13 @@ disclosure when a positioning view is given) apply.
    sources (RBI policy statements, CPI prints) over commentary — repo
    rate, latest MPC decision and stance, next MPC date; G-Sec yields at
    1Y/5Y/10Y and the curve's move since last policy; latest CPI vs.
-   RBI's band. `get_budget_announcement` in budget season, since
-   borrowing numbers move yields. Two or three searches is enough.
+   RBI's band. Budget-announcement capability (Groww-only) in budget
+   season, since borrowing numbers move yields. Two or three searches is
+   enough.
 
-2. **The user's exposure.** Debt funds from `PORTFOLIO-PLAN.md` (the MCP
-   returns no fund data), with duration category per fund
+2. **The user's exposure.** Debt funds from `PORTFOLIO-PLAN.md` (unless
+   INDmoney is active and covers them — see `BROKER-CAPABILITIES.md`),
+   with duration category per fund
    (liquid/short/gilt/long) — longer duration,
    bigger NAV swing per rate move; state direction and rough sensitivity.
    Direct bonds and FDs from `PORTFOLIO-PLAN.md`'s fixed-income

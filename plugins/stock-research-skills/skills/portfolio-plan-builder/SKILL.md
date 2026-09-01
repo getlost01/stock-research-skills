@@ -6,14 +6,19 @@ description: Build or update the user's PORTFOLIO-PLAN.md by interviewing them a
 # Portfolio Plan Builder
 
 Interview-driven setup and maintenance of `PORTFOLIO-PLAN.md` — the file
-every other skill reads for the user's *intent* that Groww's MCP can't
-know. `reference/READ-ONLY-POLICY.md` (hard rule) and
+every other skill reads for the user's *intent* that no broker's MCP can
+know. Works over whichever broker(s) `BROKERS.md` names active — resolve
+any capability against `reference/BROKER-CAPABILITIES.md`.
+`reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (frameworks, disclosure) apply.
 
 **Write scope.** The one skill that writes a file the user owns:
 `PORTFOLIO-PLAN.md` at their project root, from
 `reference/PORTFOLIO-PLAN.example.md`. Nothing else — never a broker
-action, never another file, never an edit the user hasn't seen.
+action, never another file, never an edit the user hasn't seen. (Note:
+`BROKERS.md` is a separate file the user edits themselves — this skill
+doesn't write it, and reads it only to know which broker(s) to pull
+grounding data from.)
 
 **A conversation, not a form.** The plan's value is the thinking it
 forces, so probe and push back — a plan recording whatever the user said
@@ -42,13 +47,13 @@ hold. Never dump the template as a questionnaire.
    `_Last reviewed:_` stamps.
 
 2. **Ground the interview in real data before asking anything.** One
-   batched pass — noting that this covers equity and ETFs only, since the
-   MCP has no mutual fund data: `get_equity_portfolio_holdings`,
-   `get_my_trading_positions_today`,
-   `get_available_margin_details`, one batched `get_ltp`, and
-   `fetch_stocks_fundamental_data` / screener data for sector and
-   market-cap classification. Compute the current bucket split, top-10
-   weights, and sector weights.
+   batched pass over every active broker — noting that this covers
+   equity and ETFs only unless INDmoney is active and its net-worth
+   capability is verified working (see `BROKER-CAPABILITIES.md`):
+   equity holdings, open F&O/intraday positions, available-margin, one
+   batched LTP call, and fundamentals/screener capability for sector and
+   market-cap classification (Groww-only today). Compute the current
+   bucket split, top-10 weights, and sector weights.
 
    This turns abstract questions concrete: not "what's your mid/small-cap
    target?" but "you're at 41% mid/small-cap today, mostly in three names
@@ -71,16 +76,17 @@ hold. Never dump the template as a questionnaire.
    4. **Rebalancing rules** — cadence, threshold, correction order, selling
       constraints, untouchables.
    5. **Fixed income + inventory** — targets, then the inventory table.
-      Say plainly that direct bonds/NCDs/FDs/SGBs are invisible to the
-      MCP, so this table is the only source of truth for
-      `bond-ladder-planner` and `rate-watch`.
+      Say plainly that direct bonds/NCDs/FDs/SGBs are invisible to every
+      broker's MCP configured here, so this table is the only source of
+      truth for `bond-ladder-planner` and `rate-watch`.
    6. **SIP register** — this is the whole mutual fund inventory, not
-      just SIP amounts: Groww's MCP returns no fund data whatsoever, so
-      ask for every fund held with units, average cost, and current
-      value, then the SIP rows on top. Say plainly that without this
-      table their fund sleeve is invisible to every skill and
-      `portfolio-review` will be reporting on the equity book alone. Flag
-      lump-sum-only funds and paused SIPs explicitly.
+      just SIP amounts: no broker's MCP has verified working fund data
+      today (Groww has none; INDmoney's is unverified — see
+      `BROKER-CAPABILITIES.md`), so ask for every fund held with units,
+      average cost, and current value, then the SIP rows on top. Say
+      plainly that without this table their fund sleeve is invisible to
+      every skill and `portfolio-review` will be reporting on the equity
+      book alone. Flag lump-sum-only funds and paused SIPs explicitly.
    7. **Tax context** — note where lot-level data isn't available rather
       than assuming.
    8. **Position theses** — for the top holdings, why held plus a

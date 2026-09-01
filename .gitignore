@@ -13,6 +13,10 @@ reports/
 .portfolio/
 PORTFOLIO-PLAN.md
 
+# Which broker MCP server(s) a user has active — only the template
+# (BROKERS.example.md) is tracked.
+BROKERS.md
+
 # The skills ship from plugins/stock-research-skills/skills/ — anything
 # that lands here is a local install or scratch copy, never the source.
 .claude/skills/

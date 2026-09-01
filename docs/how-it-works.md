@@ -6,14 +6,17 @@ most of what this project is. The mechanism is a shared rulebook every
 skill inherits, so discipline doesn't depend on each skill remembering
 to be careful.
 
-## The four shared files
+## The shared files
 
-All four live in `plugins/stock-research-skills/reference/`, and the
-skills reference them by that relative path.
+All live in `plugins/stock-research-skills/reference/`, and the skills
+reference them by that relative path. Only the runtime ones load on a
+skill run — `BROKER-RESEARCH.md` (verification status, per-broker setup
+docs, how to add a broker) is contributor-facing and deliberately kept
+out of that path.
 
 ### `RESEARCH-STANDARDS.md` — the rulebook
 
-The highest-leverage file in the repo: change it and all 19 skills
+The highest-leverage file in the repo: change it and all 22 skills
 change. It carries:
 
 **Recommendation completeness.** Any buy/hold/avoid/switch view must
@@ -26,15 +29,16 @@ risk"); **position disclosure** (do you already hold this or something
 overlapping — the analogue of a registered analyst's conflict
 disclosure); and the **data's as-of time**.
 
-**Tool availability.** Groww's MCP is a live third-party server and not
-all of its tools work — as of 21 Aug 2026 it returns no mutual fund data
-at all, and its ETF screener, technical screener, IPO-details and
-order-details tools are broken. The table names each one, the state it's
-in, and the substitute (usually `PORTFOLIO-PLAN.md` for what the user
-holds, plus labelled web sources for fund and prospectus facts). The rule
-around it matters more than the list: an unavailable input is a finding
-to report, never a gap to fill from training data, and a web-sourced
-figure never gets presented as a live Groww number.
+**Tool availability.** Broker MCPs are live third-party servers and not
+all of their tools work. Groww's dead tools live in a dedicated table —
+as of 21 Aug 2026 it returns no mutual fund data at all, and its ETF
+screener, technical screener, IPO-details and order-details tools are
+broken; the table names each one, the state it's in, and the substitute.
+The other brokers' coverage (and what's still unverified) lives in
+`BROKER-CAPABILITIES.md`. The rule around it matters more than the list:
+an unavailable input is a finding to report, never a gap to fill from
+training data, and a web-sourced figure never gets presented as a live
+broker number.
 
 **Delegated parsing.** Bulk mechanical work — a payload that overflows
 context, a broker statement, one field pulled from a dozen factsheets —
@@ -82,9 +86,10 @@ mapping each section to the skills that read it and what breaks when it's
 blank.
 
 Two tables carry more weight than they look like they should: the
-**fixed-income inventory** and the **SIP register**. Groww's MCP cannot
-see direct bonds, FDs, SGBs, or live SIP amounts, so those tables are the
-*only* source of truth for `bond-ladder-planner`, `rate-watch`, and
+**fixed-income inventory** and the **SIP register**. No wired broker's
+MCP can see direct bonds, FDs, or SGBs, and only INDmoney exposes live
+SIP data — so those tables are the source of truth for
+`bond-ladder-planner`, `rate-watch`, and (unless INDmoney is active)
 `sip-review`.
 
 Nothing here is ever guessed at. A missing section gets named out loud,
@@ -110,17 +115,24 @@ Read by every skill. See [Read-only boundary](read-only.md).
 
 ## Data sources
 
-Live account and market data comes from **`growwmcp`**, Groww's official
-MCP server at `https://mcp.groww.in/mcp`, bridged via `mcp-remote`
-(pinned — the OAuth token cache is version-scoped, so bumping the version
-forces a re-auth).
+Live account and market data comes from your broker's official MCP
+server — the plugin wires four: Groww (`https://mcp.groww.in/mcp`),
+Zerodha Kite (`https://mcp.kite.trade/mcp`), INDmoney
+(`https://mcp.indmoney.com/mcp`), and Upstox
+(`https://mcp.upstox.com/mcp`) — mostly bridged via `mcp-remote` (pinned
+— the OAuth token cache is version-scoped, so bumping the version forces
+a re-auth). Which broker(s) a session actually uses is your `BROKERS.md`;
+which broker covers which data is `reference/BROKER-CAPABILITIES.md`.
+The skills call capabilities ("holdings", "LTP", "greeks"), not one
+broker's tool names, which is what makes a new broker an additive table
+column rather than a rewrite.
 
-Groww's MCP has **no** earnings calendar, corporate-actions feed, bond
+No wired broker has an earnings calendar, corporate-actions feed, bond
 data, or news tool. Those gaps are filled by web search against Indian
 primary sources — NSE/BSE announcements, SEBI and RBI releases,
 rating-agency rationales, AMFI — with the business press secondary. The
 skills that lean on search say so and label every finding with its
-source and date, so you can tell live Groww numbers from external
+source and date, so you can tell live broker numbers from external
 research.
 
 A dedicated search MCP isn't needed for this: what's pulled from the web
@@ -136,9 +148,11 @@ plugins/stock-research-skills/     the plugin — single source of truth
   .claude-plugin/plugin.json       Claude Code manifest
   .codex-plugin/plugin.json        Codex manifest
   .cursor-plugin/plugin.json       Cursor manifest
-  .mcp.json                        growwmcp server config
-  skills/<name>/SKILL.md           the 19 skills
-  reference/                       the four shared files above
+  .mcp.json                        broker MCP server configs
+  skills/<name>/SKILL.md           the 22 skills
+  reference/                       the shared files above, incl.
+                                   BROKER-CAPABILITIES.md and the
+                                   BROKERS.example.md template
 .claude-plugin/marketplace.json    makes this repo its own marketplace
 .cursor-plugin/marketplace.json
 .agents/plugins/marketplace.json
@@ -152,8 +166,8 @@ same directory that gets published.
 ## Your data
 
 Nothing financial is stored in or transmitted through this repo.
-`reports/` and `PORTFOLIO-PLAN.md` are git-ignored (only the
-`.example.md` template is tracked), Groww auth happens in your own
-browser with the token cached locally in `~/.mcp-auth/`, and the plugin
+`reports/`, `PORTFOLIO-PLAN.md`, and `BROKERS.md` are git-ignored (only
+the `.example.md` templates are tracked), broker auth happens in your own
+browser with tokens cached locally in `~/.mcp-auth/`, and the plugin
 itself is markdown files — there's no server, no telemetry, and nothing
 that phones home.

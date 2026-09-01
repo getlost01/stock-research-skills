@@ -7,16 +7,18 @@ description: Project annual dividend income from the user's holdings — per-sto
 
 Read-only. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (data efficiency, freshness,
-disclosure) apply.
+disclosure) apply. Works over whichever broker(s) `BROKERS.md` names
+active — resolve each capability below against
+`reference/BROKER-CAPABILITIES.md`.
 
 ## Steps
 
-1. **Holdings + prices.** `get_equity_portfolio_holdings`, then one
-   batched `get_ltp` if that payload lacks current prices.
+1. **Holdings + prices.** Equity holdings capability, then one batched
+   LTP call if that payload lacks current prices.
 
-2. **Dividend data.** `fetch_stocks_fundamental_data` /
-   `fetch_fundamentals_screener` for yield and payout metrics;
-   date-anchored `WebSearch` fills gaps — trailing-12-month DPS,
+2. **Dividend data.** Fundamentals (single-name / screener) capability
+   for yield and payout metrics — Groww-only among the wired brokers
+   today; date-anchored `WebSearch` fills gaps — trailing-12-month DPS,
    declared-but-unpaid dividends and their ex-dates. Don't deep-search
    obvious non-payers; note them as such.
 
@@ -26,9 +28,11 @@ disclosure) apply.
    price); upcoming ex-dates in the next quarter as a dated list.
 
 4. **Sustainability flags** on the payers that dominate projected
-   income: payout ratio vs. earnings, cut/skip history, deteriorating
-   fundamentals funding the payout. A high yield produced by a falling
-   price is a warning — say so when the data shows it.
+   income: payout ratio vs. earnings *and* vs. free cash flow — a
+   dividend covered by earnings but not FCF is funded by working-capital
+   or debt tricks, not real cash generation; cut/skip history;
+   deteriorating fundamentals funding the payout. A high yield produced
+   by a falling price is a warning — say so when the data shows it.
 
 5. **Fit against the plan.** Where `PORTFOLIO-PLAN.md` states an income
    goal, compare and note the gap, including coupon/interest from the

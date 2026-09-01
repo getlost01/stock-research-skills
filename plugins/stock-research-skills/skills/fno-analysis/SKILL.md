@@ -7,34 +7,39 @@ description: Analyze the user's F&O positions and candidate trades — greeks, o
 
 Read-only, F&O included — no order placement, modification, or
 cancellation. `reference/READ-ONLY-POLICY.md` (hard rule) and
-`reference/RESEARCH-STANDARDS.md` (disclosure) apply.
+`reference/RESEARCH-STANDARDS.md` (disclosure) apply. Works over
+whichever broker(s) `BROKERS.md` names active — resolve each capability
+below against `reference/BROKER-CAPABILITIES.md`; Zerodha's positions
+capability (`kite`) is the main non-Groww source here.
 
 ## Steps
 
-1. **Current exposure.** `get_my_trading_positions_today` for open
-   intraday/F&O positions; `get_specific_stock_position` for a named
-   underlying. Resting-order status is unavailable — `get_order_details`
-   is broken (see **Tool availability**); say so and point the user at
-   the Groww order book rather than inferring status.
+1. **Current exposure.** Open intraday/F&O positions capability, across
+   every active broker with F&O exposure. Resting-order status: Groww's
+   is broken (`get_order_details`, see **Tool availability**); Kite's
+   order/trade-history capability works if active — otherwise say status
+   is unavailable and point the user at their broker's order book rather
+   than inferring it.
 
-2. **Contract/market data.** `fno_mcx_contracts_search_tool` to resolve
-   strike/expiry when the user names one loosely; `fetch_curated_fno` for
-   a curated liquid set; `get_quotes_and_depth` / `get_ltp` for live
-   pricing; `resolve_market_time_and_calendar` for expiry/settlement.
+2. **Contract/market data.** F&O contract search to resolve strike/expiry
+   when the user names one loosely; Groww's curated liquid F&O list;
+   quote + depth / LTP for live pricing; market calendar/timing
+   capability for expiry/settlement.
 
-3. **Risk/greeks.** `get_greeks_for_fno_contract` — delta, theta,
-   gamma, vega per position and aggregated, up to 20 contracts per call,
-   strikes resolved via `fno_mcx_contracts_search_tool`. Don't reach for
-   `get_greeks_for_fno_symbol`; it returns `[]` for everything.
-   `get_open_interest_analysis` for OI buildup/unwinding and PCR.
-   `get_atm_straddle_chart` for implied-move context.
+3. **Risk/greeks.** Greeks-per-contract capability — delta, theta, gamma,
+   vega per position and aggregated, up to 20 contracts per call on
+   Groww, strikes resolved via contract search. Groww's per-symbol greeks
+   tool is dead — don't reach for it; INDmoney's greeks-history
+   capability (`get_indian_stocks_greeks_history`, if active) is a
+   time-series alternative, not a like-for-like substitute. Open interest
+   analysis and ATM straddle chart are Groww-only.
 
-4. **Strategy shape.** `get_payoff_chart_steps` for an existing or
-   hypothetical position — max profit/loss, breakevens, and behaviour
-   under a hedge or adjustment the user is weighing.
+4. **Strategy shape.** Payoff chart capability (Groww-only) for an
+   existing or hypothetical position — max profit/loss, breakevens, and
+   behaviour under a hedge or adjustment the user is weighing.
 
-5. **Capital.** `calculate_fno_margin` for the requirement,
-   `get_available_margin_details` for headroom against it.
+5. **Capital.** F&O margin calculator (Groww-only) for the requirement;
+   available-margin capability (Groww or Kite) for headroom against it.
 
 6. **Event check (optional).** Worth a `WebSearch` for positions exposed
    to a known near-term event (RBI policy, budget, earnings before

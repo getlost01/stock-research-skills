@@ -7,22 +7,28 @@ description: Deep dive on one IPO — prospectus financials, valuation vs. liste
 
 Read-only. Never apply, bid, subscribe, or modify an application, however
 the request is phrased ("apply for me", "put in one lot") — that is an
-order. `reference/READ-ONLY-POLICY.md` (hard rule) and
+order, on any broker. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (peer framework, tool availability,
-mandatory news, disclosure) apply.
+mandatory news, disclosure) apply. Steps below name capabilities —
+resolve each against `reference/BROKER-CAPABILITIES.md` for the
+broker(s) in `BROKERS.md`. IPO listings, the fundamentals screener, and
+market calendar/timing are Groww-only today; if Groww isn't active, say
+those gaps plainly and lean on `WebSearch`/exchange filings instead of
+dropping the section.
 
 Where `ipo-watch` sweeps the calendar, this goes deep on one issue.
-`fetch_ipo_details` returns nothing, so almost everything below the basic
-facts is web-sourced — label it, date it, and prefer the RHP/DRHP over
-commentary about it. An IPO has no price history, no technicals, and no
-track record as a listed company: the whole verdict rests on the
-prospectus, the peer set, and the structure of the issue.
+Groww's IPO-details capability (`fetch_ipo_details`) is dead, so almost
+everything below the basic facts is web-sourced — label it, date it, and
+prefer the RHP/DRHP over commentary about it. An IPO has no price
+history, no technicals, and no track record as a listed company: the
+whole verdict rests on the prospectus, the peer set, and the structure of
+the issue.
 
 ## Steps
 
-1. **Anchor the issue.** `fetch_ipo_listings` with `view='open'` or
+1. **Anchor the issue.** IPO-listings capability, `view='open'` or
    `'upcoming'` (never `'all'`) for dates, price band, lot size and issue
-   size. `resolve_market_time_and_calendar` for how many days are left to
+   size. Market calendar/timing capability for how many days are left to
    bid and when allotment/listing fall. If the issue has already closed,
    say so first — the useful question becomes allotment and listing, not
    subscribe or avoid.
@@ -41,17 +47,21 @@ prospectus, the peer set, and the structure of the issue.
    nothing for the company; promoters and PE holders are selling),
    objects of the issue (capex and growth vs. repaying debt vs. "general
    corporate purposes"), post-issue promoter holding and any pledge,
-   pre-IPO placement pricing against the band, and lock-in expiry dates
-   that become supply later.
+   pre-IPO placement pricing against the band, and **anchor/promoter/
+   pre-IPO lock-in expiry dates** — name the exact dates and the number
+   of shares they release; a clean listing story with a large lock-in
+   cliff 30/90/180 days out is a supply risk the band price doesn't
+   price in.
 
 4. **Price it against listed peers.** This is the only live-data step:
-   `fetch_fundamentals_screener` for same-sector, comparable-market-cap
-   peers, then `fetch_stocks_fundamental_data` on ~5–8 of them, per the
-   peer framework. Compute the implied P/E, P/B and EV/EBITDA at both
-   ends of the band off the prospectus numbers and compare against the
-   peer median and the peers' own ranges. State the premium or discount
-   as a number, and whether anything in the business — growth, margins,
-   moat — actually justifies it.
+   fundamentals-screener capability for same-sector, comparable-market-cap
+   peers, then single-name fundamentals on ~5–8 of them, per the peer
+   framework. Compute the implied P/E, P/B and EV/EBITDA **at both the
+   lower and upper band price** off the prospectus numbers and compare
+   both against the peer median and the peers' own ranges — a two-column
+   table (lower band / upper band), not one blended number. State the
+   premium or discount at each end, and whether anything in the business
+   — growth, margins, moat — actually justifies it.
 
 5. **Demand and sentiment (mandatory news).** Date-anchored `WebSearch`:
    subscription figures by category so far (QIB / NII / retail — QIB
@@ -61,13 +71,13 @@ prospectus, the peer set, and the structure of the issue.
    plainly as informal, unregulated sentiment that predicts nothing*.
    Cite outlet and date; never state GMP as a return.
 
-6. **Portfolio fit.** `get_equity_portfolio_holdings` for real sector
-   exposure and concentration. Check `PORTFOLIO-PLAN.md`: the
-   **exclusions** list (an excluded name gets one line, not a research
-   report), sector and single-stock limits, and deployable capital —
-   an IPO application blocks funds until allotment, which matters if
-   money is already earmarked. `get_available_margin_details` for what's
-   actually free.
+6. **Portfolio fit.** Equity holdings capability (every active broker)
+   for real sector exposure and concentration. Check `PORTFOLIO-PLAN.md`:
+   the **exclusions** list (an excluded name gets one line, not a
+   research report), sector and single-stock limits, and deployable
+   capital — an IPO application blocks funds until allotment, which
+   matters if money is already earmarked. Available-margin capability
+   (Groww or Kite) for what's actually free.
 
 7. **View**, per the completeness checklist and with the two horizons
    kept apart, since they often disagree: a listing-day trade and a
@@ -80,8 +90,9 @@ prospectus, the peer set, and the structure of the issue.
 
 8. **Present:** facts first (dates, band, lot size, minimum outlay,
    fresh-vs-OFS), then financials, then implied valuation vs. peers as a
-   table, then structure flags, then demand and news, then the view with
-   the disclosure block. One line on which figures are live Groww data
+   two-column (lower/upper band) table, then lock-in expiry dates, then
+   structure flags, then demand and news, then the view with the
+   disclosure block. One line on which figures are live broker data
    (peers, holdings) and which are prospectus or press. Close by
-   reminding the user they apply themselves in Groww. Formal version: IPO
-   Note in `reference/REPORT-TEMPLATES.md`.
+   reminding the user they apply themselves, in their broker's app.
+   Formal version: IPO Note in `reference/REPORT-TEMPLATES.md`.

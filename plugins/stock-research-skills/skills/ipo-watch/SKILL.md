@@ -5,10 +5,13 @@ description: Sweep the IPO calendar — what's open, closing, upcoming, or await
 
 # IPO Watch
 
-Read-only — never apply, bid, or subscribe on the user's behalf.
-`reference/READ-ONLY-POLICY.md` (hard rule) and
+Read-only — never apply, bid, or subscribe on the user's behalf, on any
+broker. `reference/READ-ONLY-POLICY.md` (hard rule) and
 `reference/RESEARCH-STANDARDS.md` (tool availability, freshness,
-disclosure where a view results) apply.
+disclosure where a view results) apply. Steps below name capabilities —
+resolve each against `reference/BROKER-CAPABILITIES.md`. The IPO
+calendar and market calendar are Groww-only; if Groww isn't active, say
+so and fall back to `WebSearch` for the calendar rather than skipping it.
 
 This is the calendar sweep: what's live, what's next, what needs a
 decision this week. A single named issue the user is actually considering
@@ -16,14 +19,14 @@ goes to `ipo-analysis` — don't half-research one here.
 
 ## Steps
 
-1. **Pull the calendar.** `fetch_ipo_listings` with `view='open'` and
+1. **Pull the calendar.** IPO-listings capability, `view='open'` and
    `view='upcoming'` — never `view='all'`, which returns ~127K characters
    and overflows context. Use `view='closed'` only when the question is
    about a recent issue's allotment or listing. The payload carries dates,
-   price band, lot size and issue size; `fetch_ipo_details` is dead, so
-   don't reach for per-issue depth here.
+   price band, lot size and issue size; Groww's IPO-details capability is
+   dead, so don't reach for per-issue depth here.
 
-2. **Date it.** `resolve_market_time_and_calendar` — days left to bid on
+2. **Date it.** Market calendar/timing capability — days left to bid on
    each open issue, and which allotment or listing dates land next. What's
    closing in the next 48 hours leads the output; everything else is
    context.
@@ -31,9 +34,10 @@ goes to `ipo-analysis` — don't half-research one here.
 3. **Triage, don't research.** For each open or imminent issue: sector,
    issue size, and whether it's worth the user's attention at all. Screen
    out anything on `PORTFOLIO-PLAN.md`'s **exclusions** list in one line,
-   plus anything in a sector already at its plan limit given
-   `get_equity_portfolio_holdings`. SME issues get flagged as such —
-   thinner liquidity and a different risk profile from a mainboard issue.
+   plus anything in a sector already at its plan limit given the equity
+   holdings capability (every active broker). SME issues get flagged as
+   such — thinner liquidity and a different risk profile from a mainboard
+   issue.
 
 4. **News, lightly.** One date-anchored `WebSearch` across the current
    crop for subscription status and anything the business press has

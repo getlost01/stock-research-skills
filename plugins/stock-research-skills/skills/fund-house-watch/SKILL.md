@@ -8,16 +8,22 @@ description: Watch for AMC-level red flags behind the user's funds — manager e
 Read-only AMC surveillance. `reference/READ-ONLY-POLICY.md` (hard rule)
 and `reference/RESEARCH-STANDARDS.md` (freshness, tool availability,
 SEBI/AMFI primary sources, disclosure where a fund-level view results)
-apply. Groww's MCP exposes no fund data, so the watchlist comes from
-`PORTFOLIO-PLAN.md` and the findings are entirely news-derived.
+apply. Works over whichever broker(s) `BROKERS.md` names active — see
+`reference/BROKER-CAPABILITIES.md`. Groww exposes no fund data; if
+INDmoney is active its holdings/SIP capability can supply the AMC list
+directly (**unverified**, check the status table), otherwise the
+watchlist comes from `PORTFOLIO-PLAN.md`. Either way the findings
+themselves are entirely news-derived — no broker has an AMC-surveillance
+tool.
 
 ## Steps
 
-1. **Build the AMC list from the plan.** `PORTFOLIO-PLAN.md`'s holdings
-   and **SIP register** give the distinct fund houses, which of the
-   user's funds each carries, and how much ₹ — the MCP can't. Missing or
-   stale → ask which AMCs to watch, or offer `portfolio-plan-builder`.
-   Watch only these unless the user names another.
+1. **Build the AMC list.** From INDmoney's holdings/SIP capability if
+   active; otherwise `PORTFOLIO-PLAN.md`'s holdings and **SIP register**
+   give the distinct fund houses, which of the user's funds each
+   carries, and how much ₹ — no other broker here can. Missing or stale
+   → ask which AMCs to watch, or offer `portfolio-plan-builder`. Watch
+   only these unless the user names another.
 
 2. **Search per AMC.** Date-anchored `WebSearch`, one query per AMC
    ("<AMC> news fund manager SEBI <month year>"), a second only if

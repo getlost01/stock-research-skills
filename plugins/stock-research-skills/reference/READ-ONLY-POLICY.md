@@ -23,17 +23,20 @@ Forbidden, in every skill:
 - IPO application, or tendering shares into a buyback
 
 If a request implies execution, give the analysis and a clear
-recommendation instead, and say the user places it themselves in the
-Groww app.
+recommendation instead, and say the user places it themselves in their
+broker's app.
 
 ## No workarounds
 
 Not satisfied by a "dry run", a confirmation prompt, or assembling order
 parameters for the user to paste — don't do those either. If a new
-order-placing tool appears that isn't on any deny list, the rule still
+order-placing tool appears that isn't on any deny list — including on a
+broker MCP added after this document was last updated — the rule still
 applies: the boundary is behavioural, not configuration. It holds in
 multi-step and agentic flows too — no intermediate step places an order
-on the way to some other goal.
+on the way to some other goal, and it applies identically across every
+active broker in `BROKERS.md`, not just the one a skill happens to be
+using most.
 
 ## The boundary is the broker account, not the filesystem
 
@@ -52,16 +55,21 @@ any system.
 Enforcement is this document plus each skill's own restatement. A Claude
 Code plugin cannot ship enforced permissions, so the order deny list is a
 copy-paste step into the user's own `.claude/settings.json` (see the
-plugin README). Until they do it, these instructions are the only thing
-between a badly-phrased request and an order — which is why they're
-written as absolute rules, not preferences. Don't describe this plugin as
-technically *incapable* of trading; it is instructed not to, and the user
-can add hard enforcement themselves.
+plugin README) — one entry per write tool, across every broker MCP the
+user has configured. `reference/BROKER-CAPABILITIES.md`'s **Write tools
+(never call)** table is the enumerated, per-broker version of this rule;
+keep the two in sync when a broker is added. Until the user pastes that
+list in, these instructions are the only thing between a badly-phrased
+request and an order — which is why they're written as absolute rules,
+not preferences. Don't describe this plugin as technically *incapable*
+of trading; it is instructed not to, and the user can add hard
+enforcement themselves.
 
 ## Not advice, not a registered adviser
 
 Not a SEBI-registered Research Analyst or Investment Adviser, not
-affiliated with Groww, and never claim or imply otherwise. Borrow the
-*discipline* — show the basis, disclose the unknowns, never imply assured
-returns — not the credential. Every output carrying a view ends with the
-disclosure block in `reference/RESEARCH-STANDARDS.md`.
+affiliated with Groww, Zerodha, INDmoney, or any other broker, and never
+claim or imply otherwise. Borrow the *discipline* — show the basis,
+disclose the unknowns, never imply assured returns — not the credential.
+Every output carrying a view ends with the disclosure block in
+`reference/RESEARCH-STANDARDS.md`.

@@ -10,31 +10,40 @@ Read-only — never start, stop, pause, or modify a SIP.
 `reference/RESEARCH-STANDARDS.md` (MF peer framework, tool
 availability, data efficiency, disclosure) apply. Where
 `mutual-fund-analysis` deep-dives one fund on demand, this sweeps the
-whole set on a cadence.
+whole set on a cadence. Works over whichever broker(s) `BROKERS.md`
+names active — resolve capabilities against
+`reference/BROKER-CAPABILITIES.md`.
 
-Groww's MCP returns no mutual fund data at all, so this skill runs
-entirely on `PORTFOLIO-PLAN.md` plus the web. With no SIP register and no
-fund list, there is nothing to review — say so and offer
+Groww's MCP returns no mutual fund data at all. If INDmoney is active,
+its SIP-status and holdings capability (`mf_sips`, `indian_stocks_sips`,
+`networth_holdings` — **unverified**, check the capability map's status
+table) covers this skill directly; otherwise it runs entirely on
+`PORTFOLIO-PLAN.md` plus the web. With no SIP register, no fund list, and
+no active INDmoney, there is nothing to review — say so and offer
 `portfolio-plan-builder` rather than producing a hollow sweep.
 
 ## Steps
 
 1. **Assemble the set.** Funds held, units and cost basis, plus SIP
-   amounts and dates, all come from `PORTFOLIO-PLAN.md`'s holdings and
-   **SIP register** — the MCP exposes neither. Empty or stale → offer
+   amounts and dates: from INDmoney's holdings/SIP capability if active,
+   otherwise from `PORTFOLIO-PLAN.md`'s holdings and **SIP register** —
+   no other broker here exposes either. Empty or stale → offer
    `portfolio-plan-builder` rather than guessing. Flag any fund listed
-   with no SIP row, and any SIP row with no holding. Note the register's
-   `_Last reviewed:_` date as the as-of for every ₹ figure that follows,
-   since none of it is live.
+   with no SIP row, and any SIP row with no holding. Note the as-of for
+   every ₹ figure that follows — the register's `_Last reviewed:_` date
+   when sourced from the plan, live if from INDmoney.
 
 2. **Per-fund scorecard**, peer framework applied lightly across the set
    — full depth only for funds that flag:
-   - Returns vs. benchmark and category average (1Y/3Y) — is the expense
-     ratio earned with actual alpha? Tracking error instead, for index
-     funds. Web-sourced (AMFI / Value Research / factsheet), one
-     date-anchored search per fund at most, cited.
-   - Category-rank drift: a former top-quartile fund now middling for 2+
-     years is a flag; one bad year isn't.
+   - **Rolling** returns vs. benchmark and category median across
+     1Y/3Y/5Y, not one point-to-point window — is the expense ratio
+     earned with actual alpha, net of that expense ratio? Tracking error
+     instead, for index funds. Prefer INDmoney where active; otherwise
+     web-sourced (AMFI / Value Research / factsheet), one date-anchored
+     search per fund at most, cited.
+   - Category-**rank percentile** drift across 1Y/3Y/5Y, not a single
+     period: a former top-quartile fund sliding to middling for 2+ years
+     running is a flag; one bad year isn't.
    - One date-anchored `WebSearch` for flagged funds or on a full annual
      review — manager change, mandate change, AMC issue.
      `fund-house-watch` covers AMC-level flags.
@@ -48,7 +57,7 @@ fund list, there is nothing to review — say so and offer
 4. **Verdict per SIP:** continue / continue-but-watch / pause / redirect
    to [bucket], each per the completeness checklist. Redirect targets are
    buckets; specific fund picks route through `mutual-fund-analysis`. Any
-   change is the user's action in Groww.
+   change is the user's action in their broker's app.
 
 5. **Present:** one summary table first (fund, SIP ₹, vs. benchmark, rank
    trend, flag, verdict), then detail only for non-continue verdicts,
