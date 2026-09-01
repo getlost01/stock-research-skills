@@ -45,7 +45,7 @@ push.
 
 ## Ways to contribute
 
-- **New skill** — a job none of the 22 covers (see below).
+- **New skill** — a job none of the 27 covers (see below).
 - **Sharper analysis** — improvements to `RESEARCH-STANDARDS.md` are the
   highest-leverage change in the repo, since every skill inherits it.
 - **Tool coverage** — broker MCPs gain and lose tools over time. Wiring
@@ -74,7 +74,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     broker MCP server configs
-  skills/<name>/SKILL.md        the 22 skills
+  skills/<name>/SKILL.md        the 27 skills
   reference/                    READ-ONLY-POLICY, RESEARCH-STANDARDS,
                                 BROKER-CAPABILITIES (runtime),
                                 BROKER-RESEARCH (contributor-only),

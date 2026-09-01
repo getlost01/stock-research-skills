@@ -10,7 +10,7 @@
     {
       "name": "stock-research-skills",
       "source": "./plugins/stock-research-skills",
-      "description": "22 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order."
+      "description": "27 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order."
     }
   ]
 }

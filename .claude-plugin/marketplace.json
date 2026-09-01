@@ -10,8 +10,8 @@
     {
       "name": "stock-research-skills",
       "source": "./plugins/stock-research-skills",
-      "description": "22 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order.",
-      "version": "1.0.5",
+      "description": "27 read-only skills for Indian market research (plus one US-stock skill) via your broker's MCP server (Groww, Zerodha, INDmoney, Upstox). Never places an order.",
+      "version": "1.1.0",
       "author": {
         "name": "getlost01",
         "url": "https://github.com/getlost01"

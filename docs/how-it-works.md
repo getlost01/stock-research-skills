@@ -16,7 +16,7 @@ out of that path.
 
 ### `RESEARCH-STANDARDS.md` — the rulebook
 
-The highest-leverage file in the repo: change it and all 22 skills
+The highest-leverage file in the repo: change it and all 27 skills
 change. It carries:
 
 **Recommendation completeness.** Any buy/hold/avoid/switch view must
@@ -149,7 +149,7 @@ plugins/stock-research-skills/     the plugin — single source of truth
   .codex-plugin/plugin.json        Codex manifest
   .cursor-plugin/plugin.json       Cursor manifest
   .mcp.json                        broker MCP server configs
-  skills/<name>/SKILL.md           the 22 skills
+  skills/<name>/SKILL.md           the 27 skills
   reference/                       the shared files above, incl.
                                    BROKER-CAPABILITIES.md and the
                                    BROKERS.example.md template

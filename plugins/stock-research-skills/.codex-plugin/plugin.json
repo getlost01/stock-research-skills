@@ -1,7 +1,7 @@
 {
   "name": "stock-research-skills",
-  "description": "22 read-only skills for Indian market research (plus one US-stock skill) over your broker's MCP server (Groww, Zerodha, INDmoney, Upstox) — portfolio planning, portfolio review, stock/mutual fund/bond analysis, earnings and corporate-action tracking, SIP review, F&O, and tax estimates. Never places, modifies, or cancels an order.",
-  "version": "1.0.5",
+  "description": "27 read-only skills for Indian market research (plus one US-stock skill) over your broker's MCP server (Groww, Zerodha, INDmoney, Upstox) — portfolio planning, portfolio review, stock/mutual fund/bond analysis, earnings and corporate-action tracking, SIP review, F&O, and tax estimates. Never places, modifies, or cancels an order.",
+  "version": "1.1.0",
   "author": {
     "name": "getlost01"
   },

@@ -21,7 +21,8 @@ directory on first use.
 
 - `<skill-slug>`: the skill's own name, shortened where obvious
   (`mutual-fund`, `bond`, `rebalancing`, `fno`, `screener`, `ipo`,
-  `bond-ladder`, `fund-house`, `plan-audit`).
+  `bond-ladder`, `fund-house`, `plan-audit`, `thesis`, `watchlist`,
+  `stress-test`, `gold`, `etf`).
 - `<subject-slug>`: the symbol/fund/topic in kebab-case (`tcs`,
   `hdfc-flexicap`, `full-portfolio`); omit for portfolio-wide reports.
 - Date generated, not the data's as-of time.
@@ -60,6 +61,36 @@ latest data, not a version history.
 
 ## See also
 [stock-research / rebalancing-planner / tax-capital-gains as relevant]
+
+[disclosure block]
+```
+
+---
+
+## Thesis Audit — `thesis-audit`
+
+```markdown
+# Thesis Audit — [date/time]
+Theses last reviewed: [per-row dates] | Holdings as of [date/time]
+
+## Status
+Intact: [N] · Weakening: [N] · Tripped: [N] · Untestable: [N] · Stale: [N]
+
+## Theses
+| Holding | Weight | Thesis (short) | Invalidator | Status | Measured value |
+|---|---|---|---|---|---|
+
+## Tripped / weakening — detail
+[per row: what was measured, how far from the invalidator, view + horizon,
+key risks. Price move and thesis status stated separately]
+
+## Reconciliation
+[theses for positions no longer held · material holdings with no thesis ·
+actual vs. target weight]
+
+## Proposed plan edits
+[rewritten invalidators, refreshed Reviewed dates — for
+portfolio-plan-builder to write]
 
 [disclosure block]
 ```
@@ -197,6 +228,38 @@ Category: [X] | Benchmark: [X] | Expense ratio: [X%] | AUM: [X] | Manager tenure
 
 ---
 
+## ETF Tracking Note — `etf-tracking-quality`
+
+```markdown
+# ETF Tracking Note: [index] — [date/time]
+Intended order size: [₹X, frequency] | Fees/tracking: [source, date]
+
+## Candidates (same index)
+| Vehicle | TER | Tracking difference 1Y/3Y | Tracking error | AUM | Spread (bps) | Prem/disc to iNAV |
+|---|---|---|---|---|---|---|
+
+## All-in annual drag
+[TER + tracking difference + amortised round-trip cost at the stated
+order size, per finalist]
+
+## Structure flags
+[AUM trend · ETF vs. index fund vs. FoF at this order size · dividend
+handling]
+
+## Portfolio fit
+[same-index duplication with existing holdings, target bucket]
+
+## Verdict
+[vehicle] at [order size] — Horizon: [X] — basis: [the drag numbers]
+
+## Key risks to this view
+- [rival TER cut, AUM through a threshold, tracking difference widening past X]
+
+[disclosure block]
+```
+
+---
+
 ## MF NAV Attribution — `mf-nav-attribution`
 
 ```markdown
@@ -267,6 +330,42 @@ Issuer: [X] | Rating: [X, agency, outlook] | Coupon: [X%] | Maturity: [X] | Type
 
 ---
 
+## Stress Test — `portfolio-stress-test`
+
+```markdown
+# Stress Test — [date/time]
+
+## Assumptions
+Single-factor shocks, no probability assigned to any scenario.
+Correlations rise in a real drawdown — treat every figure as a floor,
+not a ceiling. Beta/drawdown method: [derived from candles, window / web-sourced,
+source+date]. Max drawdown per PORTFOLIO-PLAN.md: [X%]
+
+## Scenarios
+| Scenario | Est. ₹ hit | % of portfolio | Post-shock allocation shift | Limit breached? |
+|---|---|---|---|---|
+| Equity −10 / −20 / −30% | | | | |
+| Largest sector −25% | | | | |
+| Largest position −40% | | | | |
+| Rates +100bps | | | | |
+| INR −10% | | | | |
+| F&O stress | | | | |
+
+## Breaches
+[hard limits first, with the overshoot vs. the stated tolerance]
+
+## Liquidity & forced-selling
+Thinnest positions: [spread/depth] | Months of known outflows covered
+without selling equity: [X]
+
+## Positioning notes
+[scenario-framed, both branches — never a market prediction]
+
+[disclosure block]
+```
+
+---
+
 ## F&O Position Review — `fno-analysis`
 
 ```markdown
@@ -320,6 +419,29 @@ Estimates only — verify against Groww's official Capital Gains Statement.
 [brief note on notable names screened out and why, if useful]
 
 [disclosure block]
+```
+
+---
+
+## Watchlist Sweep — `watchlist-monitor`
+
+```markdown
+# Watchlist Sweep — [date/time]
+Watchlist last reviewed: [date] | Deployable cash: [₹X]
+
+| Name / theme | Trigger | Current | Distance | Status | Note |
+|---|---|---|---|---|---|
+(sorted by distance to trigger)
+
+## Hit / near — detail
+[per name: is the level arriving on news or on drift (outlet, date),
+existing exposure and overlap, headroom under risk limits, decision-log
+history]
+
+## Untestable triggers
+[rows that can't be checked, with a proposed concrete rewrite]
+
+[disclosure block, only if a view was given on a hit name]
 ```
 
 ---
@@ -444,6 +566,44 @@ Fixed-income actual [X%] vs. target [X%] | Credit floor breaches: [none/list]
 
 ## Suggested moves
 1. [tenor bucket to fill / action at each maturity — with basis and key risks]
+
+[disclosure block + external-data freshness note]
+```
+
+---
+
+## Gold & Commodity Sleeve — `gold-and-commodity`
+
+```markdown
+# Gold & Commodity Sleeve — [date/time]
+Reference price: gold [₹X/10g, 24k], silver [₹X/kg] — [source, date]
+SGB inventory from PORTFOLIO-PLAN.md as of [date]
+
+| Instrument | Type | ₹ value | Weight | Prem/disc | Tenor / maturity | Coupon / TER |
+|---|---|---|---|---|---|---|
+
+## SGB detail
+[per tranche: issue price, yield on issue vs. on current price, next
+coupon, years left, premium/discount to underlying gold value]
+
+## ETF / FoF detail
+[TER, tracking difference vs. gold price, AUM, spread and depth,
+premium/discount to iNAV]
+
+## Sleeve vs. plan
+Actual [X%] vs. target [X%] — [note that a sleeve that just outran
+everything is more likely over-target than validated]
+
+## Tax treatment ([source, date])
+[SGB maturity vs. secondary sale · ETF/fund holding-period rules —
+verified live, handed to tax-capital-gains]
+
+## View
+[per instrument type: view + horizon + basis; gold path scenario-framed,
+both branches]
+
+## Key risks to this view
+- [2-3 specific invalidators]
 
 [disclosure block + external-data freshness note]
 ```

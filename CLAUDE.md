@@ -1,6 +1,6 @@
 # Stock Research Skills — repo instructions
 
-This repository **is** a plugin: 22 read-only research skills for Indian
+This repository **is** a plugin: 27 read-only research skills for Indian
 markets (stocks, ETFs, mutual funds, bonds, F&O), distributed for Claude
 Code, Codex, and Cursor. It's broker-agnostic by design: skills call
 capabilities (LTP, holdings, greeks, …), not one broker's tool names, and
@@ -16,7 +16,7 @@ Which broker(s) are actually active for a given user lives in their own
 `BROKERS.md`; see `reference/BROKER-CAPABILITIES.md` for the
 capability→tool map and how to add another broker.
 
-All 22 skills use the capability-based pattern — a skill names the
+All 27 skills use the capability-based pattern — a skill names the
 capability and resolves it via `BROKER-CAPABILITIES.md`, citing a raw
 tool name only for broker-specific caveats (usually Groww's dead tools).
 Keep new and edited skills to that pattern.
@@ -47,7 +47,7 @@ plugins/stock-research-skills/
   .codex-plugin/plugin.json     Codex manifest
   .cursor-plugin/plugin.json    Cursor manifest
   .mcp.json                     broker MCP configs (groww/kite/indmoney/upstox)
-  skills/<name>/SKILL.md        the 22 skills
+  skills/<name>/SKILL.md        the 27 skills
   reference/
     READ-ONLY-POLICY.md         the hard rule
     RESEARCH-STANDARDS.md       shared analysis discipline
@@ -73,7 +73,7 @@ in the user's project rather than in the plugin.
 
 1. Read `reference/RESEARCH-STANDARDS.md` before changing any analysis
    behaviour — every skill inherits it, so a change there propagates to
-   all 22. It carries the recommendation-completeness checklist (view +
+   all 27. It carries the recommendation-completeness checklist (view +
    horizon, numeric basis, specific invalidators, position disclosure,
    data as-of), the data-efficiency rules, the technical framework, the
    peer-comparison method, and the news freshness rules.
